@@ -5,11 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>betterPC - Hardware Guide</title>
 
-<style>
-/* =====================
-   BASE SYSTEM
-===================== */
+ <style>
+        .hardware-card{
+    background:#111;
+    border:1px solid #222;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+}
 
+.hardware-card:hover{
+    transform:translateY(-8px);
+    border-color:#ff7a00;
+}
+
+.hardware-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    display:block;
+}
+
+.hardware-card h3{
+    padding:20px 20px 10px;
+}
+
+.hardware-card p{
+    padding:0 20px;
+    color:#aaa;
+}
+
+.hardware-card a{
+    display:inline-block;
+    padding:20px;
+    color:#ff7a00;
+    text-decoration:none;
+    font-weight:600;
+}
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -190,16 +222,15 @@ section {
         grid-template-columns: 1fr;
     }
 
-    .navbar {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+    .navbar{
+       backdrop-filter: blur(12px);
+      }
 }
 </style>
 </head>
 
 <body>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- NAV -->
 <nav class="navbar">
     <div class="logo">better<span>PC</span></div>
@@ -214,7 +245,7 @@ section {
         <a href="#guides">GUIDES</a>
     </div>
 
-    <a class="build-btn">BUILD YOUR PC</a>
+    <a href="build.html" class="build-btn">BUILD YOUR PC</a>
 </nav>
 
 <!-- HERO -->
