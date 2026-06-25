@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>betterPC &mdash; About Us</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:      #0d0d0d;
+    --surface: #141414;
+    --card:    #1a1a1a;
+    --border:  #2a2a2a;
+    --accent:  #F97316;
+    --accent2: #FB923C;
+    --text:    #F0EDE8;
+    --muted:   #6B6B6B;
+    --radius:  12px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; min-height: 100vh; }
+
+  /* NAV */
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 64px; background: rgba(13,13,13,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(249,115,22,0.15); }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; color: var(--muted); letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent2); }
+  .back-btn { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 8px 20px; border-radius: 6px; background: transparent; color: var(--text); text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, color 0.2s; }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* HERO */
+  .hero {
+    padding: 140px 5% 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.2rem; }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 480px; }
+  .hero-desc strong { color: var(--text); }
+
+  /* AVATAR CARD */
+  .avatar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .avatar-ring {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(249,115,22,0.2);
+  }
+  .avatar-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; }
+  .avatar-role { font-size: 0.82rem; color: var(--accent); font-weight: 500; letter-spacing: 0.5px; }
+  .avatar-bio { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+  .tag { font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: rgba(249,115,22,0.1); color: var(--accent2); border: 1px solid rgba(249,115,22,0.2); }
+  .tag.purple { background: rgba(124,58,237,0.1); color: #a78bfa; border-color: rgba(124,58,237,0.2); }
+
+  /* DIVIDER */
+  .section-divider { max-width: 1100px; margin: 0 auto; padding: 0 5%; border-top: 1px solid var(--border); }
+
+  /* STORY */
+  .story-section { max-width: 1100px; margin: 0 auto; padding: 4rem 5%; }
+  .section-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -1px; margin-bottom: 1.5rem; }
+  .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .story-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
+  .story-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .story-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .story-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+
+  /* TIMELINE / VALUES */
+  .values-section { max-width: 1100px; margin: 0 auto; padding: 2rem 5% 4rem; }
+  .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1.5rem; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; transition: border-color 0.2s; }
+  .value-card:hover { border-color: rgba(249,115,22,0.3); }
+  .value-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; margin-bottom: 0.5rem; }
+  .value-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .value-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section { max-width: 1100px; margin: 0 auto; padding: 2rem 5% 6rem; }
+  .cta-card { background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(124,58,237,0.06) 100%); border: 1px solid rgba(249,115,22,0.2); border-radius: 20px; padding: 3rem; text-align: center; }
+  .cta-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 0.8rem; }
+  .cta-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+  .cta-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 12px 28px; border-radius: 8px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 11px 28px; border-radius: 8px; background: transparent; color: var(--text); border: 1px solid var(--border); font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* FOOTER */
+  footer { padding: 32px 5%; text-align: center; border-top: 1px solid var(--border); }
+  footer p { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 110px; }
+    .story-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <a class="logo" href="index.html">better<span>PC</span></a>
+  <div class="nav-links">
+    <a href="index.html#formats">Formats</a>
+    <a href="index.html#ram">RAM</a>
+    <a href="index.html#storage">Storage</a>
+    <a href="index.html#cpu">CPU</a>
+    <a href="build.html">Build</a>
+    <a href="about.html" class="active">About us</a>
+  </div>
+  <a class="back-btn" href="index.html">&#8592; Back to Guide</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <p class="hero-eyebrow">Who we are</p>
+    <h1 class="hero-title">One person.<br>A <em>lot</em> of PCs.</h1>
+    <p class="hero-desc">
+      betterPC is a one-person project born out of a simple frustration:
+      <strong>too many people overpay for PCs they don't understand</strong>, or throw away
+      perfectly good old hardware because nobody told them it could run just fine.
+      <br><br>
+      Whether you're building a brand-new gaming rig or rescuing a DDR2 machine for a grandparent,
+      this site has you covered.
+    </p>
+  </div>
+
+  <!-- FOUNDER CARD — edit this with your real info! -->
+  <div class="avatar-card">
+    <div class="avatar-ring">&#127381;</div>
+    <!-- Change the emoji or letter above to your initial, e.g. "K" -->
+    <div class="avatar-name">The Creator</div>
+    <!-- Replace "The Creator" with your name/nickname -->
+    <div class="avatar-role">Founder &middot; betterPC</div>
+    <p class="avatar-bio">
+      PC enthusiast, tinkerer, and recycler of old hardware. I've built everything from
+      budget DDR2 office boxes to water-cooled gaming rigs &mdash;
+      and I think everyone deserves to know what's inside their machine.
+    </p>
+    <!-- Add your own tags below: -->
+    <div class="avatar-tags">
+      <span class="tag">PC builder</span>
+      <span class="tag">Hardware nerd</span>
+      <span class="tag purple">DDR2 survivor</span>
+      <span class="tag">Greek market</span>
+      <span class="tag purple">Open source</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- STORY -->
+<section class="story-section">
+  <p class="section-eyebrow">The story</p>
+  <h2 class="section-title">Why betterPC exists</h2>
+  <div class="story-grid">
+    <div class="story-card">
+      <span class="story-icon">&#x1F5C4;&#xFE0F;</span>
+      <h3>The problem with old hardware</h3>
+      <p>
+        Greece has millions of PCs from the 2006&ndash;2015 era sitting in storage.
+        LGA775 machines, FX boxes, Core 2 Quads &mdash; most people assume they're useless.
+        They're not. A &euro;30&ndash;80 refresh (SSD + RAM) can give them another 3&ndash;5 years of life.
+        betterPC helps you figure out what's worth fixing and what isn't.
+      </p>
+    </div>
+    <div class="story-card">
+      <span class="story-icon">&#x1F527;</span>
+      <h3>The build configurator</h3>
+      <p>
+        No other Greek PC guide covers DDR2 and DDR3 platforms with realistic used-market pricing.
+        The configurator on this site lets you price out a build &mdash; new or second-hand &mdash;
+        in minutes, with real estimates and compatibility warnings. No clickbait, no affiliate links.
+      </p>
+    </div>
+    <div class="story-card">
+      <span class="story-icon">&#x1F1EC;&#x1F1F7;</span>
+      <h3>Made for the Greek market</h3>
+      <p>
+        Prices include 24% Greek VAT and reflect what you'd actually pay locally or on platforms
+        like Skroutz, e-shop, or second-hand Facebook/Marketplace groups.
+        No US-centric Amazon prices that don't apply here.
+      </p>
+    </div>
+    <div class="story-card">
+      <span class="story-icon">&#x1F4DA;</span>
+      <h3>Plain language, real knowledge</h3>
+      <p>
+        No jargon without explanation. Every guide on this site is written so a first-timer
+        can follow it, but goes deep enough that a veteran still learns something.
+        That's the standard every page is held to.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- VALUES -->
+<section class="values-section">
+  <p class="section-eyebrow">Principles</p>
+  <h2 class="section-title">What betterPC stands for</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-num">01</div>
+      <div class="value-title">Honest pricing</div>
+      <p class="value-desc">Prices are estimates, labelled as such. No inflated numbers to make builds look cheap by comparison.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">02</div>
+      <div class="value-title">No ads, no affiliates</div>
+      <p class="value-desc">betterPC earns nothing from recommending specific brands. Picks are based on value and availability.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">03</div>
+      <div class="value-title">Old hardware matters</div>
+      <p class="value-desc">DDR2 and DDR3 machines can still serve real purposes. Helping people get more life from them is worth it.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">04</div>
+      <div class="value-title">Compatibility first</div>
+      <p class="value-desc">Nothing is recommended without a check. CPU&ndash;mobo&ndash;RAM compatibility is flagged before you waste money.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">05</div>
+      <div class="value-title">Greek context</div>
+      <p class="value-desc">Prices, availability, and part advice are grounded in the Greek and broader EU market, not the US.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">06</div>
+      <div class="value-title">Always improving</div>
+      <p class="value-desc">Parts lists, prices, and guides are updated as the market changes. This isn't a set-and-forget site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-card">
+    <h2>Ready to build?</h2>
+    <p>Use the configurator to price out your next PC &mdash; brand new, budget, or full legacy.</p>
+    <div class="cta-btns">
+      <a href="build_enriched.html" class="btn-primary">&#x1F6E0; Open PC Configurator</a>
+      <a href="index.html" class="btn-outline">&#x1F4D6; Back to the Guide</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>betterPC &copy; 2026 &mdash; <a href="index.html" style="color:var(--accent);text-decoration:none;">Guide</a> &middot; <a href="build_enriched.html" style="color:var(--accent);text-decoration:none;">Build</a> &middot; <a href="about.html" style="color:var(--accent);text-decoration:none;">About</a></p>
+</footer>
+
+</body>
+</html>
