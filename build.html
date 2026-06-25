@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>betterPC — Build Your PC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:      #0d0d0d;
+    --surface: #141414;
+    --card:    #1a1a1a;
+    --border:  #2a2a2a;
+    --accent:  #F97316;
+    --accent2: #FB923C;
+    --text:    #F0EDE8;
+    --muted:   #6B6B6B;
+    --radius:  12px;
+    --legacy:  #a78bfa;
+    --legacy2: #7c3aed;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; min-height: 100vh; }
+
+  /* NAV */
+  .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 64px; background: rgba(13,13,13,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(249,115,22,0.15); }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: -0.5px; color: var(--text); text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-family: 'Space Grotesk', sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; color: var(--muted); letter-spacing: 0.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent2); }
+  .back-btn { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 8px 20px; border-radius: 6px; background: transparent; color: var(--text); text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, color 0.2s; }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent2); }
+  
+  /* LANG SELECT */
+  .lang-select { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; cursor: pointer; outline: none; }
+  .lang-select:focus { border-color: var(--accent); }
+
+  /* GENERATION TOGGLE */
+  .gen-toggle-wrap { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .gen-btn { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
+  .gen-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .gen-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .gen-btn.legacy-btn.active { background: var(--legacy2); border-color: var(--legacy2); color: #fff; }
+  .legacy-note { font-size: 0.78rem; color: var(--legacy); background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2); border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 1.2rem; display: none; }
+  .legacy-note.visible { display: block; }
+
+  /* PAGE LAYOUT */
+  .page { max-width: 1200px; margin: 0 auto; padding: 96px 5% 80px; display: grid; grid-template-columns: 1fr 380px; gap: 2rem; align-items: start; }
+  .page-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .page-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.5rem; }
+  .page-desc { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; }
+
+  /* PARTS */
+  .parts-panel { display: flex; flex-direction: column; gap: 0.75rem; }
+  .part-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.3rem; display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 1rem; transition: border-color 0.2s; }
+  .part-card:hover { border-color: rgba(249,115,22,0.3); }
+  .part-card.has-warning { border-color: rgba(234,179,8,0.45); }
+  .part-card.legacy-card { border-color: rgba(167,139,250,0.2); }
+  .part-card.legacy-card:hover { border-color: rgba(167,139,250,0.45); }
+  .part-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(249,115,22,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); flex-shrink: 0; }
+  .legacy-card .part-icon { background: rgba(167,139,250,0.1); color: var(--legacy); }
+  .part-info { min-width: 0; }
+  .part-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .part-select { width: 100%; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text); background: transparent; border: none; outline: none; cursor: pointer; appearance: none; padding-right: 1.2rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0 center; }
+  .part-select option { background: #1a1a1a; color: var(--text); }
+  .part-select optgroup { color: var(--muted); }
+  .part-price { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); white-space: nowrap; text-align: right; min-width: 60px; }
+  .part-price.zero { color: var(--muted); }
+  .part-price.used { color: var(--legacy); }
+
+  /* WARNINGS */
+  .warnings-box { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--radius); padding: 0.9rem 1.1rem; display: none; gap: 0.5rem; flex-direction: column; }
+  .warnings-box.visible { display: flex; }
+  .warn-item { font-size: 0.82rem; color: #fbbf24; display: flex; align-items: flex-start; gap: 0.5rem; }
+
+  /* SUMMARY */
+  .summary-panel { position: sticky; top: 80px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .summary-header { padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .summary-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; }
+  .tier-pill { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .tier-pill.budget { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .tier-pill.mid    { background: rgba(249,115,22,0.15); color: var(--accent2); border: 1px solid rgba(249,115,22,0.3); }
+  .tier-pill.high   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .tier-pill.enthus { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+  .tier-pill.legacy { background: rgba(167,139,250,0.12); color: var(--legacy); border: 1px solid rgba(167,139,250,0.3); }
+  .breakdown-list { padding: 0.8rem 1.4rem; }
+  .breakdown-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.82rem; }
+  .breakdown-row:last-child { border-bottom: none; }
+  .br-name { color: var(--muted); }
+  .br-val { color: var(--text); font-weight: 500; }
+  .br-val.zero { color: var(--border); }
+  .br-val.used { color: var(--legacy); }
+  .summary-totals { border-top: 1px solid var(--border); padding: 1rem 1.4rem; }
+  .total-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+  .total-row span:last-child { color: var(--text); }
+  .total-row.grand { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .total-row.grand span:first-child { color: var(--text); }
+  .total-row.grand span:last-child { color: var(--accent); }
+  .vat-note { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+  .summary-footer { padding: 1rem 1.4rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .btn-primary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 12px; width: 100%; border-radius: 8px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-secondary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 11px; width: 100%; border-radius: 8px; background: transparent; color: var(--text); border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* MODAL */
+  .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 1rem; }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; max-width: 520px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+  .modal h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.4rem; }
+  .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .modal-list li { font-size: 0.85rem; display: flex; justify-content: space-between; padding: 8px 12px; background: var(--card); border-radius: 8px; }
+  .modal-list li span:first-child { color: var(--muted); }
+  .modal-list li span:last-child { font-weight: 500; }
+  .modal-total { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); text-align: center; padding: 1rem; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; margin-bottom: 1.2rem; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 4px 8px; border-radius: 6px; }
+  .modal-close:hover { color: var(--text); background: var(--card); }
+  .modal-actions { display: flex; gap: 0.6rem; }
+  .modal-actions button { flex: 1; }
+
+  /* FOOTER */
+  footer { padding: 32px 5%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
+  footer p { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; color: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .page { grid-template-columns: 1fr; }
+    .summary-panel { position: static; }
+    .nav-links { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .part-card, .btn-primary { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="index.html">better<span>PC</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html#formats" data-i18n="nav_formats">Formats</a>
+      <a href="index.html#ram" data-i18n="nav_ram">RAM</a>
+      <a href="index.html#storage" data-i18n="nav_storage">Storage</a>
+      <a href="index.html#cpu" data-i18n="nav_cpu">CPU</a>
+      <a href="index.html#gpu" data-i18n="nav_gpu">GPU</a>
+      <a href="about.html" data-i18n="nav_about">About us</a>
+    </div>
+    <select class="lang-select" id="langSelect">
+      <option value="en">EN</option>
+      <option value="el">EL</option>
+      <option value="de">DE</option>
+      <option value="fr">FR</option>
+    </select>
+    <a class="back-btn" href="index.html" data-i18n="nav_back">&#8592; Back to Guide</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div>
+    <p class="page-eyebrow" data-i18n="page_eyebrow">PC Configurator</p>
+    <h1 class="page-title" data-i18n="page_title">Build Your PC</h1>
+    <p class="page-desc" data-i18n="page_desc">Pick your components below. Prices update live and include Greek VAT (24%). Switch between Modern and Legacy platforms to configure older machines too.</p>
+
+    <div class="gen-toggle-wrap">
+      <button class="gen-btn active" id="btn-gen-modern" onclick="setGen('modern')">&#x1F7E0; Modern (DDR4 / DDR5)</button>
+      <button class="gen-btn legacy-btn" id="btn-gen-ddr3" onclick="setGen('ddr3')">&#x1F7E3; Legacy &mdash; DDR3 (2010&ndash;2017)</button>
+      <button class="gen-btn legacy-btn" id="btn-gen-ddr2" onclick="setGen('ddr2')">&#x1F7E3; Very Old &mdash; DDR2 (2004&ndash;2010)</button>
+    </div>
+    <div class="legacy-note" id="legacy-note" data-i18n="legacy_note">
+      &#9888;&#65039; <strong>Refurbished / Used parts.</strong> Prices shown are rough second-hand estimates (Greek market). These platforms are no longer produced new &mdash; parts are sourced from older machines. Purple prices indicate used/refurbished parts.
+    </div>
+
+    <div class="parts-panel" id="parts-panel">
+
+      <div class="part-card" id="card-cpu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_cpu">CPU</div>
+          <select class="part-select" id="cpu" onchange="update()">
+            <optgroup label="&#x25BA; Intel LGA1700 (12th/13th/14th Gen)" class="opt-modern">
+              <option value="Intel Core i3-13100|130">Intel Core i3-13100 (4c/8t)</option>
+              <option value="Intel Core i5-13400F|170">Intel Core i5-13400F (10c/16t)</option>
+              <option value="Intel Core i5-13600K|290" selected>Intel Core i5-13600K (14c/20t)</option>
+              <option value="Intel Core i7-13700K|420">Intel Core i7-13700K (16c/24t)</option>
+              <option value="Intel Core i9-13900K|580">Intel Core i9-13900K (24c/32t)</option>
+              <option value="Intel Core i9-14900KS|680">Intel Core i9-14900KS (24c/32t)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM5 (Ryzen 7000)" class="opt-modern">
+              <option value="AMD Ryzen 5 7600X|240">AMD Ryzen 5 7600X (6c/12t)</option>
+              <option value="AMD Ryzen 7 7700X|320">AMD Ryzen 7 7700X (8c/16t)</option>
+              <option value="AMD Ryzen 9 7900X|430">AMD Ryzen 9 7900X (12c/24t)</option>
+              <option value="AMD Ryzen 9 7950X|650">AMD Ryzen 9 7950X (16c/32t)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM4 (Ryzen 3000/5000)" class="opt-modern">
+              <option value="AMD Ryzen 5 5600X|160">AMD Ryzen 5 5600X (6c/12t)</option>
+              <option value="AMD Ryzen 7 5800X|220">AMD Ryzen 7 5800X (8c/16t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1150 (Haswell 4th Gen) &mdash; Used" class="opt-ddr3">
+              <option value="Intel Core i3-4130 (Used)|15">Intel Core i3-4130 (2c/4t)</option>
+              <option value="Intel Core i5-4570 (Used)|25">Intel Core i5-4570 (4c/4t)</option>
+              <option value="Intel Core i7-4770 (Used)|35">Intel Core i7-4770 (4c/8t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1155 (Sandy/Ivy Bridge 2nd/3rd Gen) &mdash; Used" class="opt-ddr3">
+              <option value="Intel Core i3-2100 (Used)|10">Intel Core i3-2100 (2c/4t)</option>
+              <option value="Intel Core i5-2500K (Used)|18">Intel Core i5-2500K (4c/4t)</option>
+              <option value="Intel Core i7-3770 (Used)|28">Intel Core i7-3770 (4c/8t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM3+ (FX Piledriver/Vishera) &mdash; Used" class="opt-ddr3">
+              <option value="AMD FX-4300 (Used)|12">AMD FX-4300 (4 cores)</option>
+              <option value="AMD FX-6300 (Used)|18">AMD FX-6300 (6 cores)</option>
+              <option value="AMD FX-8350 (Used)|25">AMD FX-8350 (8 cores)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA775 (Core 2 Duo/Quad) &mdash; Used" class="opt-ddr2">
+              <option value="Intel Core 2 Duo E8400 (Used)|8">Intel Core 2 Duo E8400 (2c)</option>
+              <option value="Intel Core 2 Quad Q6600 (Used)|10">Intel Core 2 Quad Q6600 (4c)</option>
+              <option value="Intel Core 2 Quad Q9550 (Used)|12">Intel Core 2 Quad Q9550 (4c)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM2/AM2+ (Athlon/Phenom) &mdash; Used" class="opt-ddr2">
+              <option value="AMD Athlon 64 X2 5200+ (Used)|5">AMD Athlon 64 X2 5200+ (2c)</option>
+              <option value="AMD Phenom II X4 940 (Used)|10">AMD Phenom II X4 940 (4c)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-cpu">&#8364;290</div>
+      </div>
+
+      <div class="part-card" id="card-mobo">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><rect x="6" y="6" width="5" height="5"/><path d="M14 6h4M14 10h4M6 14h12M6 18h12"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_mobo">Motherboard</div>
+          <select class="part-select" id="mobo" onchange="update()">
+            <optgroup label="&#x25BA; Intel LGA1700 (B660/B760/Z790)" class="opt-modern">
+              <option value="Gigabyte B660M DS3H Micro-ATX|80">Gigabyte B660M DS3H (Micro-ATX)</option>
+              <option value="MSI PRO B760M-A Micro-ATX|120" selected>MSI PRO B760M-A (Micro-ATX)</option>
+              <option value="ASUS ROG Strix B760-F ATX|190">ASUS ROG Strix B760-F (ATX)</option>
+              <option value="MSI MEG Z790 ACE ATX|380">MSI MEG Z790 ACE (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM5 (B650/X670)" class="opt-modern">
+              <option value="MSI PRO B650M-A Micro-ATX|130">MSI PRO B650M-A (Micro-ATX)</option>
+              <option value="ASUS TUF Gaming B650-Plus ATX|195">ASUS TUF Gaming B650-Plus (ATX)</option>
+              <option value="Gigabyte X670E Aorus Master ATX|380">Gigabyte X670E Aorus Master (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM4 (B550/X570)" class="opt-modern">
+              <option value="MSI B550M PRO-VDH Micro-ATX|90">MSI B550M PRO-VDH (Micro-ATX)</option>
+              <option value="ASUS TUF Gaming B550-Plus ATX|145">ASUS TUF Gaming B550-Plus (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1150 (H81/B85/Z97) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte H81M LGA1150 Used|20">Gigabyte H81M (Micro-ATX)</option>
+              <option value="ASUS B85M-G LGA1150 Used|28">ASUS B85M-G (Micro-ATX)</option>
+              <option value="MSI Z97 PC Mate LGA1150 Used|35">MSI Z97 PC Mate (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1155 (H61/B75/Z77) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte H61M LGA1155 Used|15">Gigabyte H61M (Micro-ATX)</option>
+              <option value="ASUS P8Z77-V LGA1155 Used|30">ASUS P8Z77-V (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM3+ (760G/870/990FX) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte 78LMT-USB3 AM3+ Used|18">Gigabyte 78LMT-USB3 (Micro-ATX)</option>
+              <option value="ASUS M5A99FX PRO AM3+ Used|30">ASUS M5A99FX PRO (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA775 (G31/G41/P45) &mdash; Used" class="opt-ddr2">
+              <option value="Gigabyte G41M LGA775 Used|10">Gigabyte G41M (Micro-ATX)</option>
+              <option value="ASUS P5Q LGA775 Used|12">ASUS P5Q (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM2/AM2+ (780G/790FX) &mdash; Used" class="opt-ddr2">
+              <option value="Gigabyte MA790GP AM2+ Used|10">Gigabyte MA790GP (ATX)</option>
+              <option value="ASUS M3A78-CM AM2+ Used|8">ASUS M3A78-CM (Micro-ATX)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-mobo">&#8364;120</div>
+      </div>
+
+      <div class="part-card" id="card-ram">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="8" rx="1"/><path d="M6 8V6M10 8V6M14 8V6M18 8V6M6 16v2M10 16v2M14 16v2M18 16v2"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_ram">RAM</div>
+          <select class="part-select" id="ram" onchange="update()">
+            <optgroup label="&#x25BA; DDR5 (Modern)" class="opt-modern">
+              <option value="16 GB DDR5-5600|75">16 GB DDR5-5600</option>
+              <option value="32 GB DDR5-6000|140">32 GB DDR5-6000</option>
+              <option value="64 GB DDR5-6000|280">64 GB DDR5-6000</option>
+            </optgroup>
+            <optgroup label="&#x25BA; DDR4 (Modern)" class="opt-modern">
+              <option value="8 GB DDR4-3200|30">8 GB DDR4-3200</option>
+              <option value="16 GB DDR4-3600|55" selected>16 GB DDR4-3600</option>
+              <option value="32 GB DDR4-3600|95">32 GB DDR4-3600</option>
+              <option value="64 GB DDR4-3200|180">64 GB DDR4-3200</option>
+            </optgroup>
+            <optgroup label="&#x25B6; DDR3 (Legacy) &mdash; Used" class="opt-ddr3">
+              <option value="4 GB DDR3-1333 Used|5">4 GB DDR3-1333</option>
+              <option value="8 GB DDR3-1600 Used|10">8 GB DDR3-1600</option>
+              <option value="16 GB DDR3-1600 Used|18">16 GB DDR3-1600</option>
+              <option value="32 GB DDR3-1600 Used|32">32 GB DDR3-1600</option>
+            </optgroup>
+            <optgroup label="&#x25B6; DDR2 (Very Old) &mdash; Used" class="opt-ddr2">
+              <option value="2 GB DDR2-800 Used|4">2 GB DDR2-800</option>
+              <option value="4 GB DDR2-800 Used|8">4 GB DDR2-800</option>
+              <option value="8 GB DDR2-1066 Used|14">8 GB DDR2-1066</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-ram">&#8364;55</div>
+      </div>
+
+      <div class="part-card" id="card-storage">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_storage">Storage (primary)</div>
+          <select class="part-select" id="storage" onchange="update()">
+            <optgroup label="&#x25BA; NVMe Gen 4 (fastest)" class="opt-modern">
+              <option value="1 TB NVMe Gen 4 SSD|100" selected>1 TB NVMe Gen 4 SSD</option>
+              <option value="2 TB NVMe Gen 4 SSD|185">2 TB NVMe Gen 4 SSD</option>
+              <option value="4 TB NVMe Gen 4 SSD|360">4 TB NVMe Gen 4 SSD</option>
+            </optgroup>
+            <optgroup label="&#x25BA; NVMe Gen 3" class="opt-modern">
+              <option value="500 GB NVMe Gen 3 SSD|55">500 GB NVMe Gen 3 SSD</option>
+              <option value="1 TB NVMe Gen 3 SSD|70">1 TB NVMe Gen 3 SSD</option>
+            </optgroup>
+            <optgroup label="&#x25BA; SATA SSD (Modern)" class="opt-modern">
+              <option value="500 GB SATA SSD|45">500 GB SATA SSD</option>
+              <option value="1 TB SATA SSD|75">1 TB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; SATA SSD (Upgrade for DDR3 PC)" class="opt-ddr3">
+              <option value="120 GB SATA SSD upgrade|20">120 GB SATA SSD</option>
+              <option value="240 GB SATA SSD|30">240 GB SATA SSD</option>
+              <option value="500 GB SATA SSD budget|40">500 GB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; HDD (DDR3 era)" class="opt-ddr3">
+              <option value="500 GB HDD SATA|10">500 GB HDD SATA</option>
+              <option value="1 TB HDD SATA|15">1 TB HDD SATA</option>
+              <option value="2 TB HDD SATA|25">2 TB HDD SATA</option>
+            </optgroup>
+            <optgroup label="&#x25B6; SATA SSD (Upgrade for DDR2 PC)" class="opt-ddr2">
+              <option value="120 GB SATA SSD DDR2|20">120 GB SATA SSD</option>
+              <option value="240 GB SATA SSD DDR2|30">240 GB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; HDD (DDR2 era)" class="opt-ddr2">
+              <option value="160 GB IDE/SATA HDD Used|5">160 GB IDE/SATA HDD</option>
+              <option value="320 GB SATA HDD Used|8">320 GB SATA HDD</option>
+              <option value="500 GB SATA HDD budget|10">500 GB SATA HDD</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-storage">&#8364;100</div>
+      </div>
+
+      <div class="part-card" id="card-gpu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7V5M10 7V5M14 7V5M18 7V5M6 17v2M10 17v2M14 17v2M18 17v2"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_gpu">GPU</div>
+          <select class="part-select" id="gpu" onchange="update()">
+            <option value="No dedicated GPU integrated|0" data-i18n="opt_no_gpu">No dedicated GPU (integrated only)</option>
+            <optgroup label="&#x25BA; NVIDIA GeForce (Modern)" class="opt-modern">
+              <option value="NVIDIA RTX 4060 8 GB|295" selected>NVIDIA RTX 4060 (8 GB)</option>
+              <option value="NVIDIA RTX 4060 Ti 8 GB|390">NVIDIA RTX 4060 Ti (8 GB)</option>
+              <option value="NVIDIA RTX 4070 12 GB|560">NVIDIA RTX 4070 (12 GB)</option>
+              <option value="NVIDIA RTX 4070 Super 12 GB|620">NVIDIA RTX 4070 Super (12 GB)</option>
+              <option value="NVIDIA RTX 4070 Ti Super 16 GB|800">NVIDIA RTX 4070 Ti Super (16 GB)</option>
+              <option value="NVIDIA RTX 4080 Super 16 GB|1050">NVIDIA RTX 4080 Super (16 GB)</option>
+              <option value="NVIDIA RTX 4090 24 GB|1800">NVIDIA RTX 4090 (24 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD Radeon (Modern)" class="opt-modern">
+              <option value="AMD Radeon RX 6600 8 GB|195">AMD Radeon RX 6600 (8 GB)</option>
+              <option value="AMD Radeon RX 7600 8 GB|260">AMD Radeon RX 7600 (8 GB)</option>
+              <option value="AMD Radeon RX 7700 XT 12 GB|370">AMD Radeon RX 7700 XT (12 GB)</option>
+              <option value="AMD Radeon RX 7800 XT 16 GB|460">AMD Radeon RX 7800 XT (16 GB)</option>
+              <option value="AMD Radeon RX 7900 XTX 24 GB|870">AMD Radeon RX 7900 XTX (24 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; NVIDIA (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="NVIDIA GTX 750 Ti 2 GB Used|20">NVIDIA GTX 750 Ti (2 GB)</option>
+              <option value="NVIDIA GTX 960 4 GB Used|30">NVIDIA GTX 960 (4 GB)</option>
+              <option value="NVIDIA GTX 1060 6 GB Used|55">NVIDIA GTX 1060 (6 GB)</option>
+              <option value="NVIDIA GTX 1070 8 GB Used|75">NVIDIA GTX 1070 (8 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="AMD RX 470 4 GB Used|30">AMD RX 470 (4 GB)</option>
+              <option value="AMD RX 570 8 GB Used|35">AMD RX 570 (8 GB)</option>
+              <option value="AMD RX 580 8 GB Used|45">AMD RX 580 (8 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; NVIDIA (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="NVIDIA GTS 450 1 GB Used|8">NVIDIA GTS 450 (1 GB)</option>
+              <option value="NVIDIA GTX 560 Ti 1 GB Used|10">NVIDIA GTX 560 Ti (1 GB)</option>
+              <option value="NVIDIA GTX 750 Ti 2 GB Used ddr2|20">NVIDIA GTX 750 Ti (2 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="AMD HD 5770 1 GB Used|6">AMD HD 5770 (1 GB)</option>
+              <option value="AMD HD 6870 1 GB Used|8">AMD HD 6870 (1 GB)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-gpu">&#8364;295</div>
+      </div>
+
+      <div class="part-card" id="card-cooler">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_cooler">CPU Cooler</div>
+          <select class="part-select" id="cooler" onchange="update()">
+            <optgroup label="&#x25BA; Air Coolers (Modern)" class="opt-modern">
+              <option value="Stock Boxed cooler|0" data-i18n="opt_stock_cooler">Stock / Boxed cooler (if included)</option>
+              <option value="Be Quiet! Pure Rock 2|30">Be Quiet! Pure Rock 2</option>
+              <option value="Deepcool AK400|35" selected>Deepcool AK400</option>
+              <option value="Noctua NH-U12S|65">Noctua NH-U12S</option>
+              <option value="Noctua NH-D15|90">Noctua NH-D15 (dual-tower)</option>
+              <option value="Be Quiet! Dark Rock Pro 4|75">Be Quiet! Dark Rock Pro 4</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AIO Liquid Coolers (Modern)" class="opt-modern">
+              <option value="Corsair H100i 240mm AIO|120">Corsair H100i 240mm AIO</option>
+              <option value="Arctic Liquid Freezer III 280mm|110">Arctic Liquid Freezer III 280mm</option>
+              <option value="NZXT Kraken 360mm AIO|180">NZXT Kraken 360mm AIO</option>
+              <option value="Corsair H150i 360mm AIO|190">Corsair H150i Elite 360mm AIO</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Heatsinks (DDR3 era)" class="opt-ddr3">
+              <option value="Stock boxed heatsink LGA1150 LGA1155|0" data-i18n="opt_stock_h3">Stock boxed heatsink &mdash; included</option>
+              <option value="Intel AMD OEM heatsink Used|5" data-i18n="opt_oem_used">Intel/AMD OEM heatsink &mdash; Used</option>
+              <option value="Cooler Master Hyper 212 Evo|18">Cooler Master Hyper 212 Evo</option>
+              <option value="Deepcool GAMMAXX 300|12">Deepcool Gammaxx 300</option>
+              <option value="Zalman CNPS9900 Used|10">Zalman CNPS9900 &mdash; Used</option>
+              <option value="Noctua NH-U9B SE2 Used|15">Noctua NH-U9B SE2 &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Heatsinks (DDR2 era)" class="opt-ddr2">
+              <option value="Stock LGA775 boxed heatsink|0" data-i18n="opt_stock_h2">Stock LGA775 boxed heatsink &mdash; included</option>
+              <option value="Zalman CNPS7500 used heatsink|8">Zalman CNPS7500 &mdash; Used</option>
+              <option value="Thermaltake BigTyp 775 heatsink|10">Thermaltake BigTyp &mdash; Used</option>
+              <option value="Arctic Freezer 7 Pro heatsink|10">Arctic Freezer 7 Pro &mdash; Used</option>
+              <option value="Scythe Ninja Rev B heatsink Used|12">Scythe Ninja Rev B &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-cooler">&#8364;35</div>
+      </div>
+
+      <div class="part-card" id="card-psu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/><path d="M12 11v6M9 14h6"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_psu">Power Supply</div>
+          <select class="part-select" id="psu" onchange="update()">
+            <optgroup label="&#x25BA; Modern PSU (new)" class="opt-modern">
+              <option value="450 W 80+ Bronze|50">450 W 80+ Bronze</option>
+              <option value="550 W 80+ Gold|70">550 W 80+ Gold</option>
+              <option value="650 W 80+ Gold|85" selected>650 W 80+ Gold</option>
+              <option value="750 W 80+ Gold|100">750 W 80+ Gold</option>
+              <option value="850 W 80+ Gold|120">850 W 80+ Gold</option>
+              <option value="850 W 80+ Platinum|155">850 W 80+ Platinum</option>
+              <option value="1000 W 80+ Platinum|180">1000 W 80+ Platinum</option>
+              <option value="1200 W 80+ Titanium|260">1200 W 80+ Titanium</option>
+            </optgroup>
+            <optgroup label="&#x25B6; PSU (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="300 W Generic PSU Used|10">300 W Generic &mdash; Used</option>
+              <option value="400 W 80+ Bronze Used|15">400 W 80+ Bronze &mdash; Used</option>
+              <option value="500 W 80+ Bronze Used|20">500 W 80+ Bronze &mdash; Used</option>
+              <option value="600 W 80+ Gold Used|28">600 W 80+ Gold &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; PSU (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="250 W Generic ATX PSU Used|8">250 W Generic ATX &mdash; Used</option>
+              <option value="350 W Generic PSU Used|10">350 W Generic &mdash; Used</option>
+              <option value="450 W Bronze PSU Used|15">450 W Bronze &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-psu">&#8364;85</div>
+      </div>
+
+      <div class="part-card" id="card-case">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="18" height="20" rx="2"/><path d="M9 2v20M15 6h2M15 10h2M15 14h2"/></svg>
+        </div>
+        <div class="part-info">
+          <div class="part-label" data-i18n="label_case">Case</div>
+          <select class="part-select" id="case_pc" onchange="update()">
+            <optgroup label="&#x25BA; Micro-ATX / Mini-ITX" class="opt-modern">
+              <option value="Fractal Design Node 804 Micro-ATX|65">Fractal Design Node 804 (Micro-ATX)</option>
+              <option value="Cooler Master NR400 Micro-ATX|70">Cooler Master NR400 (Micro-ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; Mid-Tower ATX" class="opt-modern">
+              <option value="Fractal Design Pop Air|75">Fractal Design Pop Air</option>
+              <option value="Lian Li Lancool 216|105" selected>Lian Li Lancool 216</option>
+              <option value="Be Quiet! Pure Base 500DX|110">Be Quiet! Pure Base 500DX</option>
+              <option value="NZXT H7 Flow|140">NZXT H7 Flow</option>
+              <option value="Fractal Design Torrent|160">Fractal Design Torrent</option>
+            </optgroup>
+            <optgroup label="&#x25BA; Full-Tower ATX" class="opt-modern">
+              <option value="Lian Li O11 Dynamic EVO|180">Lian Li O11 Dynamic EVO</option>
+              <option value="Be Quiet! Dark Base 900 Pro|230">Be Quiet! Dark Base 900 Pro</option>
+              <option value="Corsair iCUE 7000X RGB|240">Corsair iCUE 7000X RGB</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Case (Used/Budget &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="Generic Micro-ATX tower Used|5">Generic Micro-ATX &mdash; Used</option>
+              <option value="Generic ATX Mid-Tower Used|8">Generic ATX Mid-Tower &mdash; Used</option>
+              <option value="Cooler Master Elite 430 Used|12">Cooler Master Elite 430 &mdash; Used</option>
+              <option value="Antec Three Hundred Used|15">Antec Three Hundred &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Case (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="Old ATX mid-tower Used|5">Old ATX mid-tower &mdash; Used</option>
+              <option value="Codegen OEM Generic ATX Used|4">OEM/Generic ATX &mdash; Used</option>
+              <option value="Chieftec Antec value Used|8">Chieftec / Antec value &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-case_pc">&#8364;105</div>
+      </div>
+
+    </div>
+
+    <div class="warnings-box" id="warnings-box" style="margin-top:1rem"></div>
+  </div>
+
+  <div class="summary-panel">
+    <div class="summary-header">
+      <h2 data-i18n="summary_header">Build summary</h2>
+      <span class="tier-pill mid" id="tier-pill">Mid-range</span>
+    </div>
+    <div class="breakdown-list" id="breakdown-list"></div>
+    <div class="summary-totals">
+      <div class="total-row"><span data-i18n="row_subtotal">Subtotal (ex. VAT)</span><span id="sum-ex">&mdash;</span></div>
+      <div class="total-row"><span data-i18n="row_vat">VAT 24%</span><span id="sum-vat">&mdash;</span></div>
+      <div class="total-row grand"><span data-i18n="row_total">Total</span><span id="sum-total">&mdash;</span></div>
+      <p class="vat-note" data-i18n="vat_note">Prices are estimates. Final retail/used prices may vary.</p>
+    </div>
+    <div class="summary-footer">
+      <button class="btn-primary" onclick="openModal()" data-i18n="btn_save">Save &amp; review build</button>
+      <button class="btn-secondary" onclick="resetBuild()" data-i18n="btn_reset">Reset to defaults</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&#10005;</button>
+    <h3 data-i18n="modal_title">Your build</h3>
+    <p data-i18n="modal_desc">Here's a summary of your selected configuration.</p>
+    <ul class="modal-list" id="modal-list"></ul>
+    <div class="modal-total" id="modal-total"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="btn-copy-action" onclick="copyBuild()" data-i18n="btn_copy">Copy to clipboard</button>
+      <button class="btn-primary" onclick="closeModal()" data-i18n="btn_close">Close</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>betterPC &copy; 2026 &mdash; <a href="index.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_back">Back to guide</a> &middot; <a href="about.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_about">About us</a></p>
+</footer>
+
+<script>
+// 1. Language Translation Dictionary Object
+const dictionary = {
+  en: {
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Storage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "About us", nav_back: "← Back to Guide",
+    page_eyebrow: "PC Configurator", page_title: "Build Your PC",
+    page_desc: "Pick your components below. Prices update live and include Greek VAT (24%). Switch between Modern and Legacy platforms to configure older machines too.",
+    btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Legacy — DDR3 (2010–2017)", btn_ddr2: "🟪 Very Old — DDR2 (2004–2010)",
+    legacy_note: "⚠️ Refurbished / Used parts. Prices shown are rough second-hand estimates (Greek market). These platforms are no longer produced new — parts are sourced from older machines. Purple prices indicate used/refurbished parts.",
+    label_cpu: "CPU", label_mobo: "Motherboard", label_ram: "RAM", label_storage: "Storage (primary)", label_gpu: "GPU", label_cooler: "CPU Cooler", label_psu: "Power Supply", label_case: "Case",
+    opt_no_gpu: "No dedicated GPU (integrated only)", opt_stock_cooler: "Stock / Boxed cooler (if included)", opt_stock_h3: "Stock boxed heatsink — included", opt_oem_used: "Intel/AMD OEM heatsink — Used", opt_stock_h2: "Stock LGA775 boxed heatsink — included",
+    summary_header: "Build summary", row_subtotal: "Subtotal (ex. VAT)", row_vat: "VAT 24%", row_total: "Total", vat_note: "Prices are estimates. Final retail/used prices may vary.",
+    btn_save: "Save & review build", btn_reset: "Reset to defaults",
+    modal_title: "Your build", modal_desc: "Here's a summary of your selected configuration.", btn_copy: "Copy to clipboard", btn_close: "Close", footer_back: "Back to guide", footer_about: "About us",
+    tier_ddr2: "Legacy DDR2", tier_ddr3: "Legacy DDR3", tier_budget: "Budget", tier_mid: "Mid-range", tier_high: "High-end", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ CPU–Motherboard mismatch: Intel CPU requires LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ CPU–Motherboard mismatch: AMD CPU requires AM4 or AM5 board.",
+    w_high_gpu_psu: "⚠️ High-end GPU — recommend at least 850 W PSU.",
+    w_mid_gpu_psu: "⚠️ This GPU may need at least a 750 W PSU.",
+    w_haswell_mismatch: "⚠️ Haswell CPU (LGA1150) needs an LGA1150 motherboard (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) needs an LGA1155 board (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) needs an AM3+ motherboard (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ For a DDR3 build with discrete GPU, ensure PSU is at least 300–400 W.",
+    w_ddr2_info: "ℹ️ DDR2 platforms are very old. Suitable for basic office/internet use only.",
+    w_ddr2_psu: "⚠️ Ensure PSU is at least 250 W for DDR2-era system.",
+    m_est_total: "Estimated total:", m_incl_vat: "incl. VAT", m_platform: "Platform", m_copied: "Copied!"
+  },
+  el: {
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Storage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Σχετικά", nav_back: "← Πίσω στον Οδηγό",
+    page_eyebrow: "Configurator Υπολογιστή", page_title: "Φτιάξε το PC σου",
+    page_desc: "Επιλέξτε τα κομμάτια σας παρακάτω. Οι τιμές ανανεώνονται ζωντανά και περιλαμβάνουν ΦΠΑ 24%. Κάντε εναλλαγή μεταξύ Σύγχρονων (Modern) και Παλαιότερων (Legacy) πλατφορμών.",
+    btn_modern: "🟧 Σύγχρονο (DDR4 / DDR5)", btn_ddr3: "🟪 Παλαιάς Γενιάς — DDR3 (2010–2017)", btn_ddr2: "🟪 Πολύ Παλιό — DDR2 (2004–2010)",
+    legacy_note: "⚠️ Ανακατασκευασμένα / Μεταχειρισμένα μέρη. Οι τιμές είναι rough estimates (Ελληνική αγορά). Αυτές οι πλατφόρμες δεν παράγονται πλέον — τα μέρη προέρχονται από παλαιότερα συστήματα.",
+    label_cpu: "Επεξεργαστής (CPU)", label_mobo: "Μητρική Κάρτα", label_ram: "Μνήμη RAM", label_storage: "Αποθ. Χώρος", label_gpu: "Κάρτα Γραφικών (GPU)", label_cooler: "Ψύκτρα Επεξεργαστή", label_psu: "Τροφοδοτικό (PSU)", label_case: "Κουτί (Case)",
+    opt_no_gpu: "Χωρίς κάρτα γραφικών (ενσωματωμένα)", opt_stock_cooler: "Stock / Boxed ψύκτρα (αν περιλαμβάνεται)", opt_stock_h3: "Stock boxed ψύκτρα — περιλαμβάνεται", opt_oem_used: "Intel/AMD OEM ψύκτρα — Μεταχειρ.", opt_stock_h2: "Stock LGA775 boxed ψύκτρα — περιλαμβάνεται",
+    summary_header: "Σύνοψη συστήματος", row_subtotal: "Μερικό Σύνολο (χωρίς ΦΠΑ)", row_vat: "ΦΠΑ 24%", row_total: "Τελικό Σύνολο", vat_note: "Οι τιμές είναι κατά προσέγγιση. Οι τελικές τιμές λιανικής ή μεταχειρισμένων ενδέχεται να διαφέρουν.",
+    btn_save: "Αποθήκευση & έλεγχος", btn_reset: "Επαναφορά",
+    modal_title: "Το Σύστημά σου", modal_desc: "Εδώ είναι μια σύνοψη της σύνθεσης που επιλέξατε.", btn_copy: "Αντιγραφή στο clipboard", btn_close: "Κλείσιμο", footer_back: "Πίσω στον οδηγό", footer_about: "Σχετικά με εμάς",
+    tier_ddr2: "Παλαιάς Γενιάς DDR2", tier_ddr3: "Παλαιάς Γενιάς DDR3", tier_budget: "Οικονομικό", tier_mid: "Μεσαίας Κατηγορίας", tier_high: "Υψηλών Επιδόσεων", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ Ασυμβατότητα CPU–Μητρικής: Ο επεξεργαστής Intel απαιτεί LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Ασυμβατότητα CPU–Μητρικής: Ο επεξεργαστής AMD απαιτεί AM4 ή AM5 μητρική κάρτα.",
+    w_high_gpu_psu: "⚠️ Κάρτα γραφικών υψηλών απαιτήσεων — συνιστάται τροφοδοτικό τουλάχιστον 850 W.",
+    w_mid_gpu_psu: "⚠️ Αυτή η κάρτα γραφικών ενδέχεται να χρειάζεται τροφοδοτικό τουλάχιστον 750 W.",
+    w_haswell_mismatch: "⚠️ Ο επεξεργαστής Haswell (LGA1150) χρειάζεται μητρική LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Ο επεξεργαστής Sandy/Ivy Bridge (LGA1155) χρειάζεται μητρική LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ Ο επεξεργαστής AMD FX (AM3+) χρειάζεται μητρική AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Για ένα σύστημα DDR3 με κάρτα γραφικών, βεβαιωθείτε ότι το τροφοδοτικό είναι τουλάχιστον 300–400 W.",
+    w_ddr2_info: "ℹ️ Οι πλατφόρμες DDR2 είναι πολύ παλιές. Είναι κατάλληλες μόνο για βασική χρήση γραφείου και internet.",
+    w_ddr2_psu: "⚠️ Βεβαιωθείτε ότι το τροφοδοτικό είναι τουλάχιστον 250 W για σύστημα εποχής DDR2.",
+    m_est_total: "Εκτιμώμενο σύνολο:", m_incl_vat: "με ΦΠΑ", m_platform: "Πλατφόρμα", m_copied: "Αντιγράφηκε!"
+  },
+  de: {
+    nav_formats: "Formate", nav_ram: "RAM", nav_storage: "Speicher", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Über uns", nav_back: "← Leitfaden",
+    page_eyebrow: "PC-Konfigurator", page_title: "PC Zusammenstellen",
+    page_desc: "Wählen Sie unten Ihre Komponenten aus. Die Preise werden live aktualisiert und enthalten die griechische MwSt. (24%). Wechseln Sie Plattformen.",
+    btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Ältere Generation — DDR3", btn_ddr2: "🟪 Sehr Alt — DDR2",
+    legacy_note: "⚠️ Generalüberholte / Gebrauchte Teile. Die gezeigten Preise sind grobe Schätzungen für Gebrauchtware. Diese Plattformen werden nicht mehr neu produziert.",
+    label_cpu: "Prozessor (CPU)", label_mobo: "Mainboard", label_ram: "Arbeitsspeicher (RAM)", label_storage: "Speicher (Primär)", label_gpu: "Grafikkarte (GPU)", label_cooler: "CPU-Kühler", label_psu: "Netzteil (PSU)", label_case: "Gehäuse (Case)",
+    opt_no_gpu: "Keine dedizierte Grafikkarte (nur integriert)", opt_stock_cooler: "Standard-Boxed-Kühler (falls enthalten)", opt_stock_h3: "Standard-Boxed-Kühler &mdash; enthalten", opt_oem_used: "Intel/AMD OEM-Kühler &mdash; Gebraucht", opt_stock_h2: "Standard-LGA775-Kühler &mdash; enthalten",
+    summary_header: "Konfiguration Übersicht", row_subtotal: "Zwischensumme (ohne MwSt.)", row_vat: "MwSt. 24%", row_total: "Gesamtsumme", vat_note: "Preise sind Schätzungen. Endpreise können variieren.",
+    btn_save: "Konfiguration prüfen", btn_reset: "Zurücksetzen",
+    modal_title: "Ihr PC-System", modal_desc: "Hier ist eine Zusammenfassung Ihrer gewählten Konfiguration.", btn_copy: "In Zwischenablage kopieren", btn_close: "Schließen", footer_back: "Zum Leitfaden", footer_about: "Über uns",
+    tier_ddr2: "Altes DDR2-System", tier_ddr3: "Älteres DDR3-System", tier_budget: "Budget", tier_mid: "Mittelklasse", tier_high: "High-End", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ CPU-Mainboard-Konflikt: Intel-CPU erfordert Sockel LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ CPU-Mainboard-Konflikt: AMD-CPU erfordert AM4- oder AM5-Mainboard.",
+    w_high_gpu_psu: "⚠️ High-End-GPU — Es wird ein Netzteil mit mindestens 850 W empfohlen.",
+    w_mid_gpu_psu: "⚠️ Diese GPU benötigt möglicherweise ein Netzteil mit mindestens 750 W.",
+    w_haswell_mismatch: "⚠️ Haswell-CPU (LGA1150) benötigt ein LGA1150-Mainboard (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) benötigt ein LGA1155-Mainboard (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) benötigt ein AM3+-Mainboard (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Für ein DDR3-System mit Grafikkarte sollte das Netzteil mindestens 300–400 W haben.",
+    w_ddr2_info: "ℹ️ DDR2-Plattformen sind sehr alt. Nur für einfache Büroarbeiten und Internet geeignet.",
+    w_ddr2_psu: "⚠️ Stellen Sie sicher, dass das Netzteil für ein DDR2-System mindestens 250 W hat.",
+    m_est_total: "Geschätzter Gesamtpreis:", m_incl_vat: "inkl. MwSt.", m_platform: "Plattform", m_copied: "Kopiert!"
+  },
+  fr: {
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Stockage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "À propos", nav_back: "← Guide principal",
+    page_eyebrow: "Configurateur PC", page_title: "Créer Votre PC",
+    page_desc: "Choisissez vos composants ci-dessous. Les prix sont mis à jour en direct et incluent la TVA grecque (24%). Basculez entre les plateformes.",
+    btn_modern: "🟧 Moderne (DDR4 / DDR5)", btn_ddr3: "🟪 Ancienne Génération — DDR3", btn_ddr2: "🟪 Très Ancien — DDR2",
+    legacy_note: "⚠️ Pièces reconditionnées / d'occasion. Les prix affichés sont des estimations approximatives du marché de l'occasion. Ces plateformes ne sont plus produites.",
+    label_cpu: "Processeur (CPU)", label_mobo: "Carte Mère", label_ram: "Mémoire RAM", label_storage: "Stockage (Principal)", label_gpu: "Carte Graphique (GPU)", label_cooler: "Ventirad CPU", label_psu: "Alimentation (PSU)", label_case: "Boîtier (Case)",
+    opt_no_gpu: "Pas de carte graphique dédiée (intégrée uniquement)", opt_stock_cooler: "Ventirad d'origine (si inclus)", opt_stock_h3: "Radiateur d'origine &mdash; inclus", opt_oem_used: "Radiateur OEM Intel/AMD &mdash; D'occasion", opt_stock_h2: "Radiateur LGA775 d'origine &mdash; inclus",
+    summary_header: "Résumé de la config", row_subtotal: "Sous-total (hors TVA)", row_vat: "TVA 24%", row_total: "Total", vat_note: "Les prix sont des estimations. Les prix réels peuvent varier.",
+    btn_save: "Vérifier la configuration", btn_reset: "Réinitialiser",
+    modal_title: "Votre Configuration", modal_desc: "Voici un résumé de la configuration sélectionnée.", btn_copy: "Copier dans le presse-papiers", btn_close: "Fermer", footer_back: "Retour au guide", footer_about: "À propos de nous",
+    tier_ddr2: "Ancienne config DDR2", tier_ddr3: "Config Legacy DDR3", tier_budget: "Entrée de gamme", tier_mid: "Milieu de gamme", tier_high: "Haut de gamme", tier_enthus: "Enthousiaste",
+    w_intel_mismatch: "⚠️ Incompatibilité CPU–Carte mère: Un processeur Intel requiert le socket LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Incompatibilité CPU–Carte mère: Un processeur AMD requiert une carte mère AM4 ou AM5.",
+    w_high_gpu_psu: "⚠️ GPU haut de gamme — alimentation d'au moins 850 W recommandée.",
+    w_mid_gpu_psu: "⚠️ Ce GPU peut nécessiter une alimentation d'au moins 750 W.",
+    w_haswell_mismatch: "⚠️ Un processeur Haswell (LGA1150) nécessite une carte mère LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Un processeur Sandy/Ivy Bridge (LGA1155) nécessite une carte mère LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ Un processeur AMD FX (AM3+) nécessite une carte mère AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Pour une configuration DDR3 avec GPU dédié, assurez-vous d'avoir une alimentation d'au moins 300–400 W.",
+    w_ddr2_info: "ℹ️ Les plateformes DDR2 sont très anciennes. Adaptées uniquement pour la bureautique de base et la navigation web.",
+    w_ddr2_psu: "⚠️ Assurez-vous d'avoir une alimentation d'au moins 250 W pour un système de l'époque DDR2.",
+    m_est_total: "Total estimé:", m_incl_vat: "TVA incluse", m_platform: "Plateforme", m_copied: "Copié!"
+  }
+};
+
+const PARTS = [
+  { id:'cpu',      labelKey:'label_cpu' },
+  { id:'mobo',     labelKey:'label_mobo' },
+  { id:'ram',      labelKey:'label_ram' },
+  { id:'storage',  labelKey:'label_storage' },
+  { id:'gpu',      labelKey:'label_gpu' },
+  { id:'cooler',   labelKey:'label_cooler' },
+  { id:'psu',      labelKey:'label_psu' },
+  { id:'case_pc',  labelKey:'label_case' },
+];
+
+const VAT = 0.24;
+const fmt = v => '\u20AC' + Math.round(v).toLocaleString('el-GR');
+
+let currentGen = 'modern';
+let currentLang = 'en';
+
+// 2. Application Core Internationalization Translation Routing Logic
+function translatePage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (dictionary[lang] && dictionary[lang][key]) {
+      element.innerHTML = dictionary[lang][key];
+    }
+  });
+
+  // Localize dynamic buttons that don't have straightforward layout text selectors
+  document.getElementById('btn-gen-modern').innerHTML = dictionary[lang].btn_modern || dictionary.en.btn_modern;
+  document.getElementById('btn-gen-ddr3').innerHTML = dictionary[lang].btn_ddr3 || dictionary.en.btn_ddr3;
+  document.getElementById('btn-gen-ddr2').innerHTML = dictionary[lang].btn_ddr2 || dictionary.en.btn_ddr2;
+
+  localStorage.setItem('userLanguage', lang);
+  document.getElementById('langSelect').value = lang;
+  update();
+}
+
+// 3. Platform Setup Orchestration Engine
+function setGen(gen) {
+  currentGen = gen;
+  document.querySelectorAll('.gen-btn').forEach(b => b.classList.remove('active'));
+  const map = { modern:0, ddr3:1, ddr2:2 };
+  document.querySelectorAll('.gen-btn')[map[gen]].classList.add('active');
+
+  const note = document.getElementById('legacy-note');
+  note.className = 'legacy-note' + (gen !== 'modern' ? ' visible' : '');
+
+  document.querySelectorAll('.part-card').forEach(c => {
+    c.classList.toggle('legacy-card', gen !== 'modern');
+  });
+
+  PARTS.forEach(p => {
+    const sel = document.getElementById(p.id);
+    for (let opt of Array.from(sel.options)) {
+      if (!opt.value || !opt.value.includes('|')) continue;
+      const grp = opt.parentElement;
+      if (!grp || grp.tagName !== 'OPTGROUP') continue;
+      const cls = grp.className || '';
+      if (gen === 'modern' && cls.includes('opt-modern')) { sel.value = opt.value; break; }
+      if (gen === 'ddr3'   && cls.includes('opt-ddr3'))   { sel.value = opt.value; break; }
+      if (gen === 'ddr2'   && cls.includes('opt-ddr2'))   { sel.value = opt.value; break; }
+    }
+  });
+  update();
+}
+
+function parse(id) {
+  const parts = document.getElementById(id).value.split('|');
+  return { name: parts[0], price: parseFloat(parts[1]) || 0 };
+}
+
+function isUsed(id) {
+  const v = document.getElementById(id).value;
+  return v.includes('Used') || currentGen !== 'modern';
+}
+
+// 4. Live Updating Calculations and Localized Output Handling Engine
+function update() {
+  let sub = 0;
+  const rows = [];
+  const dict = dictionary[currentLang] || dictionary.en;
+
+  PARTS.forEach(p => {
+    const { name, price } = parse(p.id);
+    const used = isUsed(p.id);
+    sub += price;
+    rows.push({ label: dict[p.labelKey], name, price, used });
+    const el = document.getElementById('price-' + p.id);
+    el.textContent = price === 0 ? '\u2014' : fmt(price);
+    el.className = 'part-price' + (price === 0 ? ' zero' : (used ? ' used' : ''));
+  });
+
+  const vat   = sub * VAT;
+  const total = sub + vat;
+  document.getElementById('sum-ex').textContent    = fmt(sub);
+  document.getElementById('sum-vat').textContent   = fmt(vat);
+  document.getElementById('sum-total').textContent = fmt(total);
+
+  let tier, tierClass;
+  if      (currentGen === 'ddr2')   { tier = dict.tier_ddr2;  tierClass = 'legacy'; }
+  else if (currentGen === 'ddr3')   { tier = dict.tier_ddr3;  tierClass = 'legacy'; }
+  else if (total < 650)             { tier = dict.tier_budget;tierClass = 'budget'; }
+  else if (total < 1300)            { tier = dict.tier_mid;   tierClass = 'mid'; }
+  else if (total < 2500)            { tier = dict.tier_high;  tierClass = 'high'; }
+  else                              { tier = dict.tier_enthus;tierClass = 'enthus'; }
+
+  const pill = document.getElementById('tier-pill');
+  pill.textContent = tier;
+  pill.className = 'tier-pill ' + tierClass;
+
+  document.getElementById('breakdown-list').innerHTML = rows.map(r =>
+    '<div class="breakdown-row">' +
+    '<span class="br-name">' + r.label + '</span>' +
+    '<span class="br-val' + (r.price===0?' zero':(r.used?' used':'')) + '">' +
+    (r.price===0?'\u2014':fmt(r.price)) + '</span></div>'
+  ).join('');
+
+  // Localized compatibility check alerts execution 
+  const cpuVal  = document.getElementById('cpu').value;
+  const moboVal = document.getElementById('mobo').value;
+  const gpuP    = parse('gpu').price;
+  const psuStr  = document.getElementById('psu').value;
+  const psuW    = parseInt(psuStr) || 0;
+  const warns   = [];
+
+  if (currentGen === 'modern') {
+    const iCPU  = cpuVal.includes('Intel');
+    const aCPU  = cpuVal.includes('AMD');
+    const iMobo = moboVal.includes('B660') || moboVal.includes('B760') || moboVal.includes('Z790');
+    const aAM5  = moboVal.includes('B650') || moboVal.includes('X670');
+    const aAM4  = moboVal.includes('B550') || moboVal.includes('X570');
+    if (iCPU && (aAM5||aAM4))  warns.push(dict.w_intel_mismatch);
+    if (aCPU && iMobo)         warns.push(dict.w_amd_mismatch);
+    if (gpuP>800 && psuW<850)  warns.push(dict.w_high_gpu_psu);
+    else if (gpuP>=500 && psuW<750) warns.push(dict.w_mid_gpu_psu);
+  }
+  if (currentGen === 'ddr3') {
+    const h4cpu   = cpuVal.includes('i3-4')||cpuVal.includes('i5-4')||cpuVal.includes('i7-4');
+    const h3cpu   = cpuVal.includes('i3-2')||cpuVal.includes('i5-2')||cpuVal.includes('i7-3');
+    const fxcpu   = cpuVal.includes('FX-');
+    const h4mobo  = moboVal.includes('H81')||moboVal.includes('B85')||moboVal.includes('Z97');
+    const h3mobo  = moboVal.includes('H61')||moboVal.includes('B75')||moboVal.includes('Z77');
+    const am3mobo = moboVal.includes('AM3+')||moboVal.includes('78LMT')||moboVal.includes('M5A99');
+    if (h4cpu && !h4mobo)   warns.push(dict.w_haswell_mismatch);
+    if (h3cpu && !h3mobo)   warns.push(dict.w_sandy_mismatch);
+    if (fxcpu && !am3mobo)  warns.push(dict.w_fx_mismatch);
+    if (psuW < 300)         warns.push(dict.w_ddr3_psu);
+  }
+  if (currentGen === 'ddr2') {
+    warns.push(dict.w_ddr2_info);
+    if (psuW < 250) warns.push(dict.w_ddr2_psu);
+  }
+
+  const wbox = document.getElementById('warnings-box');
+  wbox.innerHTML = warns.map(w => '<div class="warn-item">' + w + '</div>').join('');
+  wbox.className = 'warnings-box' + (warns.length ? ' visible' : '');
+
+  if (currentGen === 'modern') {
+    const cpuV2  = document.getElementById('cpu').value;
+    const moboV2 = document.getElementById('mobo').value;
+    const iC2    = cpuV2.includes('Intel'), aC2 = cpuV2.includes('AMD');
+    const iM2    = moboV2.includes('B660')||moboV2.includes('B760')||moboV2.includes('Z790');
+    const aA52   = moboV2.includes('B650')||moboV2.includes('X670');
+    const aA42   = moboV2.includes('B550')||moboV2.includes('X570');
+    [document.getElementById('card-cpu'), document.getElementById('card-mobo')].forEach(c =>
+      c.classList.toggle('has-warning', (iC2&&(aA52||aA42))||(aC2&&iM2))
+    );
+    [document.getElementById('card-gpu'), document.getElementById('card-psu')].forEach(c =>
+      c.classList.toggle('has-warning', (gpuP>=800&&psuW<850)||(gpuP>=500&&psuW<750))
+    );
+  }
+}
+
+function openModal() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const rows = PARTS.map(p => { const {name,price}=parse(p.id); return {label:dict[p.labelKey],name,price}; });
+  const sub   = rows.reduce((a,r)=>a+r.price,0);
+  const total = sub*(1+VAT);
+  document.getElementById('modal-list').innerHTML = rows.map(r=>
+    '<li><span>'+r.label+'</span><span>'+(r.price===0?'\u2014':fmt(r.price))+'</span></li>'
+  ).join('');
+  document.getElementById('modal-total').innerHTML =
+    dict.m_est_total + ' <strong>'+fmt(total)+'</strong> '+dict.m_incl_vat+'<br><small style="font-size:0.7rem;opacity:0.7">'+dict.m_platform+': '+currentGen.toUpperCase()+'</small>';
+  document.getElementById('modal-backdrop').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+function closeModalBg(e) { if(e.target===document.getElementById('modal-backdrop')) closeModal(); }
+
+function copyBuild() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const rows = PARTS.map(p=>{const{name,price}=parse(p.id); return dict[p.labelKey]+': '+name+(price?' ('+fmt(price)+')':'');});
+  const sub = PARTS.reduce((a,p)=>a+parse(p.id).price,0);
+  rows.push('','Platform: '+currentGen.toUpperCase(),'Total ('+dict.m_incl_vat+'): '+fmt(sub*(1+VAT)));
+  navigator.clipboard.writeText(rows.join('\n'));
+  const btn=document.getElementById('btn-copy-action');
+  btn.textContent=dict.m_copied;
+  setTimeout(()=>btn.textContent=dict.btn_copy,2000);
+}
+function resetBuild() { setGen('modern'); }
+
+// 5. App Setup Initialization and Persistent State Recovery
+document.getElementById('langSelect').addEventListener('change', (e) => {
+  translatePage(e.target.value);
+});
+window.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('userLanguage') || 'en';
+  translatePage(savedLang);
+});
+</script>
+</body>
+</html>
