@@ -105,10 +105,10 @@
 }
 
 .story-card {
-  background: var(--card-bg, #f9f9f9); /* Adjust variable to match your theme */
+  background: var(--card); /* #1a1a1a, matches your theme */
   padding: 1.75rem;
   border-radius: 8px;
-  border: 1px solid var(--border-color, #eaeaea);
+  border: 1px solid var(--border);
 }
 
 .story-card span {
@@ -121,10 +121,38 @@
   margin-bottom: 0.5rem;
 }
  .story-card-greece {
-  background: url('greek-flag.png') no-repeat center center; background-size: cover;
-  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
   border-radius: 8px;
-  border: 1px solid var(--border-color, #eaeaea);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  isolation: isolate; /* keeps z-index scoped to this card */
+}
+
+.story-card-greece::before {
+  content: '';
+  position: absolute;
+  inset: -12% -12%; /* oversized so the wave never reveals an edge */
+  background: url('greek-flag.png') no-repeat center center;
+  background-size: cover;
+  animation: flagWave 5s ease-in-out infinite;
+  z-index: 0;
+  transform-origin: center;
+}
+
+.story-card-greece::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13,13,13,0.45); /* dark overlay so text stays readable */
+  z-index: 0;
+}
+
+.story-card-greece span,
+.story-card-greece h3,
+.story-card-greece p {
+  position: relative;
+  z-index: 1;
 }
 
 .story-card-greece span {
@@ -135,6 +163,19 @@
 
 .story-card-greece h3 {
   margin-bottom: 0.5rem;
+}
+
+@keyframes flagWave {
+  0%, 100% { transform: skewY(0deg) scale(1.03); }
+  25%      { transform: skewY(0.7deg) scale(1.04) translateX(0.3%); }
+  50%      { transform: skewY(-0.5deg) scale(1.03) translateX(-0.2%); }
+  75%      { transform: skewY(0.6deg) scale(1.04) translateX(0.3%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card-greece::before {
+    animation: none;
+  }
 }
   /* .story-card-greece {  border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; } */
   .story-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
@@ -258,7 +299,7 @@
       <h3 data-i18n="about_story_h2">The build configurator</h3>
       <p data-i18n="about_story_p2">No other Greek PC guide covers DDR2 and DDR3 platforms...</p>
     </div>
-    <div class="story-card">
+    <div class="story-card-greece">
       <span>🇬🇷</span>
       <h3 data-i18n="about_story_h3">Made for the Greek market</h3>
       <p data-i18n="about_story_p3">Prices include 24% Greek VAT and reflect what you'd actually pay locally...</p>
