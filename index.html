@@ -917,10 +917,10 @@
 
     function updateLanguage(lang) {
       if (!translations[lang]) return;
-      
+
       // Update HTML lang attribute
       document.documentElement.lang = lang;
-      
+
       // Select all elements with data-i18n attribute
       const elements = document.querySelectorAll('[data-i18n]');
       elements.forEach(element => {
@@ -929,45 +929,25 @@
           element.textContent = translations[lang][translationKey];
         }
       });
+
+      // Persist the choice so other pages (about.html, build.html) stay in sync
+      localStorage.setItem('selectedLanguage', lang);
+
+      // Keep the dropdown showing the active language
+      const dropdown = document.getElementById('langDropdown');
+      if (dropdown) dropdown.value = lang;
     }
 
     // Set up change listener on drop-down
     document.getElementById('langDropdown').addEventListener('change', (e) => {
       updateLanguage(e.target.value);
     });
-  </script>
-  <script>
-    // 1. Κατά τη φόρτωση της σελίδας, έλεγξε αν υπάρχει ήδη αποθηκευμένη γλώσσα
-    document.addEventListener("DOMContentLoaded", function() {
-        const savedLanguage = localStorage.getItem("selectedLanguage");
-        
-        if (savedLanguage) {
-            // Αν υπάρχει αποθηκευμένη γλώσσα, εφάρμοσέ την (π.χ. κάλεσε τη συνάρτηση αλλαγής γλώσσας)
-            changeLanguage(savedLanguage);
-            
-            // Προαιρετικά: Ενημέρωσε και το drop-down/κουμπί επιλογής γλώσσας αν έχεις
-            const languageSelect = document.getElementById("languageSelect");
-            if (languageSelect) {
-                languageSelect.value = savedLanguage;
-            }
-        }
+
+    // Apply the saved language (falling back to English) as soon as the page loads
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+      updateLanguage(savedLanguage);
     });
-
-    // 2. Η συνάρτηση που καλείται όταν ο χρήστης αλλάζει γλώσσα
-    function changeLanguage(lang) {
-        // Αποθήκευση της νέας επιλογής στο localStorage
-        localStorage.setItem("selectedLanguage", lang);
-
-        // Εδώ μπαίνει ο δικός σου κώδικας που αλλάζει τα κείμενα στην οθόνη
-        // Παράδειγμα:
-        if (lang === "el") {
-            // Ελληνικά κείμενα...
-            console.log("Η γλώσσα άλλαξε σε Ελληνικά");
-        } else if (lang === "en") {
-            // Αγγλικά κείμενα...
-            console.log("Η γλώσσα άλλαξε σε Αγγλικά");
-        }
-    }
-</script>
+  </script>
 </body>
 </html>
