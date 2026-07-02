@@ -682,7 +682,7 @@ const dictionary = {
   summary_header: "Конфигурация сборки", row_subtotal: "Промежуточный итог (без НДС)", row_vat: "НДС 24%", row_total: "Итого", vat_note: "Цены являются ориентировочными. Финальная стоимость в рознице или на Б/У рынке может отличаться.",
   btn_save: "Сохранить и проверить сборку", btn_reset: "Сбросить настройки",
   modal_title: "Ваша сборка", modal_desc: "Вот краткое описание выбранной вами конфигурации.", btn_copy: "Копировать в буфер обмена", btn_close: "Закрыть", footer_back: "Назад к руководству", footer_about: "О нас",
-  tier_ddr2: "Устаревшая DDR2", tier_ddr3: "Устаревшая DDR3", tier_budget: "Бюджетный", tier_mid: "Средний класс", tier_high: "Мощный", tier_энтузиаст: "Энтузиаст",
+  tier_ddr2: "Устаревшая DDR2", tier_ddr3: "Устаревшая DDR3", tier_budget: "Бюджетный", tier_mid: "Средний класс", tier_high: "Мощный", tier_enthus: "Энтузиаст",
   w_intel_mismatch: "⚠️ Несовместимость ЦП и платы: для процессора Intel требуется LGA1700 (B660/B760/Z790).",
   w_amd_mismatch: "⚠️ Несовместимость ЦП и платы: для процессора AMD требуется плата AM4 или AM5.",
   w_high_gpu_psu: "⚠️ Мощная видеокарта — рекомендуется блок питания не менее 850 Вт.",
@@ -921,7 +921,7 @@ function translatePage(lang) {
   document.getElementById('btn-gen-ddr3').innerHTML = dictionary[lang].btn_ddr3 || dictionary.en.btn_ddr3;
   document.getElementById('btn-gen-ddr2').innerHTML = dictionary[lang].btn_ddr2 || dictionary.en.btn_ddr2;
 
-  localStorage.setItem('userLanguage', lang);
+  localStorage.setItem('selectedLanguage', lang);
   document.getElementById('langSelect').value = lang;
   update();
 }
@@ -1094,7 +1094,7 @@ document.getElementById('langSelect').addEventListener('change', (e) => {
   translatePage(e.target.value);
 });
 window.addEventListener('DOMContentLoaded', () => {
-  const savedLang = localStorage.getItem('userLanguage') || 'en';
+  const savedLang = localStorage.getItem('selectedLanguage') || 'en';
   translatePage(savedLang);
 });
 </script>
