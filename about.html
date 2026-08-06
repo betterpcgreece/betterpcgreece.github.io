@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>betterPC &mdash; About Us</title>
+<meta name="description" content="Meet the person behind betterPC — honest PC hardware guides and a build configurator tailored for the Greek market.">
+<link rel="canonical" href="https://betterpcgreece.github.io/about.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="betterPC">
+<meta property="og:title" content="betterPC — About Us">
+<meta property="og:description" content="Meet the person behind betterPC — honest PC hardware guides and a build configurator tailored for the Greek market.">
+<meta property="og:url" content="https://betterpcgreece.github.io/about.html">
+<meta property="og:image" content="https://betterpcgreece.github.io/images/formats.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="betterPC — About Us">
+<meta name="twitter:description" content="Meet the person behind betterPC — honest PC hardware guides and a build configurator tailored for the Greek market.">
+<meta name="twitter:image" content="https://betterpcgreece.github.io/images/formats.webp">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Page-specific overrides and sections for about.html
+     (shared reset, tokens, nav, footer live in style.css) */
+  body { line-height: 1.7; }
+
+  /* HERO */
+  .hero {
+    padding: 140px 5% 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.2rem; }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 480px; }
+  .hero-desc strong { color: var(--text); }
+
+  /* AVATAR CARD */
+  .avatar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .lang-select { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 6px 10px; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; cursor: pointer; outline: none; }
+  .lang-select:focus { border-color: var(--accent); }
+
+ /* AVATARS */ 
+  .avatar-ring {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 4px rgba(249,115,22,0.2);
+  }
+  .avatar-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; }
+  .avatar-role { font-size: 0.82rem; color: var(--accent); font-weight: 500; letter-spacing: 0.5px; }
+  .avatar-bio { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+  .tag { font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: rgba(249,115,22,0.1); color: var(--accent2); border: 1px solid rgba(249,115,22,0.2); }
+  .tag.purple { background: rgba(124,58,237,0.1); color: #a78bfa; border-color: rgba(124,58,237,0.2); }
+
+  /* DIVIDER */
+  .section-divider { max-width: 1100px; margin: 0 auto; padding: 0 5%; border-top: 1px solid var(--border); }
+ 
+  /* STORY */
+  .story-section { max-width: 1100px; margin: 0 auto; padding: 4rem 5%; }
+  .section-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -1px; margin-bottom: 1.5rem; }
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .story-card {
+    background: var(--card);
+    padding: 1.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .story-card span {
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-card h3 { margin-bottom: 0.5rem; }
+
+  .story-card-greece {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    isolation: isolate;
+  }
+
+  .story-card-greece .flag-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-card-greece .flag-bg { display: none; }
+  }
+
+  .story-card-greece::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(13,13,13,0.5);
+    z-index: 1;
+  }
+
+  .story-card-greece .card-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .story-card-greece span {
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+
+  .story-card-greece h3 { margin-bottom: 0.5rem; }
+  .story-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+
+  /* TIMELINE / VALUES */
+  .values-section { max-width: 1100px; margin: 0 auto; padding: 2rem 5% 4rem; }
+  .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1.5rem; }
+  .value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; transition: border-color 0.2s; }
+  .value-card:hover { border-color: rgba(249,115,22,0.3); }
+  .value-card-greece { background: linear-gradient(rgba(10,14,20,0.6), rgba(10,14,20,0.8)), repeating-linear-gradient(#0d5eaf, #0d5eaf 11.11%, #ffffff 11.11%, #ffffff 22.22%); background-size: cover; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem;  transition: border-color 0.2s, transform 0.2s; }
+  .value-card-greece:hover { border-color: rgba(249,115,22,0.3); }
+  .value-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent); opacity: 0.4; line-height: 1; margin-bottom: 0.5rem; }
+  .value-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .value-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section { max-width: 1100px; margin: 0 auto; padding: 2rem 5% 6rem; }
+  .cta-card { background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(124,58,237,0.06) 100%); border: 1px solid rgba(249,115,22,0.2); border-radius: 20px; padding: 3rem; text-align: center; }
+  .cta-card h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; margin-bottom: 0.8rem; }
+  .cta-card p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+  .cta-btns { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 12px 28px; border-radius: 8px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 11px 28px; border-radius: 8px; background: transparent; color: var(--text); border: 1px solid var(--border); font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* FOOTER */
+  footer p { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; color: var(--muted); }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  /* SKIP TO CONTENT — hidden off-screen until it receives keyboard focus,
+     so keyboard/screen-reader users can bypass the repeated nav on every page. */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 1000;
+    background: var(--accent, #ff7a00);
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 18px;
+    border-radius: 0 0 8px 8px;
+    text-decoration: none;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+
+  /* CONTACT LINKS */
+  .contact-links { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
+  .contact-link {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 0 1.25rem; transition: border-color 0.2s; }
+  .faq-item:hover { border-color: rgba(249,115,22,0.3); }
+  .faq-item summary {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 1.1rem 1.75rem 1.1rem 0;
+    cursor: pointer;
+    list-style: none;
+    position: relative;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; padding-bottom: 1.25rem; margin: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 110px; }
+    .story-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 560px) {
+    .values-grid { grid-template-columns: 1fr; }
+  }
+  /* BACK TO TOP */
+  #backToTopBtn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #ff7a00;
+    color: #fff;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    z-index: 999;
+  }
+  #backToTopBtn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #backToTopBtn:hover { background: #e56e00; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "betterPC",
+  "url": "https://betterpcgreece.github.io/about.html",
+  "description": "PC hardware guides, build configurator, and personal computer repair, cleaning, and assembly services for the Greek market.",
+  "email": "betterpcgreece@gmail.com",
+  "sameAs": [
+    "https://www.instagram.com/betterpcgreece",
+    "https://linktr.ee/betterpcgreece",
+    "https://github.com/betterpcgreece"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Chaidari",
+    "addressRegion": "Attica",
+    "addressCountry": "GR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Chaidari" },
+    { "@type": "City", "name": "Athens" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you work on old DDR2/DDR3 PCs, or only new builds?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Both. betterPC covers DDR2, DDR3, and brand-new platforms — the whole point of this site is that old hardware often still has real life left in it." }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the prices in the build configurator what I'll actually pay?",
+      "acceptedAnswer": { "@type": "Answer", "text": "They're estimates that already include 24% Greek VAT and reflect realistic local pricing. Actual cost can shift with part availability, so message before you buy to confirm." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you come to my place, or do I bring you the PC?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Whichever is easier. Home visits are offered around Chaidari and the wider Athens area, or you can drop the PC off." }
+    },
+    {
+      "@type": "Question",
+      "name": "How much do repairs, upgrades, or builds cost?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It depends on the job — cleaning, upgrades, and full builds are priced differently. Message with the details to get an estimate before any work starts." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you earn a commission on the parts you recommend?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. betterPC doesn't run ads or take affiliate commissions — recommendations are based on value and availability, not on who pays the most." }
+    },
+    {
+      "@type": "Question",
+      "name": "Which areas do you actually service?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Chaidari and the wider Athens area." }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content" data-i18n="skip_to_content">Skip to content</a>
+
+<!-- NAV -->
+<nav class="navbar">
+  <a class="logo" href="index.html">better<span>PC</span></a>
+  <div class="nav-links">
+    <a href="index.html#formats" data-i18n="nav_formats">Formats</a>
+    <a href="index.html#ram" data-i18n="nav_ram">RAM</a>
+    <a href="index.html#storage" data-i18n="nav_storage">Storage</a>
+    <a href="index.html#cpu" data-i18n="nav_cpu">CPU</a>
+    <a href="build.html" data-i18n="nav_build">Build</a>
+    <a href="about.html" class="active" data-i18n="nav_about">About us</a>
+  </div>
+  <label for="langSelect" class="sr-only">Select language</label>
+  <select class="lang-select" id="langSelect" aria-label="Select language">
+      <option value="en">EN</option>
+      <option value="el">GR</option>
+      <option value="de">DE</option>
+      <option value="fr">FR</option>
+      <option value="ru">RU</option>
+      <option value="sr">SR</option>
+      <option value="it">IT</option>
+      <option value="es">ES</option>
+      <option value="pt">PT</option>
+      <option value="pl">PL</option>
+      <option value="sv">SV</option>
+      <option value="ro">RO</option>
+      <option value="bg">BG</option>
+      <option value="sq">SQ</option>
+      <option value="uk">UK</option>
+      <option value="am">AM</option>
+      <option value="ge">GE</option>
+      <option value="ar">AR</option>
+      <option value="zh">ZH</option>
+  </select>
+  <a class="back-btn" href="index.html" data-i18n="nav_back">&#8592; Back to Guide</a>
+</nav>
+
+<section class="hero" id="main-content" tabindex="-1">
+  <div>
+    <p class="hero-eyebrow" data-i18n="about_hero_eyebrow">Who we are</p>
+    <h1 class="hero-title" data-i18n="about_hero_title">One person.<br>A <em>lot</em> of PCs.</h1>
+    <p class="hero-desc" data-i18n="about_hero_desc">
+      betterPC is a one-person project born out of a simple frustration:
+      <strong>too many people overpay for PCs they don't understand</strong>, or throw away
+      perfectly good old hardware because nobody told them it could run just fine.
+      <br><br>
+      Whether you're building a brand-new gaming rig or rescuing a DDR2 machine for a grandparent,
+      this site has you covered.
+    </p>
+  </div>
+
+  <div class="avatar-card">
+    <div class="avatar-ring">&#127381;</div>
+    <div class="avatar-name" data-i18n="about_avatar_name">The Creator</div>
+    <div class="avatar-role" data-i18n="about_avatar_role">Founder &middot; <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span></div>
+    <p class="avatar-bio" data-i18n="about_avatar_bio">
+      PC enthusiast, tinkerer, and recycler of old hardware. I've built everything from
+      budget DDR2 office boxes to water-cooled gaming rigs &mdash;
+      and I think everyone deserves to know what's inside their machine.
+    </p>
+    <div class="avatar-tags">
+      <span class="tag" data-i18n="tag_pc_builder">PC builder</span>
+      <span class="tag" data-i18n="tag_hardware_nerd">Hardware nerd</span>
+      <span class="tag purple" data-i18n="tag_ddr2_survivor">DDR2 survivor</span>
+      <span class="tag" data-i18n="tag_greek_market">Greek market</span>
+      <span class="tag purple" data-i18n="tag_open_source">Open source</span>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="story-section">
+  <p class="section-tagline" data-i18n="about_story_eyebrow">The story</p>
+  <h2 data-i18n="about_story_title">Why better<span>PC</span> exists</h2>
+   
+  <div class="story-grid">
+    <div class="story-card">
+      <span class="icon">🗄️</span>
+      <h3 data-i18n="about_story_h1">The problem with old hardware</h3>
+      <p data-i18n="about_story_p1">Greece has millions of PCs from the 2006–2015 era sitting in storage, still perfectly capable for everyday use, browsing, office work, even light gaming with a few upgrades. Instead of throwing them away, this site shows you how to bring them back to life for a fraction of the cost of buying new.</p>
+    </div>
+    <div class="story-card">
+      <span>🔧</span>
+      <h3 data-i18n="about_story_h2">The build configurator</h3>
+      <p data-i18n="about_story_p2">No other Greek PC guide covers DDR2 and DDR3 platforms in this kind of depth. The configurator walks you through compatible CPUs, RAM, and motherboards for your exact generation of hardware, so you don't waste money on parts that won't fit.</p>
+    </div>
+    <div class="story-card-greece">
+      <video class="flag-bg" id="greekFlagVideo" muted loop playsinline preload="none" poster="images/greek-flag-poster.jpg">
+        <source data-src="greek-flag-waving.mp4" type="video/mp4">
+      </video>
+      <div class="card-content">
+        <span>🇬🇷</span>
+        <h3 data-i18n="about_story_h3">Made for the Greek market</h3>
+        <p data-i18n="about_story_p3">Prices include 24% Greek VAT and reflect what you'd actually pay locally, not US or generic EU estimates. Every recommendation is checked against what's realistically available to buy in Greece right now.</p>
+      </div>
+    </div>
+    <div class="story-card">
+      <span>📚</span>
+      <h3 data-i18n="about_story_h4">Plain language, real knowledge</h3>
+      <p data-i18n="about_story_p4">No jargon without explanation. Every guide on this site is written so that someone with zero technical background can follow it step by step, understand why each step matters, and end up actually learning something along the way.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="values-section">
+  <p class="section-eyebrow" data-i18n="about_values_eyebrow">Principles</p>
+  <h2 class="section-title" data-i18n="about_values_title">What better<span style="color: #ff7a00;">PC</span> stands for</h2>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-num">01</div>
+      <div class="value-title" data-i18n="about_v1_title">Honest pricing</div>
+      <p class="value-desc" data-i18n="about_v1_desc">Prices are estimates, labelled as such. No inflated numbers to make builds look cheap by comparison.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">02</div>
+      <div class="value-title" data-i18n="about_v2_title">No ads, no affiliates</div>
+      <p class="value-desc" data-i18n="about_v2_desc">betterPC earns nothing from recommending specific brands. Picks are based on value and availability.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">03</div>
+      <div class="value-title" data-i18n="about_v3_title">Old hardware matters</div>
+      <p class="value-desc" data-i18n="about_v3_desc">DDR2 and DDR3 machines can still serve real purposes. Helping people get more life from them is worth it.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">04</div>
+      <div class="value-title" data-i18n="about_v4_title">Compatibility first</div>
+      <p class="value-desc" data-i18n="about_v4_desc">Nothing is recommended without a check. CPU&ndash;mobo&ndash;RAM compatibility is flagged before you waste money.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">05</div>
+      <div class="value-title" data-i18n="about_v5_title">Greek context</div>
+      <p class="value-desc" data-i18n="about_v5_desc">Prices, availability, and part advice are grounded in the Greek and broader EU market, not the US.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">06</div>
+      <div class="value-title" data-i18n="about_v6_title">Always improving</div>
+      <p class="value-desc" data-i18n="about_v6_desc">Parts lists, prices, and guides are updated as the market changes. This isn't a set-and-forget site.</p>
+    </div>
+  </div>
+</section>
+
+ <div class="section-divider"></div>
+
+<section class="values-section">
+  <p class="section-eyebrow" data-i18n="services_eyebrow">Services</p>
+  <h2 class="section-title" data-i18n="services_title">Personal computer help, from someone who knows what they're doing.</h2>
+  <p class="hero-desc" style="margin-bottom: 1.5rem;" data-i18n="services_desc">Format, cleaning, upgrades &mdash; no hassle, in your area.</p>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-num">🧹</div>
+      <div class="value-title" data-i18n="services_s1_title">Computer Cleaning</div>
+      <p class="value-desc" data-i18n="services_s1_desc">Dust removal, thermal paste replacement, internal cleaning.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">💾</div>
+      <div class="value-title" data-i18n="services_s2_title">Format &amp; Windows Installation</div>
+      <p class="value-desc" data-i18n="services_s2_desc">Clean install, drivers, essential programs ready to use.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">⚙️</div>
+      <div class="value-title" data-i18n="services_s3_title">Hardware Upgrades</div>
+      <p class="value-desc" data-i18n="services_s3_desc">RAM, SSD, graphics card &mdash; whatever your PC needs.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">🐌</div>
+      <div class="value-title" data-i18n="services_s4_title">Slow Computer?</div>
+      <p class="value-desc" data-i18n="services_s4_desc">Diagnosis and performance speed-up.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-num">🔧</div>
+      <div class="value-title" data-i18n="services_s5_title">PC Assembly</div>
+      <p class="value-desc" data-i18n="services_s5_desc">Help choosing parts and full assembly from scratch.</p>
+    </div>
+  </div>
+
+  <div class="value-card" style="margin-top: 1.5rem; background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.2);">
+    <p class="value-desc" style="font-size: 0.9rem; color: var(--text);" data-i18n="services_price_note">💬 Prices depend on the job &mdash; message me for an estimate before we start anything.</p>
+    <div class="contact-links">
+      <a href="mailto:betterpcgreece@gmail.com" class="contact-link">✉️ Email</a>
+      <a href="https://www.instagram.com/betterpcgreece/" target="_blank" rel="noopener noreferrer" class="contact-link">📷 Instagram</a>
+      <a href="https://linktr.ee/betterpcgreece" target="_blank" rel="noopener noreferrer" class="contact-link">🔗 Linktree</a>
+      <a href="https://github.com/betterpcgreece" target="_blank" rel="noopener noreferrer" class="contact-link">💻 GitHub</a>
+    </div>
+  </div>
+
+  <p class="value-desc" style="margin-top: 1.2rem;" data-i18n="services_area">📍 Serving Chaidari and the wider Athens area. House visit or drop off your PC &mdash; whatever works for you.</p>
+
+  <div class="section-divider" style="margin: 2.5rem 0 1.5rem;"></div>
+
+  <h3 class="value-title" style="font-size: 1.1rem;" data-i18n="services_about_title">Who I am</h3>
+  <p class="value-desc" style="max-width: 650px;" data-i18n="services_about_desc">I work with PC hardware, build systems, and enjoy helping people fix their problems without paying a fortune at a store. If something's not working right, let's figure it out together.</p>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="story-section" id="faq">
+  <p class="section-eyebrow" data-i18n="faq_eyebrow">FAQ</p>
+  <h2 class="section-title" data-i18n="faq_title">Common questions</h2>
+
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary data-i18n="faq_q1">Do you work on old DDR2/DDR3 PCs, or only new builds?</summary>
+      <p data-i18n="faq_a1">Both. betterPC covers DDR2, DDR3, and brand-new platforms — the whole point of this site is that old hardware often still has real life left in it.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq_q2">Are the prices in the build configurator what I'll actually pay?</summary>
+      <p data-i18n="faq_a2">They're estimates that already include 24% Greek VAT and reflect realistic local pricing. Actual cost can shift with part availability, so message me to confirm before you buy.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq_q3">Do you come to my place, or do I bring you the PC?</summary>
+      <p data-i18n="faq_a3">Whichever is easier for you. I offer home visits around Chaidari and the wider Athens area, or you can drop the PC off.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq_q4">How much do repairs, upgrades, or builds cost?</summary>
+      <p data-i18n="faq_a4">It depends on the job — cleaning, upgrades, and full builds are priced differently. Message me with the details and you'll get an estimate before any work starts.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq_q5">Do you earn a commission on the parts you recommend?</summary>
+      <p data-i18n="faq_a5">No. betterPC doesn't run ads or take affiliate commissions — recommendations are based on value and availability, not on who pays the most.</p>
+    </details>
+    <details class="faq-item">
+      <summary data-i18n="faq_q6">Which areas do you actually service?</summary>
+      <p data-i18n="faq_a6">Chaidari and the wider Athens area.</p>
+    </details>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-card">
+    <h2 data-i18n="about_cta_title">Ready to build?</h2>
+    <p data-i18n="about_cta_desc">Use the configurator to price out your next PC &mdash; brand new, budget, or full legacy.</p>
+    <div class="cta-btns">
+      <a href="build.html" class="btn-primary" data-i18n="about_cta_btn_primary">&#x1F6E0; Open PC Configurator</a>
+      <a href="index.html" class="btn-outline" data-i18n="nav_back">&#x1F4D6; Back to the Guide</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>betterPC &copy; 2026 &mdash; <a href="index.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_back">Guide</a> &middot; <a href="build.html" style="color:var(--accent);text-decoration:none;" data-i18n="nav_build">Build</a> &middot; <a href="about.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_about">About</a></p>
+</footer>
+
+<script>
+  // 1. Multi-language Translation dictionary matrix
+  const dictionary = {
+    en: {
+      skip_to_content: "Skip to content",
+      nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Storage", nav_cpu: "CPU", nav_build: "Build", nav_about: "About us", nav_back: "← Back to Guide", footer_back: "Guide", footer_about: "About",
+      tag_pc_builder: "PC builder", tag_hardware_nerd: "Hardware nerd", tag_ddr2_survivor: "DDR2 survivor", tag_greek_market: "Greek market", tag_open_source: "Open source",
+      faq_eyebrow: "FAQ", faq_title: "Common questions", faq_q1: "Do you work on old DDR2/DDR3 PCs, or only new builds?", faq_a1: "Both. betterPC covers DDR2, DDR3, and brand-new platforms — the whole point of this site is that old hardware often still has real life left in it.", faq_q2: "Are the prices in the build configurator what I'll actually pay?", faq_a2: "They're estimates that already include 24% Greek VAT and reflect realistic local pricing. Actual cost can shift with part availability, so message me to confirm before you buy.", faq_q3: "Do you come to my place, or do I bring you the PC?", faq_a3: "Whichever is easier for you. I offer home visits around Chaidari and the wider Athens area, or you can drop the PC off.", faq_q4: "How much do repairs, upgrades, or builds cost?", faq_a4: "It depends on the job — cleaning, upgrades, and full builds are priced differently. Message me with the details and you'll get an estimate before any work starts.", faq_q5: "Do you earn a commission on the parts you recommend?", faq_a5: "No. betterPC doesn't run ads or take affiliate commissions — recommendations are based on value and availability, not on who pays the most.", faq_q6: "Which areas do you actually service?", faq_a6: "Chaidari and the wider Athens area.", about_hero_eyebrow: "Who we are", about_hero_title: "One person.<br>A <em>lot</em> of PCs.", about_hero_desc: "betterPC is a one-person project born out of a simple frustration: <strong>too many people overpay for PCs they don't understand</strong>, or throw away perfectly good old hardware because nobody told them it could run just fine.<br><br>Whether you're building a brand-new gaming rig or rescuing a DDR2 machine for a grandparent, this site has you covered.",
+      about_avatar_name: "The Creator", about_avatar_role: "Founder · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "PC enthusiast, tinkerer, and recycler of old hardware. I've built everything from budget DDR2 office boxes to water-cooled gaming rigs — and I think everyone deserves to know what's inside their machine.",
+      about_story_eyebrow: "The story", about_story_title: "Why better<span style='color: #ff7a00;'>PC</span> exists", about_story_h1: "The problem with old hardware", about_story_p1: "Greece has millions of PCs from the 2006–2015 era sitting in storage, still perfectly capable for everyday use, browsing, office work, even light gaming with a few upgrades. Instead of throwing them away, this site shows you how to bring them back to life for a fraction of the cost of buying new.", about_story_h2: "The build configurator", about_story_p2: "No other Greek PC guide covers DDR2 and DDR3 platforms in this kind of depth. The configurator walks you through compatible CPUs, RAM, and motherboards for your exact generation of hardware, so you don't waste money on parts that won't fit.", about_story_h3: "Made for the Greek market", about_story_p3: "Prices include 24% Greek VAT and reflect what you'd actually pay locally, not US or generic EU estimates. Every recommendation is checked against what's realistically available to buy in Greece right now.", about_story_h4: "Plain language, real knowledge", about_story_p4: "No jargon without explanation. Every guide on this site is written so that someone with zero technical background can follow it step by step, understand why each step matters, and end up actually learning something along the way.",
+      about_values_eyebrow: "Principles", about_values_title: "What better<span style='color: #ff7a00;'>PC</span> stands for", about_v1_title: "Honest pricing", about_v1_desc: "Prices are estimates, labelled as such. No inflated numbers to make builds look cheap by comparison.", about_v2_title: "No ads, no affiliates", about_v2_desc: "betterPC earns nothing from recommending specific brands. Picks are based on value and availability.", about_v3_title: "Old hardware matters", about_v3_desc: "DDR2 and DDR3 machines can still serve real purposes. Helping people get more life from them is worth it.", about_v4_title: "Compatibility first", about_v4_desc: "Nothing is recommended without a check. CPU–mobo–RAM compatibility is flagged before you waste money.", about_v5_title: "Greek context", about_v5_desc: "Prices, availability, and part advice are grounded in the Greek and broader EU market, not the US.", about_v6_title: "Always improving", about_v6_desc: "Parts lists, prices, and guides are updated as the market changes. This isn't a set-and-forget site.",
+      about_cta_title: "Ready to build?", about_cta_desc: "Use the configurator to price out your next PC — brand new, budget, or full legacy.", about_cta_btn_primary: "🛠️ Open PC Configurator", "services_eyebrow": "Services",
+    "services_title": "Personal computer help, from someone who knows what they're doing.",
+    "services_desc": "Format, cleaning, upgrades — no hassle, in your area.",
+    "services_s1_title": "Computer Cleaning",
+    "services_s1_desc": "Dust removal, thermal paste replacement, internal cleaning.",
+    "services_s2_title": "Format & Windows Installation",
+    "services_s2_desc": "Clean install, drivers, essential programs ready to use.",
+    "services_s3_title": "Hardware Upgrades",
+    "services_s3_desc": "RAM, SSD, graphics card — whatever your PC needs.",
+    "services_s4_title": "Slow Computer?",
+    "services_s4_desc": "Diagnosis and performance speed-up.",
+    "services_s5_title": "PC Assembly",
+    "services_s5_desc": "Help choosing parts and full assembly from scratch.",
+    "services_price_note": "💬 Prices depend on the job — message me for an estimate before we start anything.",
+    "services_area": "📍 Serving Chaidari and wider Athens basin. House visit or drop off your PC — whatever works for you.",
+    "services_about_title": "Who I am",
+    "services_about_desc": "I work with PC hardware, build systems, and enjoy helping people fix their problems without paying a fortune at a store. If something's not working right, let's figure it out together."
+    },
+    el: {
+      skip_to_content: "Μετάβαση στο περιεχόμενο",
+      nav_formats: "Κατηγορίες", nav_ram: "RAM", nav_storage: "Αποθήκευση", nav_cpu: "CPU", nav_build: "Στήσιμο PC", nav_about: "Σχετικά με εμάς", nav_back: "← Πίσω στον Οδηγό", footer_back: "Οδηγός", footer_about: "Σχετικά",
+      tag_pc_builder: "PC builder", tag_hardware_nerd: "Hardware nerd", tag_ddr2_survivor: "DDR2 survivor", tag_greek_market: "Ελληνική αγορά", tag_open_source: "Open source",
+      faq_eyebrow: "Συχνές ερωτήσεις", faq_title: "Συνήθεις ερωτήσεις", faq_q1: "Δουλεύετε με παλιά PC με DDR2/DDR3, ή μόνο με καινούργιες συναρμολογήσεις;", faq_a1: "Και τα δύο. Το betterPC καλύπτει DDR2, DDR3 και ολοκαίνουργιες πλατφόρμες — όλο το νόημα αυτού του site είναι ότι το παλιό hardware έχει συχνά ακόμα πραγματική ζωή μέσα του.", faq_q2: "Οι τιμές στον διαμορφωτή συναρμολόγησης είναι αυτές που θα πληρώσω τελικά;", faq_a2: "Είναι εκτιμήσεις που περιλαμβάνουν ήδη 24% ελληνικό ΦΠΑ και αντικατοπτρίζουν ρεαλιστικές τοπικές τιμές. Το πραγματικό κόστος μπορεί να αλλάξει ανάλογα με τη διαθεσιμότητα των εξαρτημάτων, οπότε στείλτε μου μήνυμα για επιβεβαίωση πριν αγοράσετε.", faq_q3: "Έρχεστε εσείς σε εμένα, ή φέρνω εγώ το PC σε εσάς;", faq_a3: "Ό,τι είναι πιο εύκολο για εσάς. Προσφέρω επισκέψεις στο σπίτι στο Χαϊδάρι και την ευρύτερη Αθήνα, ή μπορείτε να αφήσετε το PC σε εμένα.", faq_q4: "Πόσο κοστίζουν οι επισκευές, οι αναβαθμίσεις ή οι συναρμολογήσεις;", faq_a4: "Εξαρτάται από τη δουλειά — ο καθαρισμός, οι αναβαθμίσεις και οι πλήρεις συναρμολογήσεις τιμολογούνται διαφορετικά. Στείλτε μου τις λεπτομέρειες και θα λάβετε μια εκτίμηση πριν ξεκινήσει οποιαδήποτε εργασία.", faq_q5: "Παίρνετε προμήθεια από τα εξαρτήματα που προτείνετε;", faq_a5: "Όχι. Το betterPC δεν έχει διαφημίσεις ούτε παίρνει προμήθειες affiliate — οι προτάσεις βασίζονται στην αξία και τη διαθεσιμότητα, όχι σε ποιος πληρώνει περισσότερο.", faq_q6: "Ποιες περιοχές εξυπηρετείτε πραγματικά;", faq_a6: "Το Χαϊδάρι και την ευρύτερη περιοχή της Αθήνας.", about_hero_eyebrow: "Ποιοι ειμαστε", about_hero_title: "Ένας άνθρωπος.<br>Πολλά κομμάτια hardware.", about_hero_desc: "Το betterPC είναι ένα ατομικό project που γεννήθηκε από μια απλή απογοήτευση: <strong>πάρα πολλοί άνθρωποι πληρώνουν υπερβολικά ποσά για υπολογιστές που δεν καταλαβαίνουν</strong>, ή πετάνε απόλυτα λειτουργικό παλιό hardware επειδή κανείς δεν τους είπε ότι μπορεί να αποδώσει μια χαρά.<br><br>Είτε χτίζετε ένα ολοκαίνουργιο gaming rig είτε ανασταίνετε ένα μηχάνημα DDR2 για τον παππού και τη γιαγιά, αυτό το site σας καλύπτει.",
+      about_avatar_name: "Ο Δημιουργός", about_avatar_role: "Ιδρυτής · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "Λάτρης των PC, tinkerer και ανακυκλωτής παλιού υλικού. Έχω στήσει τα πάντα: από οικονομικά DDR2 κουτιά γραφείου μέχρι υδρόψυκτα gaming θηρία — και πιστεύω ότι όλοι αξίζουν να ξέρουν τι κρύβεται μέσα στο μηχάνημά τους.",
+      about_story_eyebrow: "Η ιστορια", about_story_title: "Γιατι υπαρχει το better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Το πρόβλημα με το παλιό hardware", about_story_p1: "Η Ελλάδα έχει εκατομμύρια PC της περιόδου 2006–2015 ξεχασμένα σε αποθήκες, απόλυτα ικανά ακόμα για καθημερινή χρήση, περιήγηση, δουλειά γραφείου, ακόμα και ελαφρύ gaming με λίγες αναβαθμίσεις. Αντί να τα πετάξεις, αυτός ο ιστότοπος σου δείχνει πώς να τους δώσεις νέα ζωή με κλάσμα του κόστους ενός καινούργιου.", about_story_h2: "Ο διαμορφωτής συστήματος", about_story_p2: "Κανένας άλλος ελληνικός οδηγός PC δεν καλύπτει πλατφόρμες DDR2 και DDR3 σε τέτοιο βάθος. Ο διαμορφωτής σε καθοδηγεί σε συμβατούς επεξεργαστές, μνήμες και μητρικές για την ακριβή γενιά του hardware σου, ώστε να μη σπαταλήσεις χρήματα σε εξαρτήματα που δεν ταιριάζουν.", about_story_h3: "Φτιαγμένο για την ελληνική αγορά", about_story_p3: "Οι τιμές περιλαμβάνουν 24% ΦΠΑ και αντικατοπτρίζουν τι θα πληρώσετε πραγματικά εδώ, όχι εκτιμήσεις από ΗΠΑ ή γενικές ευρωπαϊκές τιμές. Κάθε πρόταση ελέγχεται με βάση το τι είναι ρεαλιστικά διαθέσιμο για αγορά στην Ελλάδα αυτή τη στιγμή.", about_story_h4: "Απλή γλώσσα, ουσιαστική γνώση", about_story_p4: "Καμία ορολογία χωρίς επεξήγηση. Κάθε οδηγός σε αυτόν τον ιστότοπο είναι γραμμένος έτσι ώστε κάποιος χωρίς καμία τεχνική γνώση να μπορεί να τον ακολουθήσει βήμα-βήμα, να καταλάβει γιατί έχει σημασία κάθε βήμα, και τελικά να μάθει κάτι πραγματικά στην πορεία.",
+      about_values_eyebrow: "Αρχες", about_values_title: "Τι πρεσβευει το better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Ειλικρινείς τιμές", about_v1_desc: "Οι τιμές είναι εκτιμήσεις και επισημαίνονται ως τέτοιες. Όχι φουσκωμένα νούμερα απλά για να φαίνονται οι συνθέσεις φθηνές.", about_v2_title: "Χωρίς διαφημίσεις ή affiliates", about_v2_desc: "Το betterPC δεν κερδίζει τίποτα από την πρόταση συγκεκριμένων εταιρειών. Οι επιλογές βασίζονται στην αξία και τη διαθεσιμότητα.", about_v3_title: "Το παλιό hardware έχει αξία", about_v3_desc: "Τα μηχανήματα DDR2 και DDR3 μπορούν ακόμα να εξυπηρετήσουν πραγματικές ανάγκες. Αξίζει να βοηθάμε τον κόσμο να τους δώσει ζωή.", about_v4_title: "Προτεραιότητα στη συμβατότητα", about_v4_desc: "Τίποτα δεν προτείνεται χωρίς έλεγχο. Η συμβατότητα CPU–μητρικής–RAM ελέγχεται προτού σπαταλήσετε χρήματα.", about_v5_title: "Ελληνική πραγματικότητα", about_v5_desc: "Οι τιμές, η διαθεσιμότητα και οι συμβουλές εξαρτημάτων βασίζονται στην ελληνική και ευρύτερη ευρωπαϊκή αγορά, όχι των ΗΠΑ.", about_v6_title: "Συνεχής βελτίωση", about_v6_desc: "Οι λίστες ανταλλακτικών, οι τιμές και οι οδηγοί ενημερώνονται καθώς αλλάζει η αγορά. Δεν είναι ένα παρατημένο site.",
+      about_cta_title: "Είστε έτοιμοι για το στήσιμο;", about_cta_desc: "Χρησιμοποιήστε τον διαμορφωτή για να υπολογίσετε το κόστος του επόμενου PC σας — καινούργιο, οικονομικό ή legacy.", about_cta_btn_primary: "🛠️ Άνοιγμα Διαμορφωτή PC", "services_eyebrow": "Υπηρεσίες",
+    "services_title": "Βοήθεια με τον υπολογιστή σας, από κάποιον που ξέρει τι κάνει.",
+    "services_desc": "Format, καθαρισμός, αναβαθμίσεις — χωρίς ταλαιπωρία, στην περιοχή σας.",
+    "services_s1_title": "Καθαρισμός Υπολογιστή",
+    "services_s1_desc": "Αφαίρεση σκόνης, αντικατάσταση θερμοαγώγιμης πάστας, εσωτερικός καθαρισμός.",
+    "services_s2_title": "Format & Εγκατάσταση Windows",
+    "services_s2_desc": "Καθαρή εγκατάσταση, drivers, βασικά προγράμματα έτοιμα για χρήση.",
+    "services_s3_title": "Αναβαθμίσεις Hardware",
+    "services_s3_desc": "RAM, SSD, κάρτα γραφικών — ό,τι χρειάζεται ο υπολογιστής σας.",
+    "services_s4_title": "Αργός Υπολογιστής;",
+    "services_s4_desc": "Διάγνωση και βελτίωση απόδοσης.",
+    "services_s5_title": "Συναρμολόγηση PC",
+    "services_s5_desc": "Βοήθεια στην επιλογή εξαρτημάτων και πλήρης συναρμολόγηση από το μηδέν.",
+    "services_price_note": "💬 Οι τιμές εξαρτώνται από τη δουλειά — στείλτε μου μήνυμα για εκτίμηση πριν ξεκινήσουμε οτιδήποτε.",
+    "services_area": "📍 Εξυπηρετώ την περιοχή Χαϊδάρι και το ευρύτερο λεκανοπέδιο της Αθήνας. Επίσκεψη στο σπίτι ή φέρτε τον υπολογιστή σας — ό,τι σας βολεύει.",
+    "services_about_title": "Ποιος είμαι",
+    "services_about_desc": "Ασχολούμαι με hardware υπολογιστών, φτιάχνω συστήματα και μου αρέσει να βοηθάω τον κόσμο να λύσει τα προβλήματά του χωρίς να ξοδεύει μια περιουσία σε κατάστημα. Αν κάτι δεν λειτουργεί σωστά, ας το λύσουμε μαζί."
+    },
+    de: {
+      skip_to_content: "Zum Inhalt springen",
+      nav_formats: "Formate", nav_ram: "RAM", nav_storage: "Speicher", nav_cpu: "CPU", nav_build: "PC Bauen", nav_about: "Über uns", nav_back: "← Zurück zum Leitfaden", footer_back: "Leitfaden", footer_about: "Über uns",
+      tag_pc_builder: "PC-Builder", tag_hardware_nerd: "Hardware-Nerd", tag_ddr2_survivor: "DDR2-Überlebender", tag_greek_market: "Griechischer Markt", tag_open_source: "Open-Source",
+      faq_eyebrow: "FAQ", faq_title: "Häufige Fragen", faq_q1: "Arbeiten Sie an alten DDR2/DDR3-PCs, oder nur an Neubauten?", faq_a1: "Beides. betterPC deckt DDR2, DDR3 und brandneue Plattformen ab — der ganze Sinn dieser Seite ist, dass alte Hardware oft noch viel Leben in sich hat.", faq_q2: "Sind die Preise im Konfigurator das, was ich tatsächlich zahlen werde?", faq_a2: "Es handelt sich um Schätzungen, die bereits 24% griechische Mehrwertsteuer enthalten und realistische lokale Preise widerspiegeln. Die tatsächlichen Kosten können je nach Verfügbarkeit der Teile schwanken, schreiben Sie mir also zur Bestätigung, bevor Sie kaufen.", faq_q3: "Kommen Sie zu mir, oder bringe ich den PC zu Ihnen?", faq_a3: "Was auch immer für Sie einfacher ist. Ich biete Hausbesuche im Raum Haidari und dem Großraum Athen an, oder Sie können den PC vorbeibringen.", faq_q4: "Wie viel kosten Reparaturen, Upgrades oder Neubauten?", faq_a4: "Das hängt vom Job ab — Reinigung, Upgrades und komplette Builds werden unterschiedlich bepreist. Schreiben Sie mir die Details und Sie erhalten einen Kostenvoranschlag, bevor die Arbeit beginnt.", faq_q5: "Verdienen Sie Provision an den empfohlenen Teilen?", faq_a5: "Nein. betterPC schaltet keine Werbung und nimmt keine Affiliate-Provisionen — Empfehlungen basieren auf Preis-Leistung und Verfügbarkeit, nicht darauf, wer am meisten zahlt.", faq_q6: "Welche Gebiete bedienen Sie tatsächlich?", faq_a6: "Haidari und den Großraum Athen.", about_hero_eyebrow: "Wer wir sind", about_hero_title: "Eine Person.<br>Viele PCs.", about_hero_desc: "betterPC ist ein Ein-Personen-Projekt, das aus einer einfachen Frustration heraus entstanden ist: <strong>Zu viele Menschen zahlen zu viel für PCs, die sie nicht verstehen</strong>, oder werfen perfekt funktionierende alte Hardware weg, weil ihnen niemand gesagt hat, dass sie noch einwandfrei laufen würde.<br><br>Egal, ob Sie einen brandneuen Gaming-Rig bauen oder eine DDR2-Maschine für die Großeltern retten, diese Website hilft Ihnen weiter.",
+      about_avatar_name: "Der Ersteller", about_avatar_role: "Gründer · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "PC-Enthusiast, Bastler und Recycler alter Hardware. Ich habe alles gebaut, von günstigen DDR2-Büroboxen bis hin zu wassergekühlten Gaming-Rigs – und ich finde, jeder sollte wissen, was in seiner Maschine steckt.",
+      about_story_eyebrow: "Die Geschichte", about_story_title: "Warum es better<span style='color: #ff7a00;'>PC</span> gibt", about_story_h1: "Das Problem mit alter Hardware", about_story_p1: "Griechenland hat Millionen von PCs aus den Jahren 2006–2015 ungenutzt in Lagern liegen, die für den Alltag, Surfen, Büroarbeit oder mit ein paar Upgrades sogar leichtes Gaming noch völlig ausreichen. Statt sie wegzuwerfen, zeigt diese Website, wie man sie für einen Bruchteil des Neupreises wieder zum Leben erweckt.", about_story_h2: "Der Build-Konfigurator", about_story_p2: "Kein anderer griechischer PC-Leitfaden deckt DDR2- und DDR3-Plattformen so ausführlich ab. Der Konfigurator führt Sie durch kompatible CPUs, RAM und Mainboards für genau Ihre Hardware-Generation, damit Sie kein Geld für Teile ausgeben, die nicht passen.", about_story_h3: "Für den griechischen Markt gemacht", about_story_p3: "Die Preise enthalten 24% griechische MwSt. und entsprechen dem, was Sie vor Ort tatsächlich zahlen würden, nicht US- oder allgemeinen EU-Schätzungen. Jede Empfehlung wird darauf geprüft, was in Griechenland gerade realistisch erhältlich ist.", about_story_h4: "Klare Sprache, echtes Wissen", about_story_p4: "Kein Fachjargon ohne Erklärung. Jeder Leitfaden auf dieser Website ist so geschrieben, dass auch technische Laien ihm Schritt für Schritt folgen, verstehen können, warum jeder Schritt wichtig ist, und dabei tatsächlich etwas lernen.",
+      about_values_eyebrow: "Prinzipien", about_values_title: "Wofür better<span style='color: #ff7a00;'>PC</span> steht", about_v1_title: "Ehrliche Preise", about_v1_desc: "Preise sind Schätzungen und als solche gekennzeichnet. Keine künstlich niedrigen Zahlen, um Builds billig wirken zu lassen.", about_v2_title: "Keine Werbung, keine Affiliates", about_v2_desc: "betterPC verdient nichts an Empfehlungen bestimmter Marken. Die Auswahl basiert auf Nutzen und Verfügbarkeit.", about_v3_title: "Alte Hardware zählt", about_v3_desc: "DDR2- und DDR3-Systeme können immer noch nützliche Dienste leisten. Es lohnt sich, ihnen neues Leben einzuhauchen.", about_v4_title: "Kompatibilität zuerst", about_v4_desc: "Nichts wird ohne Prüfung empfohlen. Die CPU-Mainboard-RAM-Kompatibilität wird geprüft, bevor Sie Geld verschwenden.", about_v5_title: "Griechischer Kontext", about_v5_desc: "Preise, Verfügbarkeit und Ratschläge basieren auf dem griechischen und EU-Markt, not auf den USA.", about_v6_title: "Ständige Verbesserung", about_v6_desc: "Teilelisten, Preise und Leitfäden werden aktualisiert, wenn sich der Markt ändert. Keine verwaiste Seite.",
+      about_cta_title: "Bereit zum Bauen?", about_cta_desc: "Nutzen Sie den Konfigurator, um Ihren nächsten PC zu planen – brandneu, Budget oder klassisches Legacy-System.", about_cta_btn_primary: "🛠️ PC-Konfigurator öffnen", "services_eyebrow": "Services",
+    "services_eyebrow": "Dienstleistungen",
+    "services_title": "PC-Hilfe von jemandem, der weiß, was er tut.",
+    "services_desc": "Formatierung, Reinigung, Upgrades — unkompliziert, in Ihrer Nähe.",
+    "services_s1_title": "Computerreinigung",
+    "services_s1_desc": "Staubentfernung, Wärmeleitpasten-Wechsel, Innenreinigung.",
+    "services_s2_title": "Formatierung & Windows-Installation",
+    "services_s2_desc": "Saubere Installation, Treiber, wichtige Programme einsatzbereit.",
+    "services_s3_title": "Hardware-Upgrades",
+    "services_s3_desc": "RAM, SSD, Grafikkarte — was Ihr PC auch braucht.",
+    "services_s4_title": "Langsamer Computer?",
+    "services_s4_desc": "Diagnose und Leistungssteigerung.",
+    "services_s5_title": "PC-Zusammenbau",
+    "services_s5_desc": "Hilfe bei der Teileauswahl und komplette Montage von Grund auf.",
+    "services_price_note": "💬 Die Preise hängen vom Auftrag ab — schreiben Sie mir für ein Angebot, bevor wir beginnen.",
+    "services_area": "📍 Ich bin im Gebiet Haidari und im Großraum Athen tätig.. Hausbesuch oder Abgabe Ihres PCs — was Ihnen lieber ist.",
+    "services_about_title": "Wer ich bin",
+    "services_about_desc": "Ich arbeite mit PC-Hardware, baue Systeme und helfe gerne Menschen, ihre Probleme zu lösen, ohne im Laden ein Vermögen auszugeben. Wenn etwas nicht richtig funktioniert, finden wir es gemeinsam heraus."
+  },
+    es: {
+      skip_to_content: "Saltar al contenido",
+      nav_formats: "Formatos", nav_ram: "RAM", nav_storage: "Almacenamiento", nav_cpu: "CPU", nav_build: "Configurar PC", nav_about: "Sobre nosotros", nav_back: "← Volver a la Guía", footer_back: "Guía", footer_about: "Acerca de",
+      tag_pc_builder: "Montador de PC", tag_hardware_nerd: "Nerd del hardware", tag_ddr2_survivor: "Superviviente DDR2", tag_greek_market: "Mercado griego", tag_open_source: "Código abierto",
+      faq_eyebrow: "Preguntas frecuentes", faq_title: "Preguntas comunes", faq_q1: "¿Trabajas con PCs antiguos DDR2/DDR3, o solo con equipos nuevos?", faq_a1: "Ambos. betterPC cubre DDR2, DDR3 y plataformas totalmente nuevas — el objetivo de este sitio es que el hardware antiguo a menudo todavía tiene mucha vida útil.", faq_q2: "¿Los precios del configurador son lo que realmente pagaré?", faq_a2: "Son estimaciones que ya incluyen el 24% de IVA griego y reflejan precios locales realistas. El costo real puede variar según la disponibilidad de las piezas, así que escríbeme para confirmar antes de comprar.", faq_q3: "¿Vienes tú a mi casa, o llevo yo el PC?", faq_a3: "Lo que te resulte más fácil. Ofrezco visitas a domicilio en Chaidari y el área metropolitana de Atenas, o puedes traerme el PC.", faq_q4: "¿Cuánto cuestan las reparaciones, actualizaciones o montajes?", faq_a4: "Depende del trabajo — la limpieza, las actualizaciones y los montajes completos tienen precios diferentes. Envíame los detalles y recibirás un presupuesto antes de empezar cualquier trabajo.", faq_q5: "¿Ganas comisión por las piezas que recomiendas?", faq_a5: "No. betterPC no tiene publicidad ni recibe comisiones de afiliados — las recomendaciones se basan en la relación calidad-precio y la disponibilidad, no en quién paga más.", faq_q6: "¿Qué zonas atiendes realmente?", faq_a6: "Chaidari y el área metropolitana de Atenas.", about_hero_eyebrow: "Quiénes somos", about_hero_title: "Una persona.<br>Muchos ordenadores.", about_hero_desc: "betterPC es un proyecto unipersonal nacido de una frustración simple: <strong>mucha gente paga de más por ordenadores que no entiende</strong>, o desecha hardware antiguo perfectamente funcional porque nadie les dijo que podía rendir bien.<br><br>Ya sea que estés montando un equipo de juegos nuevo o rescatando una máquina DDR2 para tus abuelos, este sitio te ayuda.",
+      about_avatar_name: "El Creador", about_avatar_role: "Fundador · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "Entusiasta de la informática, reparador y reciclador de hardware antiguo. He montado de todo, desde cajas de oficina DDR2 económicas hasta equipos gaming refrigerados por agua, y creo que todos merecen saber qué hay dentro de su máquina.",
+      about_story_eyebrow: "La historia", about_story_title: "Por qué existe better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "El problema del hardware antiguo", about_story_p1: "Grecia tiene millones de PC de la era 2006–2015 acumulando polvo en almacenes, todavía perfectamente capaces para el uso diario, navegación, trabajo de oficina, e incluso juegos ligeros con unas pocas mejoras. En lugar de tirarlos, este sitio te muestra cómo devolverles la vida por una fracción del precio de uno nuevo.", about_story_h2: "El configurador de equipos", about_story_p2: "Ninguna otra guía de PC en Grecia cubre plataformas de legado DDR2 y DDR3 con este nivel de detalle. El configurador te guía por CPUs, RAM y placas base compatibles con tu generación exacta de hardware, para que no gastes dinero en piezas que no encajan.", about_story_h3: "Hecho para el mercado griego", about_story_p3: "Los precios incluyen el 24% de IVA griego y reflejan lo que realmente pagarías a nivel local, no estimaciones de EE. UU. o genéricas de la UE. Cada recomendación se verifica contra lo que está realmente disponible para comprar en Grecia ahora mismo.", about_story_h4: "Lenguaje sencillo, conocimiento real", about_story_p4: "Sin tecnicismos innecesarios sin explicación. Cada guía en este sitio está escrita para que alguien sin conocimientos técnicos pueda seguirla paso a paso, entender por qué importa cada paso, y terminar aprendiendo algo de verdad en el camino.",
+      about_values_eyebrow: "Principios", about_values_title: "Lo que defiende better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Precios honestos", about_v1_desc: "Los precios son estimaciones y se marcan como tales. No inflamos números para hacer que los montajes parezcan baratos.", about_v2_title: "Sin anuncios ni afiliados", about_v2_desc: "betterPC no gana nada recomendando marcas específicas. Las elecciones se basan en el valor y disponibilidad real.", about_v3_title: "El hardware antiguo importa", about_v3_desc: "Las máquinas DDR2 y DDR3 aún pueden cumplir propósitos reales. Ayudar a la gente a darles más vida vale la pena.", about_v4_title: "Compatibilidad primero", about_v4_desc: "No se recomienda nada sin una verificación previa. La comodidad de la compatibilidad CPU–placa–RAM se analiza antes de que gastes dinero.", about_v5_title: "Contexto griego", about_v5_desc: "Los precios, la disponibilidad y los consejos de componentes se basan en el mercado griego y de la UE, no en el de EE. UU.", about_v6_title: "Mejora continua", about_v6_desc: "Las listas de piezas, precios y guías se actualizan a medida que cambia el mercado. Este no es un sitio web abandonado.",
+      about_cta_title: "¿Listo para montar?", about_cta_desc: "Usa el configurador para calcular el precio de tu próximo PC: nuevo, económico o de legado completo.", about_cta_btn_primary: "🛠️ Abrir Configurador de PC", "services_eyebrow": "Servicios",
+    "services_title": "Ayuda con tu computadora, de parte de alguien que sabe lo que hace.",
+    "services_desc": "Formateo, limpieza, mejoras — sin complicaciones, en tu zona.",
+    "services_s1_title": "Limpieza de computadora",
+    "services_s1_desc": "Eliminación de polvo, cambio de pasta térmica, limpieza interna.",
+    "services_s2_title": "Formateo e Instalación de Windows",
+    "services_s2_desc": "Instalación limpia, controladores, programas esenciales listos para usar.",
+    "services_s3_title": "Mejoras de Hardware",
+    "services_s3_desc": "RAM, SSD, tarjeta gráfica — lo que sea que tu PC necesite.",
+    "services_s4_title": "¿Computadora lenta?",
+    "services_s4_desc": "Diagnóstico y mejora del rendimiento.",
+    "services_s5_title": "Ensamblaje de PC",
+    "services_s5_desc": "Ayuda para elegir componentes y ensamblaje completo desde cero.",
+    "services_price_note": "💬 Los precios dependen del trabajo — escríbeme para un presupuesto antes de empezar cualquier cosa.",
+    "services_area": "📍 Atiendo Chaidari y el área metropolitana de Atenas. Visita a domicilio o trae tu PC — lo que te resulte mejor.",
+    "services_about_title": "Quién soy",
+    "services_about_desc": "Trabajo con hardware de PC, armo sistemas y disfruto ayudando a la gente a resolver sus problemas sin pagar una fortuna en una tienda. Si algo no funciona bien, resolvámoslo juntos."
+    },
+    fr: {
+      skip_to_content: "Passer au contenu",
+      nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Stockage", nav_cpu: "CPU", nav_build: "Construire", nav_about: "À propos", nav_back: "← Retour au guide", footer_back: "Guide", footer_about: "À propos",
+      tag_pc_builder: "Monteur PC", tag_hardware_nerd: "Nerd hardware", tag_ddr2_survivor: "Survivant DDR2", tag_greek_market: "Marché grec", tag_open_source: "Open source",
+      faq_eyebrow: "FAQ", faq_title: "Questions fréquentes", faq_q1: "Travaillez-vous sur d'anciens PC DDR2/DDR3, ou uniquement sur des configurations neuves ?", faq_a1: "Les deux. betterPC couvre le DDR2, le DDR3 et les plateformes toutes neuves — l'idée de ce site est que le matériel ancien a souvent encore une vraie durée de vie devant lui.", faq_q2: "Les prix du configurateur sont-ils ce que je paierai réellement ?", faq_a2: "Ce sont des estimations qui incluent déjà la TVA grecque de 24% et reflètent des prix locaux réalistes. Le coût réel peut varier selon la disponibilité des pièces, donc contactez-moi pour confirmer avant d'acheter.", faq_q3: "Venez-vous chez moi, ou est-ce moi qui apporte le PC ?", faq_a3: "Ce qui est le plus simple pour vous. Je propose des visites à domicile dans le quartier de Haidari et le bassin élargi d'Athènes, ou vous pouvez déposer votre PC.", faq_q4: "Combien coûtent les réparations, mises à niveau ou montages ?", faq_a4: "Cela dépend du travail — le nettoyage, les mises à niveau et les montages complets sont facturés différemment. Envoyez-moi les détails et vous recevrez une estimation avant que le travail ne commence.", faq_q5: "Touchez-vous une commission sur les pièces que vous recommandez ?", faq_a5: "Non. betterPC ne diffuse pas de publicité et ne perçoit pas de commissions d'affiliation — les recommandations se basent sur le rapport qualité-prix et la disponibilité, pas sur qui paie le plus.", faq_q6: "Quelles zones desservez-vous réellement ?", faq_a6: "Haidari et le bassin élargi d'Athènes.", about_hero_eyebrow: "Qui sommes-nous", about_hero_title: "Une personne.<br>Beaucoup <em>de</em> PC.", about_hero_desc: "betterPC est un projet solo né d'une frustration simple : <strong>trop de gens paient trop cher pour des PC qu'ils ne comprennent pas</strong>, ou jettent du vieux matériel parfaitement fonctionnel. <br><br>Que vous montiez une machine de jeu flambant neuve ou que vous sauviez un PC DDR2, ce site est là pour vous.",
+      about_avatar_name: "Le Créateur", about_avatar_role: "Fondateur · betterPC", about_avatar_bio: "Passionné de PC et adepte du recyclage matériel. J'ai tout construit, des boîtiers de bureau DDR2 aux rigs de jeu refroidis par eau.",
+      about_story_eyebrow: "L'histoire", about_story_title: "Pourquoi better<span style='color: #ff7a00;'>PC</span> existe", about_story_h1: "Le problème du vieux matériel", about_story_p1: "La Grèce a des millions de PC de l'ère 2006-2015 oubliés dans des entrepôts, encore parfaitement capables pour un usage quotidien, la navigation, le travail de bureau, voire du jeu léger avec quelques mises à niveau. Plutôt que de les jeter, ce site vous montre comment leur redonner vie pour une fraction du prix du neuf.", about_story_h2: "Le configurateur", about_story_p2: "Aucun autre guide grec ne couvre les plateformes DDR2 et DDR3 avec un tel niveau de détail. Le configurateur vous guide vers les CPU, RAM et cartes mères compatibles avec votre génération exacte de matériel, pour ne pas gaspiller d'argent sur des pièces incompatibles.", about_story_h3: "Pour le marché grec", about_story_p3: "Les prix incluent 24% de TVA grecque et reflètent ce que vous paieriez réellement sur place, pas des estimations américaines ou européennes génériques. Chaque recommandation est vérifiée par rapport à ce qui est réellement disponible à l'achat en Grèce en ce moment.", about_story_h4: "Langage simple", about_story_p4: "Pas de jargon inutile. Chaque guide est écrit pour être compris pas à pas par quelqu'un sans aucune connaissance technique, pour expliquer pourquoi chaque étape compte, et pour qu'on en ressorte en ayant vraiment appris quelque chose.",
+      about_values_eyebrow: "Principes", about_values_title: "Ce que défend better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Prix honnêtes", about_v1_desc: "Estimations transparentes sans chiffres gonflés.", about_v2_title: "Sans pub ni affiliation", about_v2_desc: "Aucune commission sur les marques recommandées.", about_v3_title: "Le vieux matériel compte", about_v3_desc: "Donner une seconde vie aux machines DDR2/DDR3 en vaut la peine.", about_v4_title: "Compatibilité avant tout", about_v4_desc: "Vérification systématique CPU-mobo-RAM.", about_v5_title: "Contexte grec", about_v5_desc: "Basé sur le marché local et européen.", about_v6_title: "Amélioration continue", about_v6_desc: "Mises à jour constantes selon l'évolution du marché.",
+      about_cta_title: "Prêt à construire ?", about_cta_desc: "Utilisez le configurateur pour chiffrer votre prochain PC.", about_cta_btn_primary: "🛠️ Ouvrir le configurateur",
+    "services_eyebrow": "Services",
+    "services_title": "Une aide informatique de la part de quelqu'un qui sait ce qu'il fait.",
+    "services_desc": "Formatage, nettoyage, mises à niveau — sans tracas, près de chez vous.",
+    "services_s1_title": "Nettoyage d'ordinateur",
+    "services_s1_desc": "Dépoussiérage, remplacement de pâte thermique, nettoyage interne.",
+    "services_s2_title": "Formatage & Installation Windows",
+    "services_s2_desc": "Installation propre, pilotes, programmes essentiels prêts à l'emploi.",
+    "services_s3_title": "Mises à niveau matérielles",
+    "services_s3_desc": "RAM, SSD, carte graphique — tout ce dont votre PC a besoin.",
+    "services_s4_title": "Ordinateur lent ?",
+    "services_s4_desc": "Diagnostic et amélioration des performances.",
+    "services_s5_title": "Assemblage de PC",
+    "services_s5_desc": "Aide au choix des composants et assemblage complet depuis zéro.",
+    "services_price_note": "💬 Les prix dépendent du travail — contactez-moi pour un devis avant de commencer.",
+    "services_area": "📍 Je dessers le quartier de Haidari et le bassin élargi d'Athènes. Visite à domicile ou dépôt de votre PC — comme vous préférez.",
+    "services_about_title": "Qui je suis",
+    "services_about_desc": "Je travaille avec le matériel informatique, je monte des systèmes et j'aime aider les gens à résoudre leurs problèmes sans payer une fortune en magasin. Si quelque chose ne fonctionne pas bien, trouvons la solution ensemble."
+  },
+    ru: {
+      skip_to_content: "Перейти к содержимому",
+      nav_formats: "Форматы", nav_ram: "RAM", nav_storage: "Хранилище", nav_cpu: "CPU", nav_build: "Сборка", nav_about: "О нас", nav_back: "← Назад к гиду", footer_back: "Гид", footer_about: "О нас",
+      tag_pc_builder: "Сборщик ПК", tag_hardware_nerd: "Железячник", tag_ddr2_survivor: "Выживший DDR2", tag_greek_market: "Греческий рынок", tag_open_source: "Open source",
+      faq_eyebrow: "Вопросы и ответы", faq_title: "Частые вопросы", faq_q1: "Вы работаете со старыми ПК на DDR2/DDR3, или только с новыми сборками?", faq_a1: "И то, и другое. betterPC охватывает DDR2, DDR3 и совершенно новые платформы — весь смысл этого сайта в том, что старое железо часто ещё далеко не исчерпало свой ресурс.", faq_q2: "Цены в конфигураторе сборки — это то, что я реально заплачу?", faq_a2: "Это оценочные цены, которые уже включают 24% греческого НДС и отражают реалистичные местные цены. Фактическая стоимость может меняться в зависимости от наличия комплектующих, поэтому напишите мне для подтверждения перед покупкой.", faq_q3: "Вы приезжаете ко мне, или я привожу ПК вам?", faq_a3: "Как вам удобнее. Я предлагаю выезд на дом в районе Хайдари и по всей Афинской агломерации, либо вы можете привезти ПК сами.", faq_q4: "Сколько стоит ремонт, апгрейд или сборка?", faq_a4: "Зависит от работы — чистка, апгрейды и полные сборки оцениваются по-разному. Напишите мне детали, и вы получите оценку стоимости до начала любых работ.", faq_q5: "Вы получаете комиссию с рекомендуемых комплектующих?", faq_a5: "Нет. betterPC не показывает рекламу и не получает партнёрские комиссии — рекомендации основаны на соотношении цены и качества, а не на том, кто больше платит.", faq_q6: "Какие районы вы на самом деле обслуживаете?", faq_a6: "Хайдари и более широкую афинскую агломерацию.", about_hero_eyebrow: "Кто мы", about_hero_title: "Один человек.<br>Много <em>ПК</em>.", about_hero_desc: "betterPC — это проект одного человека, рожденный из простой мысли: <strong>многие переплачивают за ПК, которых не понимают</strong>, или выбрасывают хорошее старое железо. <br><br>Собираете ли вы мощный игровой ПК или спасаете старый DDR2 — этот сайт поможет.",
+      about_avatar_name: "Создатель", about_avatar_role: "Основатель · betterPC", about_avatar_bio: "Энтузиаст ПК и мастер по восстановлению старого железа. Собирал всё: от бюджетных офисных DDR2 до мощных игровых систем.",
+      about_story_eyebrow: "История", about_story_title: "Почему существует better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Проблема старого железа", about_story_p1: "В Греции миллионы ПК 2006–2015 годов пылятся на складах, хотя они всё ещё вполне пригодны для повседневных задач, серфинга, офисной работы и даже лёгких игр после пары апгрейдов. Вместо того чтобы выбрасывать их, этот сайт показывает, как вернуть их к жизни за небольшую часть стоимости нового ПК.", about_story_h2: "Конфигуратор сборки", about_story_p2: "Ни один другой греческий гайд не охватывает DDR2 и DDR3 настолько подробно. Конфигуратор подскажет совместимые процессоры, память и материнские платы именно для вашего поколения железа, чтобы не тратить деньги на детали, которые не подойдут.", about_story_h3: "Для греческого рынка", about_story_p3: "Цены включают греческий НДС 24% и отражают реальную стоимость на месте, а не оценки для США или обобщённые европейские цены. Каждая рекомендация проверяется на то, что реально доступно для покупки в Греции прямо сейчас.", about_story_h4: "Простой язык", about_story_p4: "Никакого сложного жаргона. Каждый гайд на этом сайте написан так, чтобы человек без технической подготовки мог пройти его шаг за шагом, понять, почему важен каждый шаг, и в итоге действительно чему-то научиться.",
+      about_values_eyebrow: "Принципы", about_values_title: "What better<span style='color: #ff7a00;'>PC</span> stands for", about_v1_title: "Честные цены", about_v1_desc: "Реальные оценки без искусственного завышения.", about_v2_title: "Без рекламы и партнерок", about_v2_desc: "Мы не зарабатываем на рекомендациях брендов.", about_v3_title: "Старое железо важно", about_v3_desc: "Машины на DDR2/DDR3 всё ещё могут приносить пользу.", about_v4_title: "Совместимость прежде всего", about_v4_desc: "Всегда проверяем связки CPU-плата-RAM.", about_v5_title: "Греческий контекст", about_v5_desc: "Цены и советы основаны на местном рынке.", about_v6_title: "Постоянное улучшение", about_v6_desc: "Гайды обновляются вслед за рынком.",
+      about_cta_title: "Готовы к сборке?", about_cta_desc: "Используйте конфигуратор для расчета стоимости вашего ПК.", about_cta_btn_primary: "🛠️ Открыть конфигуратор", "services_eyebrow": "Услуги",
+    "services_title": "Помощь с компьютером от того, кто действительно разбирается в деле.",
+    "services_desc": "Форматирование, чистка, апгрейд — без лишних хлопот, в вашем районе.",
+    "services_s1_title": "Чистка компьютера",
+    "services_s1_desc": "Удаление пыли, замена термопасты, внутренняя чистка.",
+    "services_s2_title": "Форматирование и установка Windows",
+    "services_s2_desc": "Чистая установка, драйверы, основные программы готовы к использованию.",
+    "services_s3_title": "Апгрейд оборудования",
+    "services_s3_desc": "ОЗУ, SSD, видеокарта — всё, что нужно вашему ПК.",
+    "services_s4_title": "Медленный компьютер?",
+    "services_s4_desc": "Диагностика и повышение производительности.",
+    "services_s5_title": "Сборка ПК",
+    "services_s5_desc": "Помощь в выборе комплектующих и полная сборка с нуля.",
+    "services_price_note": "💬 Цена зависит от объёма работы — напишите мне для оценки, прежде чем мы начнём.",
+    "services_area": "📍 Я обслуживаю район Хайдари и территорию афинской котловины. Выезд на дом или привезите свой ПК — как вам удобнее.",
+    "services_about_title": "Кто я",
+    "services_about_desc": "Я работаю с компьютерным железом, собираю системы и люблю помогать людям решать их проблемы, не тратя целое состояние в магазине. Если что-то работает не так, давайте разберёмся вместе."
+  
+    },
+    sr: {
+      skip_to_content: "Preskoči na sadržaj",
+      nav_formats: "Formati", nav_ram: "RAM", nav_storage: "Skladištenje", nav_cpu: "CPU", nav_build: "Sastavi PC", nav_about: "O nama", nav_back: "← Nazad na vodič", footer_back: "Vodič", footer_about: "O nama",
+      tag_pc_builder: "PC builder", tag_hardware_nerd: "Hardware nerd", tag_ddr2_survivor: "DDR2 preživeli", tag_greek_market: "Grčko tržište", tag_open_source: "Otvoreni kod",
+      faq_eyebrow: "Česta pitanja", faq_title: "Najčešća pitanja", faq_q1: "Da li radite na starim DDR2/DDR3 računarima, ili samo na novim sklopovima?", faq_a1: "Oboje. betterPC pokriva DDR2, DDR3 i potpuno nove platforme — cela poenta ovog sajta je da stari hardver često još uvek ima pravog života u sebi.", faq_q2: "Da li su cene u konfiguratoru ono što ću zaista platiti?", faq_a2: "To su procene koje već uključuju 24% grčkog PDV-a i odražavaju realne lokalne cene. Stvarna cena može da se promeni u zavisnosti od dostupnosti delova, zato mi pišite da potvrdimo pre kupovine.", faq_q3: "Da li dolazite kod mene, ili ja donosim računar vama?", faq_a3: "Šta god vama odgovara. Nudim posete na kućnu adresu u okolini Haidarija i šire oblasti atinske kotline, ili možete doneti računar meni.", faq_q4: "Koliko koštaju popravke, nadogradnje ili sklapanja?", faq_a4: "Zavisi od posla — čišćenje, nadogradnje i kompletna sklapanja se drugačije naplaćuju. Pošaljite mi detalje i dobićete procenu pre nego što bilo šta počne.", faq_q5: "Da li zarađujete proviziju na delove koje preporučujete?", faq_a5: "Ne. betterPC ne prikazuje reklame niti uzima partnerske provizije — preporuke se zasnivaju na vrednosti i dostupnosti, a ne na tome ko najviše plaća.", faq_q6: "Koje oblasti zaista pokrivate?", faq_a6: "Haidari i širu oblast atinske kotline.", about_hero_eyebrow: "Ko smo mi", about_hero_title: "Jedna osoba.<br>Mnogo <em>računara</em>.", about_hero_desc: "betterPC je projekat jedne osobe, nastao iz jednostavne frustracije: <strong>previše ljudi preplaćuje za računare koje ne razumeju</strong>, ili bacaju sasvim ispravan stari hardver jer im niko nije rekao da i dalje odlično radi.<br><br>Bilo da sastavljate potpuno nov gejmerski računar ili spasavate DDR2 mašinu za baku i deku, ovaj sajt je tu za vas.",
+      about_avatar_name: "Tvorac", about_avatar_role: "Osnivač · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "Ljubitelj računara, majstor za petljanje i reciklažu starog hardvera. Sastavljao sam sve, od budžetskih DDR2 kancelarijskih mašina do vodeno hlađenih gejmerskih monstruma — i verujem da svako zaslužuje da zna šta se nalazi u njegovom računaru.",
+      about_story_eyebrow: "Priča", about_story_title: "Zašto better<span style='color: #ff7a00;'>PC</span> postoji", about_story_h1: "Problem sa starim hardverom", about_story_p1: "Grčka ima milione računara iz perioda 2006–2015 koji stoje po magacinima, a i dalje su sasvim sposobni za svakodnevnu upotrebu, pregledanje interneta, kancelarijski rad, pa čak i lakše igranje uz nekoliko nadogradnji. Umesto da ih bacite, ovaj sajt vam pokazuje kako da ih vratite u život za deo cene novog računara.", about_story_h2: "Konfigurator sastavljanja", about_story_p2: "Nijedan drugi grčki vodič ne pokriva DDR2 i DDR3 platforme ovako detaljno. Konfigurator vas vodi kroz kompatibilne procesore, memoriju i matične ploče za tačno vašu generaciju hardvera, kako ne biste trošili novac na delove koji ne odgovaraju.", about_story_h3: "Napravljeno za grčko tržište", about_story_p3: "Cene uključuju 24% grčkog PDV-a i odražavaju ono što biste zaista platili lokalno, a ne američke ili opšte evropske procene. Svaka preporuka je proverena u odnosu na ono što je realno dostupno za kupovinu u Grčkoj upravo sada.", about_story_h4: "Jednostavan jezik, stvarno znanje", about_story_p4: "Bez žargona bez objašnjenja. Svaki vodič na ovom sajtu je napisan tako da neko bez ikakvog tehničkog predznanja može da ga prati korak po korak, razume zašto je svaki korak važan i na kraju zaista nešto nauči usput.",
+      about_values_eyebrow: "Principi", about_values_title: "Za šta se zalaže better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Poštene cene", about_v1_desc: "Cene su procene i tako su i označene. Nema naduvanih brojeva da bi konfiguracije izgledale jeftinije.", about_v2_title: "Bez reklama i partnerskih linkova", about_v2_desc: "betterPC ne zarađuje ništa preporučivanjem određenih brendova. Izbori se zasnivaju na vrednosti i dostupnosti.", about_v3_title: "Stari hardver je bitan", about_v3_desc: "DDR2 i DDR3 mašine i dalje mogu služiti svrsi. Vredi pomoći ljudima da im produže vek trajanja.", about_v4_title: "Kompatibilnost na prvom mestu", about_v4_desc: "Ništa se ne preporučuje bez provere. Kompatibilnost CPU–matična ploča–RAM se proverava pre nego što potrošite novac.", about_v5_title: "Grčki kontekst", about_v5_desc: "Cene, dostupnost i saveti o delovima zasnovani su na grčkom i širem EU tržištu, a ne na američkom.", about_v6_title: "Stalno unapređenje", about_v6_desc: "Liste delova, cene i vodiči se ažuriraju kako se tržište menja. Ovo nije sajt koji je zaboravljen.",
+      about_cta_title: "Spremni za sastavljanje?", about_cta_desc: "Koristite konfigurator da odredite cenu vašeg sledećeg računara — potpuno novog, budžetskog ili potpuno starog.", about_cta_btn_primary: "🛠️ Otvori Konfigurator PC-a", "services_eyebrow": "Usluge",
+    "services_title": "Pomoć za vaš računar, od nekoga ko zna šta radi.",
+    "services_desc": "Formatiranje, čišćenje, nadogradnje — bez muke, u vašoj oblasti.",
+    "services_s1_title": "Čišćenje računara",
+    "services_s1_desc": "Uklanjanje prašine, zamena termalne paste, unutrašnje čišćenje.",
+    "services_s2_title": "Formatiranje i instalacija Windowsa",
+    "services_s2_desc": "Čista instalacija, drajveri, osnovni programi spremni za upotrebu.",
+    "services_s3_title": "Nadogradnja hardvera",
+    "services_s3_desc": "RAM, SSD, grafička kartica — šta god vašem računaru treba.",
+    "services_s4_title": "Spor računar?",
+    "services_s4_desc": "Dijagnostika i poboljšanje performansi.",
+    "services_s5_title": "Sklapanje računara",
+    "services_s5_desc": "Pomoć pri izboru delova i kompletno sklapanje od nule.",
+    "services_price_note": "💬 Cena zavisi od posla — pošaljite mi poruku za procenu pre nego što počnemo bilo šta.",
+    "services_area": "📍 Pokrivam područje Haidarija i širu oblast atinske kotline. Poseta na kućnu adresu ili donesite svoj računar — kako vama odgovara.",
+    "services_about_title": "Ko sam ja",
+    "services_about_desc": "Radim sa hardverom računara, sklapam sisteme i uživam da pomažem ljudima da reše svoje probleme bez trošenja čitavog bogatstva u prodavnici. Ako nešto ne radi kako treba, hajde da to rešimo zajedno."
+  
+    },
+    it: {
+      skip_to_content: "Vai al contenuto",
+      nav_formats: "Formati", nav_ram: "RAM", nav_storage: "Archivio", nav_cpu: "CPU", nav_build: "Assembla", nav_about: "Chi siamo", nav_back: "← Torna alla Guida", footer_back: "Guida", footer_about: "Chi siamo",
+      tag_pc_builder: "Assemblatore PC", tag_hardware_nerd: "Nerd hardware", tag_ddr2_survivor: "Sopravvissuto DDR2", tag_greek_market: "Mercato greco", tag_open_source: "Open source",
+      faq_eyebrow: "FAQ", faq_title: "Domande frequenti", faq_q1: "Lavori su vecchi PC DDR2/DDR3, o solo su configurazioni nuove?", faq_a1: "Entrambi. betterPC copre DDR2, DDR3 e piattaforme completamente nuove — il senso di questo sito è che l'hardware vecchio ha spesso ancora molta vita utile.", faq_q2: "I prezzi nel configuratore sono quello che pagherò davvero?", faq_a2: "Sono stime che includono già il 24% di IVA greca e riflettono prezzi locali realistici. Il costo effettivo può variare in base alla disponibilità dei componenti, quindi scrivimi per confermare prima di acquistare.", faq_q3: "Vieni tu da me, o porto io il PC da te?", faq_a3: "Quello che ti è più comodo. Offro visite a domicilio nella zona di Haidari e nell'area metropolitana di Atene, oppure puoi lasciarmi il PC.", faq_q4: "Quanto costano riparazioni, aggiornamenti o montaggi?", faq_a4: "Dipende dal lavoro — pulizia, aggiornamenti e montaggi completi hanno prezzi diversi. Mandami i dettagli e riceverai un preventivo prima che inizi qualsiasi lavoro.", faq_q5: "Guadagni una commissione sui componenti che consigli?", faq_a5: "No. betterPC non ha pubblicità né riceve commissioni di affiliazione — i consigli si basano sul rapporto qualità-prezzo e sulla disponibilità, non su chi paga di più.", faq_q6: "Quali zone servi davvero?", faq_a6: "Haidari e l'area metropolitana di Atene.", about_hero_eyebrow: "Chi siamo", about_hero_title: "Una persona.<br>Tanti <em>PC</em>.", about_hero_desc: "betterPC è un progetto individuale nato da una frustrazione: <strong>molti pagano troppo per PC che non comprendono</strong>, o buttano hardware vecchio ancora perfettamente funzionante. <br><br>Che tu stia assemblando un PC da gaming o salvando una vecchia macchina DDR2, questo sito fa per te.",
+      about_avatar_name: "Il Creatore", about_avatar_role: "Fondatore · betterPC", about_avatar_bio: "Appassionato di PC e riciclatore di hardware. Ho costruito di tutto, dai PC ufficio DDR2 alle macchine da gioco a liquido.",
+      about_story_eyebrow: "La storia", about_story_title: "Perché esiste better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Il problema dell'hardware vecchio", about_story_p1: "In Grecia ci sono milioni di PC del 2006-2015 dimenticati in magazzino, ancora perfettamente validi per l'uso quotidiano, la navigazione, il lavoro d'ufficio e persino il gaming leggero con qualche upgrade. Invece di buttarli via, questo sito ti mostra come riportarli in vita per una frazione del costo di uno nuovo.", about_story_h2: "Il configuratore", about_story_p2: "Nessun'altra guida greca copre le piattaforme DDR2 e DDR3 con questo livello di dettaglio. Il configuratore ti guida tra CPU, RAM e schede madri compatibili con la tua esatta generazione di hardware, così non sprechi soldi in componenti che non si adattano.", about_story_h3: "Per il mercato greco", about_story_p3: "I prezzi includono l'IVA greca al 24% e riflettono ciò che pagheresti davvero localmente, non stime americane o europee generiche. Ogni consiglio viene verificato in base a ciò che è realisticamente disponibile all'acquisto in Grecia in questo momento.", about_story_h4: "Linguaggio semplice", about_story_p4: "Nessun gergo senza spiegazione. Ogni guida su questo sito è scritta in modo che anche chi non ha alcuna conoscenza tecnica possa seguirla passo dopo passo, capire perché ogni passaggio è importante e finire per imparare davvero qualcosa lungo il percorso.",
+      about_values_eyebrow: "Principi", about_values_title: "I valori di better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Prezzi onesti", about_v1_desc: "Stime trasparenti, mai gonfiate.", about_v2_title: "Niente pubblicità o affiliate", about_v2_desc: "Nessun guadagno dai consigli sulle marche.", about_v3_title: "L'hardware vecchio conta", about_v3_desc: "Ridare vita alle macchine DDR2/DDR3 è importante.", about_v4_title: "Compatibilità prima di tutto", about_v4_desc: "Controllo rigoroso CPU-mobo-RAM.", about_v5_title: "Contesto greco", about_v5_desc: "Prezzi e consigli basati sul mercato locale.", about_v6_title: "Miglioramento costante", about_v6_desc: "Aggiornamenti continui basati sul mercato.",
+      about_cta_title: "Pronto ad assemblare?", about_cta_desc: "Usa il configuratore per il tuo prossimo PC.", about_cta_btn_primary: "🛠️ Apri configuratore",
+    "services_eyebrow": "Servizi",
+    "services_title": "Assistenza per il tuo computer, da chi sa davvero il fatto suo.",
+    "services_desc": "Formattazione, pulizia, upgrade — senza problemi, nella tua zona.",
+    "services_s1_title": "Pulizia del computer",
+    "services_s1_desc": "Rimozione della polvere, sostituzione pasta termica, pulizia interna.",
+    "services_s2_title": "Formattazione & Installazione Windows",
+    "services_s2_desc": "Installazione pulita, driver, programmi essenziali pronti all'uso.",
+    "services_s3_title": "Upgrade hardware",
+    "services_s3_desc": "RAM, SSD, scheda video — tutto ciò di cui il tuo PC ha bisogno.",
+    "services_s4_title": "Computer lento?",
+    "services_s4_desc": "Diagnosi e miglioramento delle prestazioni.",
+    "services_s5_title": "Assemblaggio PC",
+    "services_s5_desc": "Aiuto nella scelta dei componenti e assemblaggio completo da zero.",
+    "services_price_note": "💬 I prezzi dipendono dal lavoro — scrivimi per un preventivo prima di iniziare.",
+    "services_area": "📍 Servo la zona di Haidari e l'area metropolitana di Atene. Visita a domicilio o consegna del PC — quello che preferisci.",
+    "services_about_title": "Chi sono",
+    "services_about_desc": "Lavoro con l'hardware dei PC, assemblo sistemi e mi piace aiutare le persone a risolvere i loro problemi senza spendere una fortuna in negozio. Se qualcosa non funziona bene, risolviamolo insieme."
+  },
+    sv: {
+      skip_to_content: "Hoppa till innehållet",
+      nav_formats: "Format", nav_ram: "RAM", nav_storage: "Lagring", nav_cpu: "CPU", nav_build: "Bygg", nav_about: "Om oss", nav_back: "← Tillbaka till guiden", footer_back: "Guide", footer_about: "Om oss",
+      tag_pc_builder: "PC-byggare", tag_hardware_nerd: "Hårdvarunörd", tag_ddr2_survivor: "DDR2-överlevare", tag_greek_market: "Grekiska marknaden", tag_open_source: "Öppen källkod",
+      faq_eyebrow: "Vanliga frågor", faq_title: "Vanliga frågor", faq_q1: "Jobbar du med gamla DDR2/DDR3-datorer, eller bara nya byggen?", faq_a1: "Båda delarna. betterPC täcker DDR2, DDR3 och helt nya plattformar — hela poängen med den här sidan är att gammal hårdvara ofta fortfarande har mycket liv kvar.", faq_q2: "Är priserna i konfiguratorn vad jag faktiskt kommer att betala?", faq_a2: "Det är uppskattningar som redan inkluderar 24% grekisk moms och speglar realistiska lokala priser. Den faktiska kostnaden kan ändras beroende på tillgången på delar, så skriv till mig för att bekräfta innan du köper.", faq_q3: "Kommer du hem till mig, eller lämnar jag datorn hos dig?", faq_a3: "Vad som helst som passar dig bäst. Jag erbjuder hembesök i området Haidari och hela Atens storstadsområde, eller så kan du lämna in datorn.", faq_q4: "Vad kostar reparationer, uppgraderingar eller byggen?", faq_a4: "Det beror på jobbet — rengöring, uppgraderingar och kompletta byggen prissätts olika. Skicka mig detaljerna så får du en uppskattning innan något arbete börjar.", faq_q5: "Tjänar du provision på delarna du rekommenderar?", faq_a5: "Nej. betterPC visar inga annonser och tar inga affiliateprovisioner — rekommendationer baseras på värde och tillgänglighet, inte på vem som betalar mest.", faq_q6: "Vilka områden betjänar du faktiskt?", faq_a6: "Haidari och hela Atens storstadsområde.", about_hero_eyebrow: "Vilka vi är", about_hero_title: "En person.<br>Många <em>PC:s</em>.", about_hero_desc: "betterPC är ett soloprojekt född ur en altenativ frustration: <strong>många betalar för mycket för datorer de inte förstår</strong>, eller slänger gammal hårdvara som fungerar utmärkt. <br><br>Oavsett om du bygger en speldator eller räddar en DDR2-maskin, hjälper denna sida dig.",
+      about_avatar_name: "Skaparen", about_avatar_role: "Grundare · betterPC", about_avatar_bio: "PC-entusiast och hårdvaruåtervinnare. Jag har byggt allt från enkla DDR2-kontorsmaskiner till avancerade vattenkylda gaming-datorer.",
+      about_story_eyebrow: "Historien", about_story_title: "Varför better<span style='color: #ff7a00;'>PC</span> finns", about_story_h1: "Problemet med gammal hårdvara", about_story_p1: "I Grekland finns miljontals PC från 2006-2015 i förråd, fortfarande fullt dugliga för vardagsbruk, surfning, kontorsarbete och till och med lättare spelande med några uppgraderingar. Istället för att slänga dem visar den här sidan hur du kan väcka dem till liv igen för en bråkdel av priset på en ny dator.", about_story_h2: "Konfiguratorn", about_story_p2: "Ingen annan grekisk guide täcker DDR2 och DDR3 lika djupgående. Konfiguratorn guidar dig genom kompatibla processorer, RAM och moderkort för just din generation hårdvara, så att du inte lägger pengar på delar som inte passar.", about_story_h3: "För den grekiska marknaden", about_story_p3: "Priser inkluderar 24% grekisk moms och speglar vad du faktiskt skulle betala lokalt, inte amerikanska eller allmänna EU-uppskattningar. Varje rekommendation kontrolleras mot vad som realistiskt finns att köpa i Grekland just nu.", about_story_h4: "Enkelt språk", about_story_p4: "Ingen krånglig jargong utan förklaring. Varje guide på den här sidan är skriven så att någon utan teknisk bakgrund kan följa den steg för steg, förstå varför varje steg spelar roll, och faktiskt lära sig något på vägen.",
+      about_values_eyebrow: "Principer", about_values_title: "Vad better<span style='color: #ff7a00;'>PC</span> står för", about_v1_title: "Ärliga priser", about_v1_desc: "Transparenta estimat.", about_v2_title: "Inga annonser eller affiliates", about_v2_desc: "Vi tjänar ingenting på märkesrekommendationer.", about_v3_title: "Gammal hårdvara räknas", about_v3_desc: "Att ge liv åt DDR2/DDR3-maskiner är värdefullt.", about_v4_title: "Kompatibilitet först", about_v4_desc: "Koll av CPU-mobo-RAM innan köp.", about_v5_title: "Grekisk kontext", about_v5_desc: "Priser anpassade efter den lokala marknaden.", about_v6_title: "Ständig förbättring", about_v6_desc: "Uppdateras i takt med marknaden.",
+      about_cta_title: "Redo att bygga?", about_cta_desc: "Använd konfiguratorn för att prissätta din nästa PC.", about_cta_btn_primary: "🛠️ Öppna konfiguratorn", "services_eyebrow": "Tjänster",
+    "services_title": "Datorhjälp från någon som verkligen kan sin sak.",
+    "services_desc": "Formatering, rengöring, uppgraderingar — helt utan krångel, i ditt område.",
+    "services_s1_title": "Datorrengöring",
+    "services_s1_desc": "Dammborttagning, byte av värmeledande pasta, invändig rengöring.",
+    "services_s2_title": "Formatering & Windows-installation",
+    "services_s2_desc": "Ren installation, drivrutiner, viktiga program redo att användas.",
+    "services_s3_title": "Hårdvaruuppgraderingar",
+    "services_s3_desc": "RAM, SSD, grafikkort — vad din dator än behöver.",
+    "services_s4_title": "Långsam dator?",
+    "services_s4_desc": "Diagnos och prestandaförbättring.",
+    "services_s5_title": "Datormontering",
+    "services_s5_desc": "Hjälp med att välja komponenter och komplett montering från grunden.",
+    "services_price_note": "💬 Priset beror på jobbet — skicka ett meddelande för en offert innan vi börjar med något.",
+    "services_area": "📍 Jag verkar i området Haidari och i hela Atens storstadsområde. Hembesök eller lämna in din dator — vad som passar dig bäst.",
+    "services_about_title": "Vem jag är",
+    "services_about_desc": "Jag jobbar med datorhårdvara, bygger system och tycker om att hjälpa folk lösa sina problem utan att betala en förmögenhet i en butik. Om något inte fungerar som det ska, låt oss lösa det tillsammans."
+    },
+    pt: {
+      skip_to_content: "Saltar para o conteúdo",
+      nav_formats: "Formatos", nav_ram: "RAM", nav_storage: "Armazenamento", nav_cpu: "CPU", nav_build: "Montar", nav_about: "Sobre nós", nav_back: "← Voltar ao Guia", footer_back: "Guia", footer_about: "Sobre",
+      tag_pc_builder: "Montador de PC", tag_hardware_nerd: "Nerd de hardware", tag_ddr2_survivor: "Sobrevivente DDR2", tag_greek_market: "Mercado grego", tag_open_source: "Código aberto",
+      faq_eyebrow: "Perguntas frequentes", faq_title: "Perguntas comuns", faq_q1: "Trabalha com PCs antigos DDR2/DDR3, ou só com montagens novas?", faq_a1: "Ambos. O betterPC abrange DDR2, DDR3 e plataformas totalmente novas — o objetivo deste site é mostrar que o hardware antigo muitas vezes ainda tem muita vida útil pela frente.", faq_q2: "Os preços no configurador são o que realmente vou pagar?", faq_a2: "São estimativas que já incluem 24% de IVA grego e refletem preços locais realistas. O custo real pode variar consoante a disponibilidade das peças, por isso envie-me uma mensagem para confirmar antes de comprar.", faq_q3: "Você vem até mim, ou levo eu o PC?", faq_a3: "O que for mais fácil para si. Ofereço visitas ao domicílio na região de Haidari e na grande bacia de Atenas, ou pode entregar-me o PC.", faq_q4: "Quanto custam reparações, upgrades ou montagens?", faq_a4: "Depende do trabalho — limpeza, upgrades e montagens completas têm preços diferentes. Envie-me os detalhes e receberá um orçamento antes de qualquer trabalho começar.", faq_q5: "Recebe comissão pelas peças que recomenda?", faq_a5: "Não. O betterPC não tem publicidade nem recebe comissões de afiliados — as recomendações baseiam-se no valor e na disponibilidade, não em quem paga mais.", faq_q6: "Que áreas realmente atende?", faq_a6: "Haidari e a grande bacia de Atenas.", about_hero_eyebrow: "Quem somos", about_hero_title: "Uma pessoa.<br>Muitos <em>PCs</em>.", about_hero_desc: "betterPC é um projeto solo nascido de uma frustração: <strong>muita gente paga demais por PCs que não entende</strong>, ou joga fora hardware antigo perfeito. <br><br>Seja montando um PC gamer novo ou resgatando uma máquina DDR2, este site é para você.",
+      about_avatar_name: "O Criador", about_avatar_role: "Fundador · betterPC", about_avatar_bio: "Entusiasta de PCs e reciclador de hardware. Construí de tudo, desde PCs DDR2 básicos até rigs de jogos resfriados a água.",
+      about_story_eyebrow: "A história", about_story_title: "Por que o better<span style='color: #ff7a00;'>PC</span> existe", about_story_h1: "O problema do hardware antigo", about_story_p1: "A Grécia tem milhões de PCs de 2006-2015 esquecidos em armazéns, ainda perfeitamente capazes para uso diário, navegação, trabalho de escritório e até jogos leves com algumas atualizações. Em vez de jogá-los fora, este site mostra como trazê-los de volta à vida por uma fração do custo de um novo.", about_story_h2: "O configurador", about_story_p2: "Nenhum outro guia grego cobre plataformas DDR2 e DDR3 com este nível de detalhe. O configurador te guia por CPUs, RAM e placas-mãe compatíveis com a sua geração exata de hardware, para não gastar dinheiro em peças que não servem.", about_story_h3: "Para o mercado grego", about_story_p3: "Preços incluem 24% de IVA grego e refletem o que você realmente pagaria localmente, não estimativas dos EUA ou genéricas da UE. Cada recomendação é verificada com base no que está realmente disponível para compra na Grécia agora.", about_story_h4: "Linguagem simples", about_story_p4: "Sem jargões sem explicação. Cada guia deste site é escrito para que alguém sem qualquer conhecimento técnico consiga segui-lo passo a passo, entender por que cada etapa importa, e acabar realmente aprendendo algo no caminho.",
+      about_values_eyebrow: "Princípios", about_values_title: "O que o better<span style='color: #ff7a00;'>PC</span> defende", about_v1_title: "Preços honestos", about_v1_desc: "Estimativas transparentes.", about_v2_title: "Sem anúncios ou afiliados", about_v2_desc: "Não ganhamos nada com marcas recomendadas.", about_v3_title: "Hardware antigo importa", about_v3_desc: "Dar vida a máquinas DDR2/DDR3 vale a pena.", about_v4_title: "Compatibilidade em primeiro lugar", about_v4_desc: "Verificação de CPU-placa-RAM rigorosa.", about_v5_title: "Contexto grego", about_v5_desc: "Preços e conselhos baseados no mercado local.", about_v6_title: "Melhoria contínua", about_v6_desc: "Guias atualizados com o mercado.",
+      about_cta_title: "Pronto para montar?", about_cta_desc: "Use o configurador para calcular seu próximo PC.", about_cta_btn_primary: "🛠️ Abrir configurador", "services_eyebrow": "Serviços",
+    "services_title": "Ajuda com o seu computador, de alguém que sabe o que está a fazer.",
+    "services_desc": "Formatação, limpeza, upgrades — sem complicações, na sua área.",
+    "services_s1_title": "Limpeza de Computador",
+    "services_s1_desc": "Remoção de poeira, substituição de pasta térmica, limpeza interna.",
+    "services_s2_title": "Formatação & Instalação do Windows",
+    "services_s2_desc": "Instalação limpa, drivers, programas essenciais prontos a usar.",
+    "services_s3_title": "Upgrades de Hardware",
+    "services_s3_desc": "RAM, SSD, placa gráfica — o que o seu PC precisar.",
+    "services_s4_title": "Computador lento?",
+    "services_s4_desc": "Diagnóstico e melhoria de desempenho.",
+    "services_s5_title": "Montagem de PC",
+    "services_s5_desc": "Ajuda na escolha dos componentes e montagem completa do zero.",
+    "services_price_note": "💬 Os preços dependem do trabalho — envie-me uma mensagem para um orçamento antes de começarmos qualquer coisa.",
+    "services_area": "📍 Atendo a região de Haidari e a grande bacia de Atenas. Visita ao domicílio ou entregue o seu PC — o que for mais conveniente para si.",
+    "services_about_title": "Quem sou eu",
+    "services_about_desc": "Trabalho com hardware de PC, monto sistemas e gosto de ajudar as pessoas a resolver os seus problemas sem gastar uma fortuna numa loja. Se algo não estiver a funcionar bem, vamos resolver isso juntos."
+  
+    },
+    ro: {
+      skip_to_content: "Sari la conținut",
+      nav_formats: "Formate", nav_ram: "RAM", nav_storage: "Stocare", nav_cpu: "CPU", nav_build: "Construiește", nav_about: "Despre noi", nav_back: "← Înapoi la Ghid", footer_back: "Ghid", footer_about: "Despre",
+      tag_pc_builder: "PC builder", tag_hardware_nerd: "Nerd hardware", tag_ddr2_survivor: "Supraviețuitor DDR2", tag_greek_market: "Piața grecească", tag_open_source: "Open source",
+      faq_eyebrow: "Întrebări frecvente", faq_title: "Întrebări frecvente", faq_q1: "Lucrezi cu PC-uri vechi DDR2/DDR3, sau doar cu configurații noi?", faq_a1: "Ambele. betterPC acoperă DDR2, DDR3 și platforme complet noi — întregul rost al acestui site este că hardware-ul vechi are adesea încă multă viață în el.", faq_q2: "Prețurile din configurator sunt ceea ce voi plăti efectiv?", faq_a2: "Sunt estimări care includ deja 24% TVA grecesc și reflectă prețuri locale realiste. Costul real poate varia în funcție de disponibilitatea pieselor, așa că scrie-mi pentru confirmare înainte de a cumpăra.", faq_q3: "Vii tu la mine, sau aduc eu calculatorul?", faq_a3: "Ce este mai ușor pentru tine. Ofer vizite la domiciliu în zona Haidari și zona metropolitană a Atenei, sau poți aduce tu calculatorul.", faq_q4: "Cât costă reparațiile, upgrade-urile sau asamblările?", faq_a4: "Depinde de lucrare — curățarea, upgrade-urile și asamblările complete au prețuri diferite. Trimite-mi detaliile și vei primi o estimare înainte să înceapă orice lucrare.", faq_q5: "Câștigi comision din piesele recomandate?", faq_a5: "Nu. betterPC nu rulează reclame și nu ia comisioane de afiliere — recomandările se bazează pe raportul calitate-preț și disponibilitate, nu pe cine plătește mai mult.", faq_q6: "Ce zone deservești de fapt?", faq_a6: "Zona Haidari și zona metropolitană a Atenei.", about_hero_eyebrow: "Cine suntem", about_hero_title: "O singură persoană.<br>Multe <em>PC-uri</em>.", about_hero_desc: "betterPC este un proiect personal născut dintr-o frustrare: <strong>prea mulți oameni plătesc prea mult pentru calculatoare pe care nu le înțeleg</strong>, sau aruncă hardware vechi funcțional. <br><br>Fie că asamblezi un PC de gaming sau salvezi un sistem DDR2, acest site te ajută.",
+      about_avatar_name: "Creatorul", about_avatar_role: "Fondator · betterPC", about_avatar_bio: "Entuziast PC și pasionat de reciclare hardware. Am construit totul, de la sisteme DDR2 de birou până la PC-uri gaming complexe.",
+      about_story_eyebrow: "Povestea", about_story_title: "De ce există better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Problema hardware-ului vechi", about_story_p1: "Grecia are milioane de PC-uri din 2006-2015 uitate în depozite, încă perfect capabile pentru uz zilnic, navigare, muncă de birou, chiar și gaming ușor cu câteva upgrade-uri. În loc să le arunci, acest site îți arată cum să le readuci la viață pentru o fracțiune din costul unuia nou.", about_story_h2: "Configuratorul", about_story_p2: "Niciun alt ghid grecesc nu acoperă platformele DDR2 și DDR3 la acest nivel de detaliu. Configuratorul te ghidează prin procesoare, memorii și plăci de bază compatibile cu generația exactă a hardware-ului tău, ca să nu cheltui bani pe piese care nu se potrivesc.", about_story_h3: "Pentru piața grecească", about_story_p3: "Prețurile includ TVA-ul grecesc de 24% și reflectă ce ai plăti de fapt local, nu estimări din SUA sau generice pentru UE. Fiecare recomandare este verificată în funcție de ce este realist disponibil pentru cumpărare în Grecia chiar acum.", about_story_h4: "Limbaj simplu", about_story_p4: "Fără jargon fără explicație. Fiecare ghid de pe acest site este scris astfel încât cineva fără nicio pregătire tehnică să îl poată urma pas cu pas, să înțeleagă de ce contează fiecare pas și să învețe cu adevărat ceva pe parcurs.",
+      about_values_eyebrow: "Principii", about_values_title: "Ce susține better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Prețuri oneste", about_v1_desc: "Estimări transparente.", about_v2_title: "Fără reclame sau afilieri", about_v2_desc: "Nu câștigăm nimic din recomandări de branduri.", about_v3_title: "Hardware-ul vechi contează", about_v3_desc: "Să dai o nouă viață sistemelor DDR2/DDR3 merită.", about_v4_title: "Compatibilitatea pe primul loc", about_v4_desc: "Verificare CPU-placă de bază-RAM.", about_v5_title: "Context grecesc", about_v5_desc: "Prețuri și sfaturi bazate pe piața locală.", about_v6_title: "Îmbunătățire continuă", about_v6_desc: "Actualizări constante în funcție de piață.",
+      about_cta_title: "Gata de asamblare?", about_cta_desc: "Folosește configuratorul pentru a-ți calcula următorul PC.", about_cta_btn_primary: "🛠️ Deschide configuratorul", "services_eyebrow": "Servicii",
+    "services_title": "Ajutor pentru calculatorul tău, de la cineva care se pricepe cu adevărat.",
+    "services_desc": "Formatare, curățare, upgrade-uri — fără bătăi de cap, în zona ta.",
+    "services_s1_title": "Curățare Calculator",
+    "services_s1_desc": "Îndepărtarea prafului, înlocuirea pastei termice, curățare internă.",
+    "services_s2_title": "Formatare & Instalare Windows",
+    "services_s2_desc": "Instalare curată, drivere, programe esențiale gata de utilizare.",
+    "services_s3_title": "Upgrade-uri Hardware",
+    "services_s3_desc": "RAM, SSD, placă video — orice are nevoie calculatorul tău.",
+    "services_s4_title": "Calculator lent?",
+    "services_s4_desc": "Diagnosticare și îmbunătățirea performanței.",
+    "services_s5_title": "Asamblare PC",
+    "services_s5_desc": "Ajutor la alegerea componentelor și asamblare completă de la zero.",
+    "services_price_note": "💬 Prețurile depind de lucrare — scrie-mi pentru o estimare înainte să începem orice.",
+    "services_area": "📍 Deservesc zona Haidari și zona metropolitană a Atenei. Vizită la domiciliu sau aduci tu calculatorul — cum îți este mai comod.",
+    "services_about_title": "Cine sunt",
+    "services_about_desc": "Lucrez cu hardware de calculatoare, asamblez sisteme și îmi place să ajut oamenii să-și rezolve problemele fără să cheltuiască o avere într-un magazin. Dacă ceva nu funcționează bine, hai să rezolvăm împreună."
+    },
+    pl: {
+      skip_to_content: "Przejdź do treści",
+      nav_formats: "Formaty", nav_ram: "RAM", nav_storage: "Pamięć", nav_cpu: "CPU", nav_build: "Buduj", nav_about: "O nas", nav_back: "← Wróć do poradnika", footer_back: "Poradnik", footer_about: "O nas",
+      tag_pc_builder: "Składacz PC", tag_hardware_nerd: "Hardware nerd", tag_ddr2_survivor: "Ocalały DDR2", tag_greek_market: "Rynek grecki", tag_open_source: "Open source",
+      faq_eyebrow: "FAQ", faq_title: "Najczęstsze pytania", faq_q1: "Pracujesz nad starymi komputerami DDR2/DDR3, czy tylko nad nowymi zestawami?", faq_a1: "Jedno i drugie. betterPC obejmuje DDR2, DDR3 i zupełnie nowe platformy — sens tej strony polega na tym, że stary sprzęt często wciąż ma w sobie prawdziwe życie.", faq_q2: "Czy ceny w konfiguratorze to to, co faktycznie zapłacę?", faq_a2: "To szacunki, które już zawierają 24% greckiego VAT-u i odzwierciedlają realistyczne lokalne ceny. Rzeczywisty koszt może się zmienić w zależności od dostępności części, więc napisz do mnie, aby potwierdzić przed zakupem.", faq_q3: "Przyjeżdżasz do mnie, czy ja przynoszę komputer?", faq_a3: "Cokolwiek jest dla Ciebie wygodniejsze. Oferuję wizyty domowe w rejonie Haidari i szerszym obszarze aglomeracji ateńskiej, albo możesz zostawić komputer u mnie.", faq_q4: "Ile kosztują naprawy, ulepszenia lub składanie komputerów?", faq_a4: "Zależy od pracy — czyszczenie, ulepszenia i pełne budowy są wyceniane inaczej. Wyślij mi szczegóły, a otrzymasz wycenę przed rozpoczęciem jakiejkolwiek pracy.", faq_q5: "Czy zarabiasz prowizję na polecanych częściach?", faq_a5: "Nie. betterPC nie wyświetla reklam ani nie pobiera prowizji partnerskich — rekomendacje opierają się na wartości i dostępności, a nie na tym, kto płaci najwięcej.", faq_q6: "Jakie obszary faktycznie obsługujesz?", faq_a6: "Rejon Haidari i szerszy obszar aglomeracji ateńskiej.", about_hero_eyebrow: "Kim jesteśmy", about_hero_title: "Jedna osoba.<br>Mnóstwo <em>PC-tów</em>.", about_hero_desc: "betterPC to projekt jednoosobowy zrodzony z frustracji: <strong>wiele osób przepłaca za komputery, których nie rozumie</strong>, ut wyrzuca sprawne stare części. <br><br>Niezależnie czy budujesz gamingowego potwora, czy ratujesz DDR2 — ten serwis jest dla Ciebie.",
+      about_avatar_name: "Twórca", about_avatar_role: "Założyciel · betterPC", about_avatar_bio: "Entuzjasta PC i fan recyklingu sprzętu. Zbudowałem wszystko, od DDR2 biurowych po chłodzone wodą maszyny do gier.",
+      about_story_eyebrow: "Historia", about_story_title: "Dlaczego istnieje better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Problem starych części", about_story_p1: "Grecja ma miliony PC z lat 2006-2015 leżących w magazynach, wciąż w pełni nadających się do codziennego użytku, przeglądania internetu, pracy biurowej, a nawet lekkiego grania po kilku ulepszeniach. Zamiast je wyrzucać, ta strona pokazuje, jak przywrócić je do życia za ułamek ceny nowego sprzętu.", about_story_h2: "Konfigurator", about_story_p2: "Żaden inny grecki poradnik nie obejmuje platform DDR2 i DDR3 z takim poziomem szczegółowości. Konfigurator prowadzi cię przez kompatybilne procesory, pamięć RAM i płyty główne dla dokładnie twojej generacji sprzętu, żebyś nie wydawał pieniędzy na części, które nie pasują.", about_story_h3: "Dla rynku greckiego", about_story_p3: "Ceny zawierają grecki VAT 24% i odzwierciedlają to, co faktycznie zapłacisz lokalnie, a nie amerykańskie czy ogólne europejskie szacunki. Każda rekomendacja jest sprawdzana pod kątem tego, co realnie jest dostępne do kupienia w Grecji w tej chwili.", about_story_h4: "Prosty język", about_story_p4: "Bez żargonu bez wyjaśnienia. Każdy poradnik na tej stronie jest napisany tak, by ktoś bez żadnej wiedzy technicznej mógł go śledzić krok po kroku, zrozumieć, dlaczego każdy krok ma znaczenie, i faktycznie się czegoś nauczyć po drodze.",
+      about_values_eyebrow: "Zasady", about_values_title: "W co wierzy better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Uczciwe ceny", about_v1_desc: "Przejrzyste szacunki.", about_v2_title: "Bez reklam i afiliacji", about_v2_desc: "Nie zarabiamy na polecanych markach.", about_v3_title: "Stary sprzęt ma znaczenie", about_v3_desc: "Warto przywracać życie maszynom DDR2/DDR3.", about_v4_title: "Kompatybilność przede wszystkim", about_v4_desc: "Sprawdzamy CPU-płyta-RAM.", about_v5_title: "Kontekst grecki", about_v5_desc: "Ceny i rady oparte na lokalnym rynku.", about_v6_title: "Ciągły rozwój", about_v6_desc: "Aktualizacje zgodnie z rynkiem.",
+      about_cta_title: "Gotowy do budowy?", about_cta_desc: "Użyj konfiguratora, by wycenić swój następny PC.", about_cta_btn_primary: "🛠️ Otwórz konfigurator", "services_eyebrow": "Usługi",
+    "services_title": "Pomoc komputerowa od kogoś, kto naprawdę zna się na rzeczy.",
+    "services_desc": "Formatowanie, czyszczenie, ulepszenia — bez problemów, w Twojej okolicy.",
+    "services_s1_title": "Czyszczenie komputera",
+    "services_s1_desc": "Usuwanie kurzu, wymiana pasty termoprzewodzącej, czyszczenie wewnętrzne.",
+    "services_s2_title": "Formatowanie i instalacja Windows",
+    "services_s2_desc": "Czysta instalacja, sterowniki, niezbędne programy gotowe do użycia.",
+    "services_s3_title": "Ulepszenia sprzętowe",
+    "services_s3_desc": "RAM, SSD, karta graficzna — cokolwiek potrzebuje Twój komputer.",
+    "services_s4_title": "Wolny komputer?",
+    "services_s4_desc": "Diagnostyka i przyspieszenie wydajności.",
+    "services_s5_title": "Składanie komputera",
+    "services_s5_desc": "Pomoc w wyborze podzespołów i pełny montaż od podstaw.",
+    "services_price_note": "💬 Ceny zależą od zlecenia — napisz do mnie po wycenę, zanim cokolwiek zaczniemy.",
+    "services_area": "📍 Obsługuję rejon Haidari oraz szerszy obszar aglomeracji ateńskiej. Wizyta domowa lub dostarczenie komputera — jak Ci wygodniej.",
+    "services_about_title": "Kim jestem",
+    "services_about_desc": "Zajmuję się sprzętem komputerowym, składam systemy i lubię pomagać ludziom rozwiązywać problemy bez wydawania fortuny w sklepie. Jeśli coś nie działa jak trzeba, rozwiążmy to razem."
+    },
+    bg: {
+      skip_to_content: "Към съдържанието",
+      nav_formats: "Формати", nav_ram: "RAM", nav_storage: "Съхранение", nav_cpu: "CPU", nav_build: "Сглобяване", nav_about: "За нас", nav_back: "← Назад към ръководството", footer_back: "Ръководство", footer_about: "За нас",
+      tag_pc_builder: "Сглобяване на PC", tag_hardware_nerd: "Хардуерен маниак", tag_ddr2_survivor: "Оцелял с DDR2", tag_greek_market: "Гръцки пазар", tag_open_source: "Open source",
+      faq_eyebrow: "Често задавани въпроси", faq_title: "Чести въпроси", faq_q1: "Работите ли със стари компютри с DDR2/DDR3, или само с нови конфигурации?", faq_a1: "И двете. betterPC покрива DDR2, DDR3 и напълно нови платформи — целият смисъл на този сайт е, че старият хардуер често все още има реален живот в себе си.", faq_q2: "Цените в конфигуратора са ли това, което реално ще платя?", faq_a2: "Това са оценки, които вече включват 24% гръцко ДДС и отразяват реалистични местни цени. Реалната цена може да се промени в зависимост от наличността на частите, затова ми пишете за потвърждение преди покупка.", faq_q3: "Вие ли идвате при мен, или аз нося компютъра при вас?", faq_a3: "Каквото е по-лесно за вас. Предлагам посещения на място в района на Хайдари и по-широката област на Атина, или можете да оставите компютъра при мен.", faq_q4: "Колко струват ремонтите, ъпгрейдите или сглобяванията?", faq_a4: "Зависи от работата — почистването, ъпгрейдите и пълните сглобявания се таксуват различно. Пишете ми детайлите и ще получите оценка преди да започне каквато и да е работа.", faq_q5: "Печелите ли комисиона от препоръчаните части?", faq_a5: "Не. betterPC не показва реклами и не взима партньорски комисиони — препоръките се базират на съотношението цена-качество и наличност, а не на това кой плаща най-много.", faq_q6: "Кои райони реално обслужвате?", faq_a6: "Района на Хайдари и по-широката област на Атина.", about_hero_eyebrow: "Кои сме ние", about_hero_title: "Един човек.<br>Много <em>PC-та</em>.", about_hero_desc: "betterPC е личен проект, роден от едно разочарование: <strong>твърде много хора плащат прекалено много за компютри, които не разбират</strong>, или изхвърлят добро старо желязо. <br><br>Дали сглобявате геймърска машина или спасявате DDR2 система — този сайт е за вас.",
+      about_avatar_name: "Създателят", about_avatar_role: "Основател · betterPC", about_avatar_bio: "PC ентусиаст и майстор по рециклирането. Сглобявал съм всичко — от бюджетни DDR2 офис машини до мощни геймърски системи.",
+      about_story_eyebrow: "Историята", about_story_title: "Защо съществува better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Проблемът със стария хардуер", about_story_p1: "В Гърция има милиони компютри от периода 2006–2015, събиращи прах по складове, но все още напълно годни за ежедневна употреба, сърфиране, офис работа, дори леко геймърство с няколко ъпгрейда. Вместо да ги изхвърляте, този сайт показва как да ги съживите за част от цената на нов компютър.", about_story_h2: "Конфигураторът", about_story_p2: "Никой друг гръцки гайд не покрива DDR2 и DDR3 платформи с такова ниво на детайлност. Конфигураторът ви насочва към съвместими процесори, памет и дънни платки за точно вашето поколение хардуер, за да не харчите пари за части, които не пасват.", about_story_h3: "За гръцкия пазар", about_story_p3: "Цените включват 24% гръцки ДДС и отразяват това, което реално бихте платили на място, а не американски или общи европейски оценки. Всяка препоръка се проверява спрямо това, което реално се предлага за покупка в Гърция точно сега.", about_story_h4: "Прост език", about_story_p4: "Без сложен жаргон без обяснение. Всеки гайд на този сайт е написан така, че някой без никакви технически познания да може да го следва стъпка по стъпка, да разбере защо всяка стъпка е важна и накрая наистина да научи нещо по пътя.",
+      about_values_eyebrow: "Принципи", about_values_title: "В какво вярва better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Честни цени", about_v1_desc: "Прозрачни оценки.", about_v2_title: "Без реклами и партньорски връзки", about_v2_desc: "Не печелим от препоръчани марки.", about_v3_title: "Старият хардуер има значение", about_v3_desc: "Заслужава си да вдъхнем живот на DDR2/DDR3 машините.", about_v4_title: "Съвместимост преди всичко", about_v4_desc: "Проверка на CPU-дънна платка-RAM.", about_v5_title: "Гръцки контекст", about_v5_desc: "Цени и съвети, базирани на местния пазар.", about_v6_title: "Постоянно подобрение", about_v6_desc: "Обновления според пазара.",
+      about_cta_title: "Готови ли сте?", about_cta_desc: "Използвайте конфигуратора, за да сметнете новия си компютър.", about_cta_btn_primary: "🛠️ Отвори конфигуратора", "services_eyebrow": "Услуги",
+    "services_title": "Помощ за компютъра ви от някой, който наистина разбира от работата си.",
+    "services_desc": "Форматиране, почистване, ъпгрейди — без главоболия, във вашия район.",
+    "services_s1_title": "Почистване на компютър",
+    "services_s1_desc": "Премахване на прах, смяна на термопаста, вътрешно почистване.",
+    "services_s2_title": "Форматиране и инсталиране на Windows",
+    "services_s2_desc": "Чиста инсталация, драйвери, основни програми готови за употреба.",
+    "services_s3_title": "Хардуерни ъпгрейди",
+    "services_s3_desc": "RAM, SSD, видеокарта — каквото е нужно на вашия компютър.",
+    "services_s4_title": "Бавен компютър?",
+    "services_s4_desc": "Диагностика и ускоряване на производителността.",
+    "services_s5_title": "Сглобяване на PC",
+    "services_s5_desc": "Помощ при избора на компоненти и пълно сглобяване от нулата.",
+    "services_price_note": "💬 Цените зависят от работата — пишете ми за оценка, преди да започнем каквото и да било.",
+    "services_area": "📍 Обслужвам района на Хайдари и по-широката област на Атина. Посещение на място или донесете компютъра си — както ви е удобно.",
+    "services_about_title": "Кой съм аз",
+    "services_about_desc": "Работя с компютърен хардуер, сглобявам системи и обичам да помагам на хората да решават проблемите си, без да плащат цяло състояние в магазин. Ако нещо не работи както трябва, нека го разберем заедно."
+    },
+   uk: {
+      skip_to_content: "Перейти до вмісту",
+      nav_formats: "Формати", nav_ram: "Оперативна пам'ять", nav_storage: "Накопичувачі", nav_cpu: "Процесор", nav_build: "Збірка", nav_about: "Про нас", nav_back: "← Назад до посібника", footer_back: "Посібник", footer_about: "Про нас",
+      tag_pc_builder: "Збирач ПК", tag_hardware_nerd: "Фанат заліза", tag_ddr2_survivor: "Виживший з DDR2", tag_greek_market: "Грецький ринок", tag_open_source: "Відкритий код",
+      faq_eyebrow: "Часті запитання", faq_title: "Поширені запитання", faq_q1: "Ви працюєте зі старими ПК на DDR2/DDR3, чи лише з новими збірками?", faq_a1: "І те, і інше. betterPC охоплює DDR2, DDR3 та абсолютно нові платформи — весь сенс цього сайту в тому, що старе залізо часто ще має справжнє життя в собі.", faq_q2: "Чи ціни в конфігураторі — це те, що я реально заплачу?", faq_a2: "Це орієнтовні ціни, які вже включають 24% грецького ПДВ і відображають реалістичні місцеві ціни. Фактична вартість може змінюватися залежно від наявності комплектуючих, тож напишіть мені для підтвердження перед покупкою.", faq_q3: "Ви приїжджаєте до мене, чи я привожу ПК вам?", faq_a3: "Як вам зручніше. Пропоную виїзд додому в районі Хайдарі та ширшій Афінській агломерації, або ви можете привезти ПК самі.", faq_q4: "Скільки коштує ремонт, апгрейд чи збірка?", faq_a4: "Залежить від роботи — чистка, апгрейди та повні збірки оцінюються по-різному. Напишіть мені деталі, і ви отримаєте оцінку вартості до початку будь-якої роботи.", faq_q5: "Чи отримуєте ви комісію з рекомендованих комплектуючих?", faq_a5: "Ні. betterPC не показує рекламу і не бере партнерські комісії — рекомендації базуються на співвідношенні ціни й якості та наявності, а не на тому, хто платить більше.", faq_q6: "Які райони ви насправді обслуговуєте?", faq_a6: "Хайдарі та ширшу Афінську агломерацію.", about_hero_eyebrow: "Хто ми", about_hero_title: "Одна людина.<br><em>Багато</em> ПК.", about_hero_desc: "betterPC — це проєкт однієї людини, що народився з простого розчарування: <strong>занадто багато людей переплачують за комп'ютери, яких вони не розуміють</strong>, або викидають цілком робоче старе залізо лише тому, що ніхто не сказав їм, що воно ще може добре працювати.<br><br>Збираєте новий ігровий комп'ютер чи рятуєте DDR2-машину для бабусі — цей сайт вам допоможе.",
+      about_avatar_name: "Засновник", about_avatar_role: "Засновник · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "Ентузіаст ПК, любитель поколупатись у залізі та переробник старого обладнання. Я збирав усе — від бюджетних офісних коробок з DDR2 до ігрових монстрів на водяному охолодженні — і вважаю, що кожен заслуговує знати, що всередині його машини.",
+      about_story_eyebrow: "Історія", about_story_title: "Навіщо існує better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Проблема зі старим залізом", about_story_p1: "У Греції мільйони комп'ютерів епохи 2006–2015 років просто лежать на складах, хоча вони й досі цілком придатні для щоденних завдань, серфінгу, офісної роботи і навіть легких ігор після кількох апгрейдів. Замість того щоб їх викидати, цей сайт показує, як повернути їх до життя за частину вартості нового ПК.", about_story_h2: "Конфігуратор збірки", about_story_p2: "Жоден інший грецький ПК-гід не охоплює платформи DDR2 та DDR3 настільки детально. Конфігуратор підкаже сумісні процесори, пам'ять і материнські плати саме для вашого покоління заліза, щоб ви не витрачали гроші на деталі, які не підійдуть.", about_story_h3: "Зроблено для грецького ринку", about_story_p3: "Ціни включають грецький ПДВ у розмірі 24% і відображають те, що ви реально заплатите на місці, а не орієнтовні ціни для США чи загальноєвропейські. Кожна рекомендація перевіряється на те, що реально доступно для купівлі в Греції прямо зараз.", about_story_h4: "Проста мова, реальні знання", about_story_p4: "Жодного жаргону без пояснень. Кожен посібник на цьому сайті написаний так, щоб людина без технічної підготовки могла пройти його крок за кроком, зрозуміти, чому важливий кожен крок, і зрештою дійсно чогось навчитися.",
+      about_values_eyebrow: "Принципи", about_values_title: "За що виступає better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Чесні ціни", about_v1_desc: "Ціни є орієнтовними і позначені як такі. Жодних завищених цифр, щоб інші збірки здавались дешевшими.", about_v2_title: "Без реклами, без партнерок", about_v2_desc: "betterPC нічого не заробляє на рекомендації конкретних брендів. Вибір базується на цінності та наявності.", about_v3_title: "Старе залізо теж має значення", about_v3_desc: "Машини на DDR2 та DDR3 усе ще можуть служити реальним цілям. Допомогти видобути з них ще трохи життя — варте справи.", about_v4_title: "Сумісність понад усе", about_v4_desc: "Нічого не рекомендується без перевірки. Сумісність процесора, материнської плати й пам'яті перевіряється до того, як ви витратите гроші.", about_v5_title: "Грецький контекст", about_v5_desc: "Ціни, наявність і поради щодо комплектуючих орієнтовані на грецький та ширший ринок ЄС, а не на американський.", about_v6_title: "Постійне вдосконалення", about_v6_desc: "Списки комплектуючих, ціни та посібники оновлюються разом зі змінами ринку. Це не сайт «зробив і забув».",
+      about_cta_title: "Готові збирати?", about_cta_desc: "Скористайтеся конфігуратором, щоб порахувати вартість наступного ПК — новенького, бюджетного чи повністю legacy.", about_cta_btn_primary: "🛠️ Відкрити конфігуратор ПК",
+      services_eyebrow: "Послуги",
+      services_title: "Допомога з персональним комп'ютером від того, хто справді розуміється на справі.",
+      services_desc: "Форматування, чистка, апгрейди — без клопоту, у вашому районі.",
+      services_s1_title: "Чистка комп'ютера",
+      services_s1_desc: "Видалення пилу, заміна термопасти, внутрішнє очищення.",
+      services_s2_title: "Форматування та встановлення Windows",
+      services_s2_desc: "Чиста установка, драйвери, необхідні програми готові до роботи.",
+      services_s3_title: "Апгрейд заліза",
+      services_s3_desc: "Оперативна пам'ять, SSD, відеокарта — що б не потребував ваш ПК.",
+      services_s4_title: "Повільний комп'ютер?",
+      services_s4_desc: "Діагностика та прискорення продуктивності.",
+      services_s5_title: "Збірка ПК",
+      services_s5_desc: "Допомога з вибором комплектуючих та повна збірка з нуля.",
+      services_price_note: "💬 Ціна залежить від складності роботи — напишіть мені для оцінки, перш ніж ми щось почнемо.",
+      services_area: "📍 Обслуговую Хайдарі та ширшу Афінську агломерацію. Виїзд додому або принесіть ПК самі — як вам зручніше.",
+      services_about_title: "Хто я",
+      services_about_desc: "Я працюю з комп'ютерним залізом, збираю системи і люблю допомагати людям вирішувати їхні проблеми, не переплачуючи цілий статок у магазині. Якщо щось не працює як слід — розберемося разом."
+    },
+    
+    am: {
+      skip_to_content: "Անցնել բովանդակությանը",
+      nav_formats: "Ֆորմատներ", nav_ram: "RAM", nav_storage: "Պահեստ", nav_cpu: "Պրոցեսոր", nav_build: "Հավաքում", nav_about: "Մեր մասին", nav_back: "← Վերադառնալ ուղեցույց", footer_back: "Ուղեցույց", footer_about: "Մեր մասին",
+      tag_pc_builder: "ՀՀ (PC) հավաքող", tag_hardware_nerd: "Սարքաշարի սիրահար", tag_ddr2_survivor: "DDR2-ից փրկված", tag_greek_market: "Հունական շուկա", tag_open_source: "Բաց կոդ",
+      faq_eyebrow: "Հաճախակի հարցեր", faq_title: "Հաճախակի տրվող հարցեր", faq_q1: "Դուք աշխատու՞մ եք հին DDR2/DDR3 համակարգիչների հետ, թե՞ միայն նոր հավաքածուների հետ։", faq_a1: "Երկուսի էլ հետ։ betterPC-ն ընդգրկում է DDR2, DDR3 և բոլորովին նոր հարթակներ․ այս կայքի ողջ իմաստն այն է, որ հին սարքավորումները հաճախ դեռ իսկական կյանք ունեն իրենց մեջ։", faq_q2: "Հավաքածուի կոնֆիգուրատորի գները այն են, ինչ ես իրականում կվճարե՞մ։", faq_a2: "Դրանք գնահատականներ են, որոնք արդեն ներառում են 24% հունական ԱԱՀ և արտացոլում են իրատեսական տեղական գները։ Իրական արժեքը կարող է փոփոխվել՝ կախված մասերի հասանելիությունից, ուստի գրեք ինձ հաստատման համար նախքան գնումը։", faq_q3: "Դուք գալի՞ս եք ինձ մոտ, թե՞ ես եմ բերում համակարգիչը ձեզ մոտ։", faq_a3: "Ինչն էլ ձեզ համար ավելի հեշտ լինի։ Առաջարկում եմ այցելություններ տուն Խայդարիի և ընդհանուր Աթենքի ավազանի տարածքում, կամ կարող եք բերել համակարգիչը ինձ մոտ։", faq_q4: "Որքա՞ն արժեն վերանորոգումները, արդիականացումները կամ հավաքածուները։", faq_a4: "Կախված է աշխատանքից․ մաքրումը, արդիականացումները և ամբողջական հավաքածուները գնագոյացվում են տարբեր կերպ։ Ուղարկեք ինձ մանրամասները, և կստանաք գնահատական նախքան որևէ աշխատանք սկսելը։", faq_q5: "Դուք միջնորդավճար ստանու՞մ եք առաջարկվող մասերի համար։", faq_a5: "Ոչ։ betterPC-ն գովազդ չի ցուցադրում և գործընկերային միջնորդավճարներ չի ստանում. առաջարկությունները հիմնված են արժեքի և հասանելիության վրա, ոչ թե այն, թե ով ավելի շատ է վճարում։", faq_q6: "Ո՞ր տարածքներն եք դուք իրականում սպասարկում։", faq_a6: "Խայդարին և ընդհանուր Աթենքի ավազանը։", about_hero_eyebrow: "Ովքե՞ր ենք մենք", about_hero_title: "Մեկ մարդ։<br><em>Շատ</em> համակարգիչներ։", about_hero_desc: "betterPC-ն մեկ մարդու նախագիծ է, որը ծնվել է մի պարզ դժգոհությունից. <strong>չափազանց շատ մարդիկ գերավճարում են այն համակարգիչների համար, որոնք չեն հասկանում</strong>, կամ նետում են լիովին աշխատունակ հին սարքաշար, քանի որ ոչ ոք նրանց չի ասել, որ այն դեռ լավ կարող է աշխատել։<br><br>Անկախ նրանից՝ նոր խաղային համակարգիչ եք հավաքում, թե փրկում եք DDR2 մեքենան տատիկի/պապիկի համար, այս կայքը ձեզ կօգնի։",
+      about_avatar_name: "Հիմնադիրը", about_avatar_role: "Հիմնադիր · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "Համակարգիչների սիրահար, փորձարկող և հին սարքաշարի վերամշակող։ Ես հավաքել եմ ամեն ինչ՝ DDR2-ով բյուջետային գրասենյակային տուփերից մինչև ջրով հովացվող խաղային մեքենաներ, և կարծում եմ՝ ամեն ոք արժանի է իմանալ, թե ինչ կա իր մեքենայի ներսում։",
+      about_story_eyebrow: "Պատմությունը", about_story_title: "Ինչու՞ կա better<span style='color: #ff7a00;'>PC</span>-ը", about_story_h1: "Հին սարքաշարի խնդիրը", about_story_p1: "Հունաստանում 2006–2015 թվականների միլիոնավոր համակարգիչներ պահեստներում փոշիանում են, թեև դրանք դեռ լիովին պիտանի են առօրյա օգտագործման, ինտերնետ շրջելու, գրասենյակային աշխատանքի, նույնիսկ մի քանի արդիականացումով՝ թեթև խաղերի համար։ Դրանք դեն նետելու փոխարեն այս կայքը ցույց է տալիս, թե ինչպես նոր կյանք հաղորդել դրանց՝ նոր համակարգչի արժեքի մի մասով։", about_story_h2: "Հավաքման կոնֆիգուրատոր", about_story_p2: "Ոչ մի այլ հունական PC ուղեցույց չի ընդգրկում DDR2 և DDR3 հարթակները այսքան մանրամասն։ Կոնֆիգուրատորն ուղղորդում է ձեզ ձեր սարքաշարի սերնդին համապատասխան պրոցեսորների, հիշողության և մայր տախտակների ընտրության հարցում, որպեսզի փող չծախսեք չհամապատասխանող մասերի վրա։", about_story_h3: "Ստեղծված հունական շուկայի համար", about_story_p3: "Գները ներառում են 24% հունական ԱԱՀ և արտացոլում են այն, ինչ իրականում կվճարեիք տեղում, այլ ոչ թե ամերիկյան կամ ընդհանուր եվրոպական գնահատականներ։ Յուրաքանչյուր առաջարկություն ստուգվում է ըստ այն բանի, թե ինչն է իրականում հասանելի գնման համար Հունաստանում հենց հիմա։", about_story_h4: "Պարզ լեզու, իրական գիտելիք", about_story_p4: "Ոչ մի ժարգոն՝ առանց բացատրության։ Այս կայքի յուրաքանչյուր ուղեցույց գրված է այնպես, որ առանց տեխնիկական գիտելիքների մարդն էլ կարողանա հետևել քայլ առ քայլ, հասկանալ, թե ինչու է կարևոր յուրաքանչյուր քայլ, և վերջում իսկապես ինչ-որ բան սովորել։",
+      about_values_eyebrow: "Սկզբունքները", about_values_title: "Ինչի՞ն է հավատարիմ better<span style='color: #ff7a00;'>PC</span>-ը", about_v1_title: "Ազնիվ գնագոյացում", about_v1_desc: "Գները մոտավոր են և նշված են որպես այդպիսին։ Ոչ մի փչված թիվ՝ հավաքումները մյուսների համեմատ ավելի էժան ցույց տալու համար։", about_v2_title: "Առանց գովազդի, առանց ընկերակցային կապերի", about_v2_desc: "betterPC-ն ոչինչ չի վաստակում կոնկրետ բրենդներ առաջարկելուց։ Ընտրությունները հիմնված են արժեքի և հասանելիության վրա։", about_v3_title: "Հին սարքաշարը դեռ նշանակություն ունի", about_v3_desc: "DDR2 և DDR3 մեքենաները դեռևս կարող են ծառայել իրական նպատակների։ Օգնել դրանցից ավելի շատ կյանք քաղել՝ արժե։", about_v4_title: "Համատեղելիությունը՝ առաջինը", about_v4_desc: "Ոչինչ չի առաջարկվում առանց ստուգման։ CPU–մայրական սալիկ–RAM համատեղելիությունը ստուգվում է, նախքան դուք գումար կվատնեիք։", about_v5_title: "Հունական համատեքստ", about_v5_desc: "Գները, հասանելիությունը և մասերի վերաբերյալ խորհուրդները հիմնված են հունական և ավելի լայն ԵՄ շուկայի վրա, ոչ թե ամերիկյան։", about_v6_title: "Մշտական բարելավում", about_v6_desc: "Մասերի ցանկերը, գները և ուղեցույցները թարմացվում են՝ շուկայի փոփոխությանը զուգընթաց։ Սա «մեկ անգամ արված, մոռացված» կայք չէ։",
+      about_cta_title: "Պատրա՞ստ եք հավաքել", about_cta_desc: "Օգտագործեք կոնֆիգուրատորը՝ ձեր հաջորդ համակարգիչի գինը հաշվարկելու համար՝ բոլորովին նոր, բյուջետային, կամ ամբողջովին հին համակարգով։", about_cta_btn_primary: "🛠️ Բացել PC կոնֆիգուրատորը",
+      services_eyebrow: "Ծառայություններ",
+      services_title: "Անհատական համակարգչի օգնություն՝ մարդուց, ով իսկապես գիտի, թե ինչ է անում։",
+      services_desc: "Ֆորմատավորում, մաքրում, արդիականացումներ — առանց դժվարությունների, ձեր տարածքում։",
+      services_s1_title: "Համակարգչի մաքրում",
+      services_s1_desc: "Փոշու հեռացում, ջերմահաղորդիչ մածուկի փոխարինում, ներքին մաքրում։",
+      services_s2_title: "Ֆորմատավորում և Windows-ի տեղադրում",
+      services_s2_desc: "Մաքուր տեղադրում, դրայվերներ, անհրաժեշտ ծրագրերը՝ պատրաստ օգտագործման։",
+      services_s3_title: "Սարքաշարի արդիականացումներ",
+      services_s3_desc: "RAM, SSD, տեսաքարտ — ինչ էլ որ ձեր համակարգչին անհրաժեշտ լինի։",
+      services_s4_title: "Համակարգիչը դանդա՞ղ է",
+      services_s4_desc: "Ախտորոշում և արտադրողականության արագացում։",
+      services_s5_title: "PC-ի հավաքում",
+      services_s5_desc: "Օգնություն մասերի ընտրության և ամբողջական հավաքման հարցում՝ զրոյից։",
+      services_price_note: "💬 Գները կախված են աշխատանքից — գրեք ինձ գնահատականի համար, նախքան որևէ բան սկսելը։",
+      services_area: "📍 Սպասարկում եմ Խայդարին և ընդհանուր Աթենքի ավազանը։ Այցելություն տուն կամ բերեք ձեր համակարգիչը — ինչպես ձեզ հարմար է։",
+      services_about_title: "Ով եմ ես",
+      services_about_desc: "Ես աշխատում եմ PC սարքաշարի հետ, հավաքում եմ համակարգեր և սիրում եմ օգնել մարդկանց լուծել իրենց խնդիրները՝ առանց խանութում մի ամբողջ ունեցվածք վճարելու։ Եթե ինչ-որ բան ճիշտ չի աշխատում, եկեք միասին պարզենք։"
+    },
+   ge: {
+      skip_to_content: "გადასვლა შინაარსზე",
+     nav_formats: "ფორმატები", nav_ram: "ოპერატიული მეხსიერება", nav_storage: "საცავი", nav_cpu: "პროცესორი", nav_build: "აწყობა", nav_about: "ჩვენს შესახებ", nav_back: "← უკან გზამკვლევში", footer_back: "გზამკვლევი", footer_about: "ჩვენს შესახებ",
+     tag_pc_builder: "კომპიუტერის ამწყობი", tag_hardware_nerd: "ტექნიკის მოყვარული", tag_ddr2_survivor: "DDR2-ის გადარჩენილი", tag_greek_market: "საბერძნეთის ბაზარი", tag_open_source: "ღია კოდი",
+     faq_eyebrow: "ხშირად დასმული კითხვები", faq_title: "ხშირი კითხვები", faq_q1: "მუშაობთ ძველ DDR2/DDR3 კომპიუტერებზე, თუ მხოლოდ ახალ აწყობებზე?", faq_a1: "ორივეზე. betterPC მოიცავს DDR2, DDR3 და სულ ახალ პლატფორმებს — ამ საიტის მთელი აზრი იმაშია, რომ ძველ ტექნიკას ხშირად ჯერ კიდევ დარჩენილი აქვს ნამდვილი სიცოცხლე.", faq_q2: "აწყობის კონფიგურატორში მითითებული ფასები არის ის, რასაც რეალურად გადავიხდი?", faq_a2: "ეს არის შეფასებები, რომლებიც უკვე მოიცავს 24%-იან ბერძნულ დღგ-ს და ასახავს რეალისტურ ადგილობრივ ფასებს. რეალური ღირებულება შეიძლება შეიცვალოს ნაწილების ხელმისაწვდომობის მიხედვით, ამიტომ მომწერეთ შესყიდვამდე დასადასტურებლად.", faq_q3: "თქვენ მოდიხართ ჩემთან, თუ მე მოვიტანო კომპიუტერი თქვენთან?", faq_a3: "რაც უფრო მოსახერხებელია თქვენთვის. ვთავაზობ სახლში ვიზიტს ხაიდარისა და ათენის ფართო აუზის ტერიტორიაზე, ან შეგიძლიათ თავად მომიტანოთ კომპიუტერი.", faq_q4: "რა ღირს შეკეთება, განახლება ან აწყობა?", faq_a4: "დამოკიდებულია სამუშაოზე — გაწმენდას, განახლებებსა და სრულ აწყობებს სხვადასხვა ფასი აქვს. მომწერეთ დეტალები და მიიღებთ შეფასებას ნებისმიერი სამუშაოს დაწყებამდე.", faq_q5: "იღებთ თუ არა საკომისიოს რეკომენდირებულ ნაწილებზე?", faq_a5: "არა. betterPC არ აჩვენებს რეკლამებს და არ იღებს პარტნიორულ საკომისიოებს — რეკომენდაციები ეფუძნება ღირებულებასა და ხელმისაწვდომობას და არა იმას, თუ ვინ იხდის ყველაზე მეტს.", faq_q6: "რომელ ტერიტორიებს ემსახურებით რეალურად?", faq_a6: "ხაიდარსა და ათენის ფართო აუზს.", about_hero_eyebrow: "ვინ ვართ ჩვენ", about_hero_title: "ერთი ადამიანი.<br><em>ბევრი</em> კომპიუტერი.", about_hero_desc: "betterPC არის ერთი ადამიანის პროექტი, რომელიც წარმოიშვა უბრალო იმედგაცრუებისგან: <strong>ძალიან ბევრი ადამიანი ზედმეტს იხდის ისეთ კომპიუტერებში, რომლებსაც არ ესმის</strong>, ან აგდებს სავსებით გამართულ ძველ ტექნიკას მხოლოდ იმიტომ, რომ არავინ უთხრა, რომ ის კვლავ კარგად იმუშავებდა.<br><br>ახალ სათამაშო კომპიუტერს აწყობთ თუ ბებია-ბაბუისთვის DDR2 მანქანას გადაარჩენთ, ეს საიტი დაგეხმარებათ.",
+     about_avatar_name: "დამფუძნებელი", about_avatar_role: "დამფუძნებელი · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "კომპიუტერების მოყვარული, ექსპერიმენტატორი და ძველი ტექნიკის გადამამუშავებელი. ავაწყე ყველაფერი — DDR2-ით აღჭურვილი ბიუჯეტური საოფისე კომპიუტერებიდან წყლის გაგრილებით სათამაშო მანქანებამდე — და მჯერა, რომ ყველას აქვს უფლება იცოდეს, რა არის მისი მანქანის შიგნით.",
+     about_story_eyebrow: "ისტორია", about_story_title: "რატომ არსებობს better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "ძველი ტექნიკის პრობლემა", about_story_p1: "საბერძნეთში მილიონობით 2006–2015 წლების კომპიუტერი უბრალოდ საწყობებში ინახება, თუმცა ისინი კვლავ სავსებით გამოსადეგია ყოველდღიური გამოყენებისთვის, ინტერნეტში სერფინგისთვის, საოფისე სამუშაოსთვის და რამდენიმე განახლებით — მსუბუქი თამაშებისთვისაც კი. მათი გადაგდების ნაცვლად, ეს საიტი გიჩვენებთ, როგორ დაუბრუნოთ მათ სიცოცხლე ახალი კომპიუტერის ფასის მცირე ნაწილად.", about_story_h2: "აწყობის კონფიგურატორი", about_story_p2: "არცერთი სხვა ბერძნული PC გზამკვლევი არ მოიცავს DDR2 და DDR3 პლატფორმებს ასეთი დეტალურობით. კონფიგურატორი გაგატარებთ თქვენი ტექნიკის ზუსტი თაობის შესაბამის პროცესორებს, ოპერატიულ მეხსიერებას და დედაპლატებს, რომ ფული არ დახარჯოთ შეუსაბამო ნაწილებზე.", about_story_h3: "შექმნილია საბერძნეთის ბაზრისთვის", about_story_p3: "ფასები მოიცავს 24%-იან ბერძნულ დღგ-ს და ასახავს იმას, რასაც რეალურად გადაიხდიდით ადგილზე, და არა ამერიკულ ან ზოგად ევროპულ შეფასებებს. ყოველი რეკომენდაცია მოწმდება იმის მიხედვით, თუ რა არის რეალურად ხელმისაწვდომი საბერძნეთში ამჟამად შესაძენად.", about_story_h4: "მარტივი ენა, რეალური ცოდნა", about_story_p4: "არანაირი ჟარგონი ახსნის გარეშე. ამ საიტის ყოველი გზამკვლევი დაწერილია ისე, რომ ტექნიკური ცოდნის არმქონე ადამიანმაც კი შეძლოს ნაბიჯ-ნაბიჯ მისი გავლა, გაიგოს, რატომაა მნიშვნელოვანი ყოველი ნაბიჯი, და ბოლოს რეალურად ისწავლოს რაღაც.",
+     about_values_eyebrow: "პრინციპები", about_values_title: "რას გულისხმობს better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "პატიოსანი ფასდადება", about_v1_desc: "ფასები არის სავარაუდო და ასეთადვეა მითითებული. არანაირი გაბერილი რიცხვი, რომ აწყობები შედარებით იაფად გამოჩნდეს.", about_v2_title: "არანაირი რეკლამა, არანაირი პარტნიორობა", about_v2_desc: "betterPC არაფერს გამოიმუშავებს კონკრეტული ბრენდების რეკომენდაციით. არჩევანი ეფუძნება ღირებულებას და ხელმისაწვდომობას.", about_v3_title: "ძველ ტექნიკას მნიშვნელობა აქვს", about_v3_desc: "DDR2 და DDR3 მანქანებს კვლავ შეუძლიათ რეალურ მიზნებს ემსახურონ. მათგან მეტი სარგებლის მიღებაში დახმარება ღირს.", about_v4_title: "თავსებადობა უპირველესად", about_v4_desc: "არაფერი რეკომენდირდება შემოწმების გარეშე. პროცესორის, დედაპლატისა და მეხსიერების თავსებადობა მოწმდება, სანამ ფულს დახარჯავთ.", about_v5_title: "ბერძნული კონტექსტი", about_v5_desc: "ფასები, ხელმისაწვდომობა და ნაწილების რჩევები ეფუძნება ბერძნულ და ევროკავშირის ფართო ბაზარს, არა ამერიკულს.", about_v6_title: "მუდმივი გაუმჯობესება", about_v6_desc: "ნაწილების სიები, ფასები და გზამკვლევები ახლდება ბაზრის ცვლილებებთან ერთად. ეს არ არის ერთხელ შექმნილი და მიტოვებული საიტი.",
+     about_cta_title: "მზად ხართ ასაწყობად?", about_cta_desc: "გამოიყენეთ კონფიგურატორი თქვენი შემდეგი კომპიუტერის ფასის დასათვლელად — სულ ახალი, ბიუჯეტური თუ სრულად ძველი სისტემა.", about_cta_btn_primary: "🛠️ გახსენით PC კონფიგურატორი",
+     services_eyebrow: "სერვისები",
+     services_title: "პერსონალური კომპიუტერის დახმარება ადამიანისგან, რომელმაც იცის, რას აკეთებს.",
+     services_desc: "ფორმატირება, გაწმენდა, განახლებები — უპრობლემოდ, თქვენს რაიონში.",
+     services_s1_title: "კომპიუტერის გაწმენდა",
+     services_s1_desc: "მტვრის მოცილება, თერმოპასტის შეცვლა, შიდა გაწმენდა.",
+     services_s2_title: "ფორმატირება და Windows-ის ინსტალაცია",
+     services_s2_desc: "სუფთა ინსტალაცია, დრაივერები, საჭირო პროგრამები გამოსაყენებლად მზად.",
+     services_s3_title: "ტექნიკის განახლებები",
+     services_s3_desc: "ოპერატიული მეხსიერება, SSD, ვიდეობარათი — რაც არ უნდა სჭირდებოდეს თქვენს კომპიუტერს.",
+     services_s4_title: "ნელა მუშაობს კომპიუტერი?",
+     services_s4_desc: "დიაგნოსტიკა და წარმადობის დაჩქარება.",
+     services_s5_title: "კომპიუტერის აწყობა",
+     services_s5_desc: "დახმარება ნაწილების არჩევასა და სრულ აწყობაში ნულიდან.",
+     services_price_note: "💬 ფასი დამოკიდებულია სამუშაოზე — მომწერეთ შეფასებისთვის, სანამ რამეს დავიწყებთ.",
+     services_area: "📍 ვემსახურები ხაიდარისა და ათენის ფართო აუზს. სახლში ვიზიტი ან მოიტანეთ თქვენი კომპიუტერი — რაც თქვენთვის მოსახერხებელია.",
+     services_about_title: "ვინ ვარ მე",
+     services_about_desc: "ვმუშაობ კომპიუტერის ტექნიკასთან, ვაწყობ სისტემებს და მიყვარს ადამიანების დახმარება მათი პრობლემების მოგვარებაში მაღაზიაში დიდი თანხის გადახდის გარეშე. თუ რამე არასწორად მუშაობს, ერთად გავარკვევთ."
+   },
+    sq: {
+      skip_to_content: "Kalo te përmbajtja",
+      nav_formats: "Formatime", nav_ram: "RAM", nav_storage: "Ruajtje", nav_cpu: "CPU", nav_build: "Ndërto", nav_about: "Rreth nesh", nav_back: "← Kthehu te Udhëzuesi", footer_back: "Udhëzues", footer_about: "Rreth",
+      tag_pc_builder: "Ndërtues PC", tag_hardware_nerd: "I apasionuar pas hardware-it", tag_ddr2_survivor: "Mbijetues i DDR2", tag_greek_market: "Tregu grek", tag_open_source: "Burim i hapur",
+      faq_eyebrow: "Pyetje të shpeshta", faq_title: "Pyetje të zakonshme", faq_q1: "A punoni me PC të vjetra DDR2/DDR3, apo vetëm me ndërtime të reja?", faq_a1: "Të dyja. betterPC mbulon DDR2, DDR3 dhe platforma krejtësisht të reja — e gjithë ideja e këtij faqeje është që hardueri i vjetër shpesh ka ende jetë reale në vetvete.", faq_q2: "A janë çmimet në konfigurues ato që do të paguaj në të vërtetë?", faq_a2: "Janë vlerësime që përfshijnë tashmë 24% TVSH greke dhe pasqyrojnë çmime reale lokale. Kostoja aktuale mund të ndryshojë sipas disponueshmërisë së pjesëve, prandaj më shkruani për konfirmim para se të blini.", faq_q3: "A vini ju tek unë, apo e sjell unë PC-në tek ju?", faq_a3: "Çfarëdo që ju përshtatet më lehtë. Ofroj vizita në shtëpi rreth Haidarit dhe zonës më të gjerë të Athinës, ose mund të më sillni PC-në.", faq_q4: "Sa kushtojnë riparimet, përmirësimet ose montimet?", faq_a4: "Varet nga puna — pastrimi, përmirësimet dhe montimet e plota çmohen ndryshe. Më dërgoni detajet dhe do të merrni një vlerësim para se të fillojë çdo punë.", faq_q5: "A fitoni komision nga pjesët që rekomandoni?", faq_a5: "Jo. betterPC nuk shfaq reklama dhe nuk merr komisione afiliuese — rekomandimet bazohen në vlerë dhe disponueshmëri, jo në kush paguan më shumë.", faq_q6: "Cilat zona i shërbeni në të vërtetë?", faq_a6: "Haidarin dhe zonën më të gjerë të Athinës.", about_hero_eyebrow: "Kush jemi", about_hero_title: "Një person.<br>Shumë <em>PC.</em>", about_hero_desc: "betterPC është një projekt i një personi të vetëm, i lindur nga një zhgënjim i thjeshtë: <strong>shumë njerëz paguajnë tepër për PC që nuk i kuptojnë</strong>, ose hedhin harduer të vjetër plotësisht të përdorshëm sepse askush nuk u tha se mund të funksiononte mirë.<br><br>Qoftë duke ndërtuar një makinë të re për lojëra apo duke shpëtuar një makinë DDR2 për gjyshërit, ky sajt ju mbulon.",
+      about_avatar_name: "Themeluesi", about_avatar_role: "Themelues · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "I apasionuar pas PC-ve, eksperimentues dhe ricikluesi i harduerit të vjetër. Kam ndërtuar gjithçka nga kuti zyre me buxhet të vogël me DDR2 deri te makina lojrash me ftohje me ujë — dhe besoj se çdokush meriton të dijë çfarë ka brenda makinës së tij.",
+      about_story_eyebrow: "Historia", about_story_title: "Pse ekziston better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "Problemi me harduerin e vjetër", about_story_p1: "Greqia ka miliona PC nga periudha 2006–2015 që rrinë të ruajtura nëpër magazina, ende plotësisht të afta për përdorim të përditshëm, shfletim, punë zyre, madje edhe lojëra të lehta me pak përmirësime. Në vend që t'i hedhësh, ky sajt të tregon si t'u japësh jetë të re për një pjesë të vogël të kostos së një PC-je të re.", about_story_h2: "Konfiguruesi i ndërtimit", about_story_p2: "Asnjë udhëzues tjetër grek për PC nuk i mbulon platformat DDR2 dhe DDR3 me këtë nivel detajesh. Konfiguruesi të udhëzon nëpër procesorë, memorie dhe pllaka amë të përputhshme me gjeneratën tënde të saktë të harduerit, që të mos harxhosh para në pjesë që nuk përshtaten.", about_story_h3: "Bërë për tregun grek", about_story_p3: "Çmimet përfshijnë 24% TVSH greke dhe pasqyrojnë atë që do të paguanit realisht lokalisht, jo vlerësime amerikane apo evropiane të përgjithshme. Çdo rekomandim kontrollohet me atë që është realisht i disponueshëm për blerje në Greqi tani.", about_story_h4: "Gjuhë e thjeshtë, njohuri e vërtetë", about_story_p4: "Asnjë zhargon pa shpjegim. Çdo udhëzues në këtë sajt është shkruar në mënyrë që dikush pa asnjë njohuri teknike të mund ta ndjekë hap pas hapi, të kuptojë pse ka rëndësi çdo hap, dhe në fund të mësojë vërtet diçka gjatë rrugës.",
+      about_values_eyebrow: "Parimet", about_values_title: "Çfarë përfaqëson better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "Çmime të ndershme", about_v1_desc: "Çmimet janë vlerësime, të etiketuara si të tilla. Asnjë shifër e fryrë për t'i bërë ndërtimet të duken më lira në krahasim.", about_v2_title: "Pa reklama, pa afiliim", about_v2_desc: "betterPC nuk fiton asgjë duke rekomanduar marka të caktuara. Zgjedhjet bazohen në vlerë dhe disponueshmëri.", about_v3_title: "Harduri i vjetër ka rëndësi", about_v3_desc: "Makinat DDR2 dhe DDR3 mund të shërbejnë ende për qëllime reale. Ndihma për t'u nxjerrë më shumë jetë prej tyre ia vlen.", about_v4_title: "Përputhshmëria mbi të gjitha", about_v4_desc: "Asgjë nuk rekomandohet pa u kontrolluar. Përputhshmëria CPU–bord amë–RAM verifikohet përpara se të harxhoni para.", about_v5_title: "Konteksti grek", about_v5_desc: "Çmimet, disponueshmëria dhe këshillat për pjesë bazohen në tregun grek dhe atë më të gjerë të BE-së, jo atë amerikan.", about_v6_title: "Përmirësim i vazhdueshëm", about_v6_desc: "Listat e pjesëve, çmimet dhe udhëzuesit përditësohen sipas ndryshimeve të tregut. Ky nuk është një sajt i lënë pas dore.",
+      about_cta_title: "Gati për të ndërtuar?", about_cta_desc: "Përdorni konfiguruesin për të llogaritur PC-në tuaj të radhës — krejt të re, me buxhet, ose plotësisht legacy.", about_cta_btn_primary: "🛠️ Hap Konfiguruesin e PC",
+      services_eyebrow: "Shërbime",
+      services_title: "Ndihmë për kompjuterin personal, nga dikush që e di çfarë po bën.",
+      services_desc: "Formatim, pastrim, përmirësime — pa telashe, në zonën tuaj.",
+      services_s1_title: "Pastrimi i Kompjuterit",
+      services_s1_desc: "Heqja e pluhurit, zëvendësimi i pastës termike, pastrim i brendshëm.",
+      services_s2_title: "Formatim & Instalim Windows",
+      services_s2_desc: "Instalim i pastër, drajverë, programet thelbësore gati për përdorim.",
+      services_s3_title: "Përmirësime Hardueri",
+      services_s3_desc: "RAM, SSD, kartë grafike — çfarëdo që i duhet PC-së tuaj.",
+      services_s4_title: "Kompjuter i Ngadaltë?",
+      services_s4_desc: "Diagnostikim dhe përshpejtim i performancës.",
+      services_s5_title: "Montimi i PC-së",
+      services_s5_desc: "Ndihmë në zgjedhjen e pjesëve dhe montim i plotë nga zero.",
+      services_price_note: "💬 Çmimet varen nga puna — më shkruani për një vlerësim para se të fillojmë çdo gjë.",
+      services_area: "📍 Shërbej Chaidarin dhe zonën më të gjerë të Athinës. Vizitë në shtëpi ose sillni PC-në tuaj — çfarëdo që ju përshtatet.",
+      services_about_title: "Kush jam unë",
+      services_about_desc: "Punoj me hardware PC-je, ndërtoj sisteme dhe më pëlqen t'i ndihmoj njerëzit të zgjidhin problemet e tyre pa paguar një pasuri në dyqan. Nëse diçka nuk funksionon si duhet, le ta zbulojmë së bashku."
+    },
+    
+    ar: {
+      skip_to_content: "تخطي إلى المحتوى",
+      nav_formats: "التنسيقات", nav_ram: "الذاكرة العشوائية", nav_storage: "التخزين", nav_cpu: "المعالج", nav_build: "التجميع", nav_about: "من نحن", nav_back: "← العودة إلى الدليل", footer_back: "الدليل", footer_about: "من نحن",
+      tag_pc_builder: "بانِي الحواسيب", tag_hardware_nerd: "مهووس بالعتاد", tag_ddr2_survivor: "ناجٍ من DDR2", tag_greek_market: "السوق اليوناني", tag_open_source: "مفتوح المصدر",
+      faq_eyebrow: "الأسئلة الشائعة", faq_title: "أسئلة شائعة", faq_q1: "هل تعمل على أجهزة الحاسوب القديمة DDR2/DDR3، أم فقط على التجميعات الجديدة؟", faq_a1: "كلاهما. يغطي betterPC أجيال DDR2 وDDR3 والمنصات الجديدة كليًا — الفكرة الأساسية لهذا الموقع هي أن العتاد القديم غالبًا ما لا يزال يملك حياة حقيقية فيه.", faq_q2: "هل الأسعار في أداة تكوين التجميع هي ما سأدفعه فعليًا؟", faq_a2: "هي تقديرات تشمل بالفعل ضريبة القيمة المضافة اليونانية بنسبة 24% وتعكس أسعارًا محلية واقعية. قد تتغير التكلفة الفعلية حسب توفر القطع، لذا راسلني للتأكيد قبل الشراء.", faq_q3: "هل تأتي إلى منزلي، أم أُحضر لك الجهاز؟", faq_a3: "أيهما أسهل بالنسبة لك. أقدم زيارات منزلية في منطقة شيدارِي وأثينا الأوسع، أو يمكنك إحضار الجهاز إليّ.", faq_q4: "كم تكلفة الإصلاحات أو الترقيات أو التجميعات؟", faq_a4: "يعتمد على طبيعة العمل — التنظيف والترقيات والتجميعات الكاملة لها أسعار مختلفة. أرسل لي التفاصيل وستحصل على تقدير قبل بدء أي عمل.", faq_q5: "هل تكسب عمولة من القطع التي توصي بها؟", faq_a5: "لا. لا يعرض betterPC إعلانات ولا يأخذ عمولات تسويق بالعمولة — التوصيات تعتمد على القيمة والتوفر، وليس على من يدفع أكثر.", faq_q6: "ما هي المناطق التي تخدمها فعليًا؟", faq_a6: "شيدارِي ومنطقة أثينا الأوسع.", about_hero_eyebrow: "من نحن", about_hero_title: "شخص واحد.<br>و<em>الكثير</em> من الحواسيب.", about_hero_desc: "betterPC هو مشروع لشخص واحد وُلد من إحباط بسيط: <strong>كثير من الناس يدفعون أكثر من اللازم مقابل حواسيب لا يفهمونها</strong>، أو يتخلصون من عتاد قديم لا يزال صالحًا لأن لا أحد أخبرهم أنه قد يعمل جيدًا.<br><br>سواء كنت تُجمّع جهاز ألعاب جديدًا تمامًا أو تُنقذ جهاز DDR2 لأحد أفراد عائلتك، هذا الموقع يغطي احتياجاتك.",
+      about_avatar_name: "المؤسس", about_avatar_role: "المؤسس · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "شغوف بالحواسيب، محب للتجريب، ومُعيد تدوير للعتاد القديم. قمت ببناء كل شيء من أجهزة مكتبية اقتصادية بذاكرة DDR2 إلى أجهزة ألعاب مبردة بالماء — وأؤمن أن كل شخص يستحق أن يعرف ما بداخل جهازه.",
+      about_story_eyebrow: "القصة", about_story_title: "لماذا يوجد better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "مشكلة العتاد القديم", about_story_p1: "يوجد في اليونان ملايين الحواسيب من الفترة 2006–2015 مُخزّنة دون استخدام، وهي لا تزال صالحة تمامًا للاستخدام اليومي والتصفح والعمل المكتبي، بل وحتى الألعاب الخفيفة مع بعض الترقيات. بدلاً من التخلص منها، يوضح لك هذا الموقع كيفية إعادة إحيائها بجزء بسيط من تكلفة جهاز جديد.", about_story_h2: "أداة تكوين التجميع", about_story_p2: "لا يوجد دليل يوناني آخر للحواسيب يغطي منصات DDR2 و DDR3 بهذا المستوى من التفصيل. توجهك أداة التكوين إلى المعالجات والذاكرة واللوحات الأم المتوافقة مع جيل عتادك بالضبط، حتى لا تهدر المال على قطع لا تناسبه.", about_story_h3: "مصمم للسوق اليوناني", about_story_p3: "الأسعار تشمل ضريبة القيمة المضافة اليونانية بنسبة 24% وتعكس ما ستدفعه فعليًا محليًا، وليست تقديرات أمريكية أو أوروبية عامة. يتم التحقق من كل توصية بناءً على ما هو متاح فعليًا للشراء في اليونان الآن.", about_story_h4: "لغة بسيطة، ومعرفة حقيقية", about_story_p4: "لا مصطلحات تقنية دون شرح. كل دليل في هذا الموقع مكتوب بحيث يستطيع أي شخص بلا أي خلفية تقنية اتباعه خطوة بخطوة، وفهم سبب أهمية كل خطوة، والخروج بمعرفة حقيقية اكتسبها في الطريق.",
+      about_values_eyebrow: "المبادئ", about_values_title: "ما الذي يمثله better<span style='color: #ff7a00;'>PC</span>", about_v1_title: "أسعار صادقة", about_v1_desc: "الأسعار تقديرية ومُصنّفة على هذا الأساس. لا أرقام مُضخّمة لجعل الأجهزة تبدو أرخص بالمقارنة.", about_v2_title: "بلا إعلانات، بلا عمولات", about_v2_desc: "لا يربح betterPC شيئًا من التوصية بعلامات تجارية معينة. الاختيارات تعتمد على القيمة والتوفر.", about_v3_title: "العتاد القديم مهم", about_v3_desc: "لا تزال أجهزة DDR2 و DDR3 قادرة على خدمة أغراض حقيقية. مساعدة الناس على الاستفادة منها أكثر أمر يستحق الجهد.", about_v4_title: "التوافق أولًا", about_v4_desc: "لا يُوصى بأي شيء دون تحقق. يتم التحقق من توافق المعالج واللوحة الأم والذاكرة قبل أن تُهدر أموالك.", about_v5_title: "السياق اليوناني", about_v5_desc: "الأسعار والتوفر ونصائح القطع تستند إلى السوق اليوناني والأوروبي الأوسع، وليس السوق الأمريكي.", about_v6_title: "تحسين مستمر", about_v6_desc: "قوائم القطع والأسعار والأدلة تُحدَّث مع تغيّر السوق. هذا ليس موقعًا يُنشأ ويُترك.",
+      about_cta_title: "مستعد للبناء؟", about_cta_desc: "استخدم أداة التكوين لتحديد سعر جهازك التالي — جديد بالكامل، اقتصادي، أو قديم بالكامل.", about_cta_btn_primary: "🛠️ افتح أداة تكوين الحاسوب",
+      services_eyebrow: "الخدمات",
+      services_title: "مساعدة في الحاسوب الشخصي، من شخص يعرف ما يفعله.",
+      services_desc: "تنسيق، تنظيف، ترقيات — دون تعقيد، في منطقتك.",
+      services_s1_title: "تنظيف الحاسوب",
+      services_s1_desc: "إزالة الغبار، استبدال المعجون الحراري، تنظيف داخلي.",
+      services_s2_title: "تنسيق وتثبيت ويندوز",
+      services_s2_desc: "تثبيت نظيف، تعريفات، وبرامج أساسية جاهزة للاستخدام.",
+      services_s3_title: "ترقيات العتاد",
+      services_s3_desc: "ذاكرة عشوائية، قرص SSD، كرت شاشة — أيًا كان ما يحتاجه جهازك.",
+      services_s4_title: "حاسوبك بطيء؟",
+      services_s4_desc: "تشخيص وتسريع الأداء.",
+      services_s5_title: "تجميع الحاسوب",
+      services_s5_desc: "مساعدة في اختيار القطع وتجميع كامل من الصفر.",
+      services_price_note: "💬 الأسعار تعتمد على طبيعة العمل — راسلني للحصول على تقدير قبل أن نبدأ بأي شيء.",
+      services_area: "📍 أخدم شيدارِي ومنطقة أثينا الأوسع. زيارة منزلية أو إحضار جهازك — أيًا كان ما يناسبك.",
+      services_about_title: "من أنا",
+      services_about_desc: "أعمل مع عتاد الحواسيب، وأبني الأنظمة، وأستمتع بمساعدة الناس على حل مشاكلهم دون دفع مبالغ باهظة في المتاجر. إذا كان هناك شيء لا يعمل بشكل صحيح، فلنكتشف الحل معًا."
+    },
+    
+    zh: {
+      skip_to_content: "跳转到内容",
+      nav_formats: "机型", nav_ram: "内存", nav_storage: "存储", nav_cpu: "处理器", nav_build: "组装", nav_about: "关于我们", nav_back: "← 返回指南", footer_back: "指南", footer_about: "关于",
+      tag_pc_builder: "电脑组装者", tag_hardware_nerd: "硬件爱好者", tag_ddr2_survivor: "DDR2 幸存者", tag_greek_market: "希腊市场", tag_open_source: "开源",
+      faq_eyebrow: "常见问题", faq_title: "常见问题", faq_q1: "你只做全新组装，还是也处理老旧的 DDR2/DDR3 电脑？", faq_a1: "两者都做。betterPC 涵盖 DDR2、DDR3 以及全新平台——这个网站的初衷就是老旧硬件往往还有很长的使用寿命。", faq_q2: "配置生成器里的价格是我最终要付的价格吗？", faq_a2: "这些是估算价格，已包含 24% 的希腊增值税，反映的是本地实际合理价格。实际费用可能因配件供货情况而变动，购买前请联系我确认。", faq_q3: "是你上门，还是我把电脑送去给你？", faq_a3: "怎么方便怎么来。我提供哈伊达里及大雅典地区的上门服务，你也可以自行送修。", faq_q4: "维修、升级或组装的费用是多少？", faq_a4: "视具体工作而定——清灰、升级和完整组装的收费各不相同。把详情发给我，开工前你会得到一个报价。", faq_q5: "你推荐的配件会有回扣吗？", faq_a5: "不会。betterPC 不投放广告，也不拿任何联盟回扣——推荐完全基于性价比和货源情况，而不是谁给的钱多。", faq_q6: "你实际服务哪些区域？", faq_a6: "哈伊达里及大雅典地区。", about_hero_eyebrow: "我们是谁", about_hero_title: "一个人。<br><em>很多</em>台电脑。", about_hero_desc: "betterPC 是一个单人项目，源于一个简单的困扰：<strong>太多人为自己不了解的电脑多花了冤枉钱</strong>，或者扔掉了本还能用的旧硬件，只因为没人告诉他们它其实还能正常运行。<br><br>无论你是要组装一台全新的游戏主机，还是要为家中长辈抢救一台 DDR2 老电脑，这个网站都能帮到你。",
+      about_avatar_name: "创始人", about_avatar_role: "创始人 · <span style='color: white;'>better</span><span style='color: #ff7a00;'>PC</span>", about_avatar_bio: "电脑爱好者、动手改装达人，也是旧硬件的回收利用者。从预算有限的 DDR2 办公主机，到水冷游戏主机，我几乎都组装过——我相信每个人都应该了解自己电脑里到底装的是什么。",
+      about_story_eyebrow: "故事", about_story_title: "为什么会有 better<span style='color: #ff7a00;'>PC</span>", about_story_h1: "旧硬件的问题", about_story_p1: "希腊有数百万台 2006 至 2015 年间生产的电脑闲置在仓库里，其实它们完全可以胜任日常使用、上网浏览、办公，稍加升级甚至能玩一些轻度游戏。与其把它们扔掉，本站教你如何以远低于购买新机的成本让它们重获新生。", about_story_h2: "配置生成器", about_story_p2: "没有其他希腊电脑指南能像本站这样深入涵盖 DDR2 和 DDR3 平台。配置生成器会为你推荐与你确切硬件世代相匹配的处理器、内存和主板，避免你把钱花在不兼容的配件上。", about_story_h3: "为希腊市场量身打造", about_story_p3: "价格已包含 24% 的希腊增值税，反映的是本地实际支付的金额，而不是美国或欧盟的笼统估价。每一条推荐都会核实是否是目前在希腊真正能买到的产品。", about_story_h4: "通俗易懂，知识扎实", about_story_p4: "所有术语都会解释清楚。本站的每篇指南都写得让零技术基础的人也能一步步跟着操作，理解每一步为什么重要，并在过程中真正学到东西。",
+      about_values_eyebrow: "原则", about_values_title: "better<span style='color: #ff7a00;'>PC</span> 所坚持的", about_v1_title: "诚实定价", about_v1_desc: "价格均为估算值，并明确标注。不会用虚高数字让配置显得更“划算”。", about_v2_title: "无广告、无返利", about_v2_desc: "betterPC 不靠推荐特定品牌获利，所有推荐均基于性价比与货源情况。", about_v3_title: "旧硬件仍有价值", about_v3_desc: "DDR2 和 DDR3 设备依然能胜任许多实际用途，帮它们延长使用寿命很有意义。", about_v4_title: "兼容性优先", about_v4_desc: "任何推荐都会先经过检验。处理器、主板与内存的兼容性会在你花钱前得到确认。", about_v5_title: "立足希腊", about_v5_desc: "价格、货源与选购建议均基于希腊及更广泛的欧盟市场，而非美国市场。", about_v6_title: "持续更新", about_v6_desc: "配件清单、价格与指南会随市场变化不断更新，这不是一个建完就丢的网站。",
+      about_cta_title: "准备好动手组装了吗？", about_cta_desc: "使用配置生成器为你的下一台电脑估算价格——全新、预算型，或纯怀旧配置皆可。", about_cta_btn_primary: "🛠️ 打开电脑配置生成器",
+      services_eyebrow: "服务",
+      services_title: "个人电脑帮助，来自真正懂行的人。",
+      services_desc: "重装系统、清灰、升级——不折腾，就在你附近。",
+      services_s1_title: "电脑清灰",
+      services_s1_desc: "除尘、更换导热硅脂、内部清洁。",
+      services_s2_title: "系统重装与 Windows 安装",
+      services_s2_desc: "全新安装、驱动配置，常用软件即装即用。",
+      services_s3_title: "硬件升级",
+      services_s3_desc: "内存、固态硬盘、显卡——你的电脑需要什么都能升级。",
+      services_s4_title: "电脑变慢了？",
+      services_s4_desc: "故障诊断与性能加速。",
+      services_s5_title: "电脑组装",
+      services_s5_desc: "协助选购配件，从零开始完整组装。",
+      services_price_note: "💬 价格视具体工作而定——开工前请先联系我获取报价。",
+      services_area: "📍 服务范围覆盖哈伊达里（Chaidari）及大雅典地区。上门服务或送修均可，怎么方便怎么来。",
+      services_about_title: "关于我",
+      services_about_desc: "我从事电脑硬件相关工作，负责系统组装，也很乐意帮大家解决问题，而不必在店里花大价钱。如果哪里出了问题，我们一起来搞定。"
+    }
+  } 
+  const langSelect = document.getElementById('langSelect');
+
+  // Η συνάρτηση που αλλάζει τη γλώσσα
+  function translatePage(lang) {
+    // 1. Εδώ αλλάζεις τα κείμενα (ο κώδικας που ήδη έχεις)
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (dictionary[lang] && dictionary[lang][key]) {
+        element.innerHTML = dictionary[lang][key];
+      }
+    });
+
+    // 2. ΑΠΟΘΗΚΕΥΣΗ: Γράφουμε στο localStorage
+    localStorage.setItem('selectedLanguage', lang);
+
+    // 3. ΕΠΙΒΟΛΗ: Ενημερώνουμε το dropdown να δείχνει τη σωστή γλώσσα
+    if (langSelect) langSelect.value = lang;
+    
+    document.documentElement.setAttribute("lang", lang);
+
+    // RTL για Αραβικά (και όποια άλλη RTL γλώσσα προστεθεί μελλοντικά)
+    document.documentElement.setAttribute("dir", (lang === 'ar') ? 'rtl' : 'ltr');
+  }
+
+  // 4. ΕΚΤΕΛΕΣΗ κατά τη φόρτωση
+  window.addEventListener('DOMContentLoaded', () => {
+    // Διαβάζουμε τι υπάρχει αποθηκευμένο (αν δεν υπάρχει, βάζουμε 'en')
+    const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+    
+    // Επιβάλλουμε τη γλώσσα στο dropdown και στο UI
+    translatePage(savedLang);
+  });
+
+  // 5. LISTENER: Όταν ο χρήστης αλλάζει το dropdown χειροκίνητα
+  if (langSelect) {
+    langSelect.addEventListener('change', (e) => {
+      translatePage(e.target.value); // Εδώ χρησιμοποιούμε το e.target.value (το this.value)
+    });
+  }
+
+  // 6. LAZY LOAD: Το video της ελληνικής σημαίας φορτώνει/παίζει μόνο όταν μπει στην οθόνη
+  // (το loading="lazy" δεν υποστηρίζεται επίσημα σε <video>, οπότε το κάνουμε με IntersectionObserver)
+  const flagVideo = document.getElementById('greekFlagVideo');
+  if (flagVideo) {
+    const flagObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const source = flagVideo.querySelector('source[data-src]');
+          if (source) {
+            source.src = source.getAttribute('data-src');
+            source.removeAttribute('data-src');
+            flagVideo.load();
+            flagVideo.play().catch(() => {});
+          }
+          flagObserver.unobserve(flagVideo);
+        }
+      });
+    }, { rootMargin: '200px' });
+    flagObserver.observe(flagVideo);
+  }
+
+  // 7. BACK TO TOP
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', () => {
+      backToTopBtn.classList.toggle('visible', window.scrollY > 500);
+    });
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+</script>
+
+<button id="backToTopBtn" aria-label="Back to top" title="Back to top">&#8593;</button>
+
+ 
+</body>
+</html>

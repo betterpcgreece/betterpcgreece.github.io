@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>betterPC — Build Your PC</title> 
+<meta name="description" content="Configure your PC build with live pricing including Greek VAT. Compare modern and legacy platforms, from budget builds to high-end rigs.">
+<link rel="canonical" href="https://betterpcgreece.github.io/build.html">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"> 
+ 
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="betterPC">
+<meta property="og:title" content="betterPC — Build Your PC">
+<meta property="og:description" content="Configure your PC build with live pricing including Greek VAT. Compare modern and legacy platforms, from budget builds to high-end rigs.">
+<meta property="og:url" content="https://betterpcgreece.github.io/build.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="betterPC — Build Your PC">
+<meta name="twitter:description" content="Configure your PC build with live pricing including Greek VAT. Compare modern and legacy platforms, from budget builds to high-end rigs.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Page-specific overrides and sections for build.html
+     (shared reset, tokens, nav, footer live in style.css) */
+  
+  /* PRESETS */
+  .preset-toggle-wrap { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .preset-btn { font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 600; padding: 9px 18px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; transition: all 0.2s; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--accent2); background: rgba(249,115,22,0.08); }
+  .preset-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* GENERATION TOGGLE */
+  .gen-toggle-wrap { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .gen-btn { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px; }
+  .gen-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .gen-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .gen-btn.legacy-btn.active { background: var(--legacy2); border-color: var(--legacy2); color: #fff; }
+  .legacy-note { font-size: 0.78rem; color: var(--legacy); background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2); border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 1.2rem; display: none; }
+  .legacy-note.visible { display: block; }
+
+  /* PAGE LAYOUT */
+  .page { max-width: 1200px; margin: 0 auto; padding: 96px 5% 80px; display: grid; grid-template-columns: 1fr 380px; gap: 2rem; align-items: start; }
+  .page-eyebrow { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .page-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.5rem; }
+  .page-desc { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; }
+
+  /* PARTS */
+  .parts-panel { display: flex; flex-direction: column; gap: 0.75rem; }
+  .part-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.3rem; display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 1rem; transition: border-color 0.2s; }
+  .part-card:hover { border-color: rgba(249,115,22,0.3); }
+  .part-card.has-warning { border-color: rgba(234,179,8,0.45); }
+  .part-card.legacy-card { border-color: rgba(167,139,250,0.2); }
+  .part-card.legacy-card:hover { border-color: rgba(167,139,250,0.45); }
+  .part-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(249,115,22,0.1); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); flex-shrink: 0; }
+  .legacy-card .part-icon { background: rgba(167,139,250,0.1); color: var(--legacy); }
+  .part-info { min-width: 0; }
+  .part-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; cursor: pointer; }
+  .part-select { width: 100%; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 500; color: var(--text); background: transparent; border: none; outline: none; cursor: pointer; appearance: none; padding-right: 1.2rem; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B6B' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0 center; }
+  .part-select option { background: #1a1a1a; color: var(--text); }
+  .part-select optgroup { color: var(--muted); }
+  .part-price { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); white-space: nowrap; text-align: right; min-width: 60px; }
+  .part-price.zero { color: var(--muted); }
+  .part-price.used { color: var(--legacy); }
+
+  /* WARNINGS */
+  .warnings-box { background: rgba(234,179,8,0.08); border: 1px solid rgba(234,179,8,0.25); border-radius: var(--radius); padding: 0.9rem 1.1rem; display: none; gap: 0.5rem; flex-direction: column; }
+  .warnings-box.visible { display: flex; }
+  .warn-item { font-size: 0.82rem; color: #fbbf24; display: flex; align-items: flex-start; gap: 0.5rem; }
+
+  /* SUMMARY */
+  .summary-panel { position: sticky; top: 80px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .summary-header { padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .summary-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 600; }
+  .tier-pill { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
+  .tier-pill.budget { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .tier-pill.mid    { background: rgba(249,115,22,0.15); color: var(--accent2); border: 1px solid rgba(249,115,22,0.3); }
+  .tier-pill.high   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .tier-pill.enthus { background: rgba(168,85,247,0.15); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
+  .tier-pill.legacy { background: rgba(167,139,250,0.12); color: var(--legacy); border: 1px solid rgba(167,139,250,0.3); }
+  .breakdown-list { padding: 0.8rem 1.4rem; }
+  .breakdown-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.82rem; }
+  .breakdown-row:last-child { border-bottom: none; }
+  .br-name { color: var(--muted); }
+  .br-val { color: var(--text); font-weight: 500; }
+  .br-val.zero { color: var(--border); }
+  .br-val.used { color: var(--legacy); }
+  .summary-totals { border-top: 1px solid var(--border); padding: 1rem 1.4rem; }
+  .total-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--muted); margin-bottom: 4px; }
+  .total-row span:last-child { color: var(--text); }
+  .total-row.grand { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--text); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .total-row.grand span:first-child { color: var(--text); }
+  .total-row.grand span:last-child { color: var(--accent); }
+  .vat-note { font-size: 0.72rem; color: var(--muted); margin-top: 6px; }
+  .summary-footer { padding: 1rem 1.4rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.6rem; }
+
+  /* WATTAGE ESTIMATOR */
+  .wattage-box { padding: 0.9rem 1.4rem 1.1rem; border-top: 1px solid var(--border); }
+  .wattage-header { display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem; font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+  .wattage-value { color: var(--text); font-weight: 700; }
+  .wattage-bar-track { width: 100%; height: 8px; border-radius: 20px; background: rgba(255,255,255,0.06); overflow: hidden; }
+  .wattage-bar-fill { height: 100%; border-radius: 20px; transition: width 0.25s ease, background 0.25s ease; background: #4ade80; }
+  .wattage-bar-fill.safe { background: #4ade80; }
+  .wattage-bar-fill.tight { background: #fbbf24; }
+  .wattage-bar-fill.danger { background: #f87171; }
+  .wattage-caption { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.4; }
+  .wattage-caption.tight { color: #fbbf24; }
+  .wattage-caption.danger { color: #f87171; }
+
+  /* SAVED BUILDS (inside modal) */
+  .saved-builds-section { border-top: 1px solid var(--border); margin-top: 1.2rem; padding-top: 1.2rem; }
+  .saved-builds-section h4 { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .saved-builds-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.9rem; max-height: 220px; overflow-y: auto; }
+  .saved-builds-list li { font-size: 0.82rem; display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; padding: 8px 12px; background: var(--card); border-radius: 8px; }
+  .sb-info { min-width: 0; }
+  .sb-name { font-weight: 600; color: var(--text); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sb-meta { font-size: 0.7rem; color: var(--muted); }
+  .sb-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+  .sb-actions button { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 600; padding: 5px 10px; border-radius: 6px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text); }
+  .sb-actions button.sb-load:hover { border-color: var(--accent); color: var(--accent2); }
+  .sb-actions button.sb-delete:hover { border-color: #f87171; color: #f87171; }
+  .saved-builds-empty { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.9rem; }
+
+  /* SERVICE CTA */
+  .cta-service { padding: 1.1rem 1.4rem 1.3rem; border-top: 1px solid var(--border); background: linear-gradient(180deg, rgba(249,115,22,0.06), rgba(249,115,22,0.01)); }
+  .cta-service h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .cta-service p { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.4; }
+  .cta-service .btn-primary { display: flex; align-items: center; justify-content: center; gap: 0.4rem; text-decoration: none; }
+
+  .btn-primary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 12px; width: 100%; border-radius: 8px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 0.9rem; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-secondary { font-family: 'Space Grotesk', sans-serif; font-weight: 600; padding: 11px; width: 100%; border-radius: 8px; background: transparent; color: var(--text); border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent2); }
+
+  /* MODAL */
+  .modal-backdrop { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); align-items: center; justify-content: center; padding: 1rem; }
+  .modal-backdrop.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; max-width: 520px; width: 100%; position: relative; max-height: 90vh; overflow-y: auto; }
+  .modal h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .modal p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.4rem; }
+  .modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .modal-list li { font-size: 0.85rem; display: flex; justify-content: space-between; padding: 8px 12px; background: var(--card); border-radius: 8px; }
+  .modal-list li span:first-child { color: var(--muted); }
+  .modal-list li span:last-child { font-weight: 500; }
+  .modal-total { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--accent); text-align: center; padding: 1rem; background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.2); border-radius: 10px; margin-bottom: 1.2rem; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.4rem; line-height: 1; padding: 4px 8px; border-radius: 6px; }
+  .modal-close:hover { color: var(--text); background: var(--card); }
+  .modal-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .modal-actions button { flex: 1 1 140px; }
+
+  /* FOOTER */
+  footer { margin-top: 4rem; }
+  footer p { font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; color: var(--muted); }
+
+  /* MOBILE STICKY TOTAL BAR */
+  .mobile-total-bar {
+    display: none;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 150;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 0.7rem 5%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.25);
+  }
+  .mobile-total-bar .mtb-label { font-size: 0.72rem; color: var(--muted); }
+  .mobile-total-bar .mtb-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--accent); }
+  .mobile-total-bar .mtb-btn { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.82rem; padding: 9px 16px; border-radius: 8px; background: var(--accent); color: #fff; border: none; cursor: pointer; white-space: nowrap; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    .page { grid-template-columns: 1fr; padding-bottom: 90px; }
+    .summary-panel { position: static; }
+    .nav-links { display: none; }
+    .mobile-total-bar { display: flex; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .part-card, .btn-primary { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="index.html">better<span>PC</span></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="index.html#formats" data-i18n="nav_formats">Formats</a>
+      <a href="index.html#ram" data-i18n="nav_ram">RAM</a>
+      <a href="index.html#storage" data-i18n="nav_storage">Storage</a>
+      <a href="index.html#cpu" data-i18n="nav_cpu">CPU</a>
+      <a href="index.html#gpu" data-i18n="nav_gpu">GPU</a>
+      <a href="about.html" data-i18n="nav_about">About us</a>
+    </div>
+    <select class="lang-select" id="langSelect" aria-label="Select language / Επιλογή γλώσσας">
+      <option value="en">EN</option>
+      <option value="el">GR</option>
+      <option value="de">DE</option>
+      <option value="fr">FR</option>
+      <option value="ru">RU</option>
+      <option value="sr">SR</option>
+      <option value="it">IT</option>
+      <option value="es">ES</option>
+      <option value="pt">PT</option>
+      <option value="pl">PL</option>
+      <option value="sv">SV</option>
+      <option value="ro">RO</option>
+      <option value="bg">BG</option>
+      <option value="sq">SQ</option>
+      <option value="uk">UK</option>
+      <option value="am">AM</option>
+      <option value="ge">GE</option>
+      <option value="ar">AR</option>
+      <option value="zh">ZH</option>
+    </select>
+    <a class="back-btn" href="index.html" data-i18n="nav_back">&#8592; Back to Guide</a>
+  </div>
+</nav>
+
+<div class="page">
+  <div>
+    <p class="page-eyebrow" data-i18n="page_eyebrow">PC Configurator</p>
+    <h1 class="page-title" data-i18n="page_title">Build Your PC</h1>
+    <p class="page-desc" data-i18n="page_desc">Pick your components below. Prices update live and include Greek VAT (24%). Switch between Modern and Legacy platforms to configure older machines too.</p>
+
+    <div class="preset-toggle-wrap" id="preset-toggle-wrap">
+      <button class="preset-btn" id="btn-preset-gaming" onclick="loadPreset('gaming')" data-i18n="preset_gaming">&#x1F3AE; Gaming</button>
+      <button class="preset-btn" id="btn-preset-editing" onclick="loadPreset('editing')" data-i18n="preset_editing">&#x1F3AC; Content Creation</button>
+      <button class="preset-btn" id="btn-preset-office" onclick="loadPreset('office')" data-i18n="preset_office">&#x1F4BC; Office / Budget</button>
+    </div>
+
+    <div class="gen-toggle-wrap">
+      <button class="gen-btn active" id="btn-gen-modern" onclick="setGen('modern')">&#x1F7E0; Modern (DDR4 / DDR5)</button>
+      <button class="gen-btn legacy-btn" id="btn-gen-ddr3" onclick="setGen('ddr3')">&#x1F7E3; Legacy &mdash; DDR3 (2010&ndash;2017)</button>
+      <button class="gen-btn legacy-btn" id="btn-gen-ddr2" onclick="setGen('ddr2')">&#x1F7E3; Very Old &mdash; DDR2 (2004&ndash;2010)</button>
+    </div>
+    <div class="legacy-note" id="legacy-note" data-i18n="legacy_note">
+      &#9888;&#65039; <strong>Refurbished / Used parts.</strong> Prices shown are rough second-hand estimates (Greek market). These platforms are no longer produced new &mdash; parts are sourced from older machines. Purple prices indicate used/refurbished parts.
+    </div>
+
+    <div class="parts-panel" id="parts-panel">
+
+      <div class="part-card" id="card-cpu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="cpu" data-i18n="label_cpu">CPU</label>
+          <select class="part-select" id="cpu" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; Intel LGA1700 (12th/13th/14th Gen)" class="opt-modern">
+              <option value="Intel Core i3-13100|130|60">Intel Core i3-13100 (4c/8t)</option>
+              <option value="Intel Core i5-13400F|170|95">Intel Core i5-13400F (10c/16t)</option>
+              <option value="Intel Core i5-13600K|290|125" selected>Intel Core i5-13600K (14c/20t)</option>
+              <option value="Intel Core i7-13700K|420|190">Intel Core i7-13700K (16c/24t)</option>
+              <option value="Intel Core i9-13900K|580|250">Intel Core i9-13900K (24c/32t)</option>
+              <option value="Intel Core i9-14900KS|680|280">Intel Core i9-14900KS (24c/32t)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM5 (Ryzen 7000)" class="opt-modern">
+              <option value="AMD Ryzen 5 7600X|240|105">AMD Ryzen 5 7600X (6c/12t)</option>
+              <option value="AMD Ryzen 7 7700X|320|125">AMD Ryzen 7 7700X (8c/16t)</option>
+              <option value="AMD Ryzen 9 7900X|430|140">AMD Ryzen 9 7900X (12c/24t)</option>
+              <option value="AMD Ryzen 9 7950X|650|170">AMD Ryzen 9 7950X (16c/32t)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM4 (Ryzen 3000/5000)" class="opt-modern">
+              <option value="AMD Ryzen 5 5600X|160|76">AMD Ryzen 5 5600X (6c/12t)</option>
+              <option value="AMD Ryzen 7 5800X|220|105">AMD Ryzen 7 5800X (8c/16t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1150 (Haswell 4th Gen) &mdash; Used" class="opt-ddr3">
+              <option value="Intel Core i3-4130 (Used)|15|54">Intel Core i3-4130 (2c/4t)</option>
+              <option value="Intel Core i5-4570 (Used)|25|84">Intel Core i5-4570 (4c/4t)</option>
+              <option value="Intel Core i7-4770 (Used)|35|84">Intel Core i7-4770 (4c/8t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1155 (Sandy/Ivy Bridge 2nd/3rd Gen) &mdash; Used" class="opt-ddr3">
+              <option value="Intel Core i3-2100 (Used)|10|65">Intel Core i3-2100 (2c/4t)</option>
+              <option value="Intel Core i5-2500K (Used)|18|95">Intel Core i5-2500K (4c/4t)</option>
+              <option value="Intel Core i7-3770 (Used)|28|77">Intel Core i7-3770 (4c/8t)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM3+ (FX Piledriver/Vishera) &mdash; Used" class="opt-ddr3">
+              <option value="AMD FX-4300 (Used)|12|95">AMD FX-4300 (4 cores)</option>
+              <option value="AMD FX-6300 (Used)|18|95">AMD FX-6300 (6 cores)</option>
+              <option value="AMD FX-8350 (Used)|25|125">AMD FX-8350 (8 cores)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA775 (Core 2 Duo/Quad) &mdash; Used" class="opt-ddr2">
+              <option value="Intel Core 2 Duo E8400 (Used)|8|65">Intel Core 2 Duo E8400 (2c)</option>
+              <option value="Intel Core 2 Quad Q6600 (Used)|10|105">Intel Core 2 Quad Q6600 (4c)</option>
+              <option value="Intel Core 2 Quad Q9550 (Used)|12|95">Intel Core 2 Quad Q9550 (4c)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM2/AM2+ (Athlon/Phenom) &mdash; Used" class="opt-ddr2">
+              <option value="AMD Athlon 64 X2 5200+ (Used)|5|65">AMD Athlon 64 X2 5200+ (2c)</option>
+              <option value="AMD Phenom II X4 940 (Used)|10|125">AMD Phenom II X4 940 (4c)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-cpu">&#8364;290</div>
+      </div>
+
+      <div class="part-card" id="card-mobo">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><rect x="6" y="6" width="5" height="5"/><path d="M14 6h4M14 10h4M6 14h12M6 18h12"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="mobo" data-i18n="label_mobo">Motherboard</label>
+          <select class="part-select" id="mobo" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; Intel LGA1700 (B660/B760/Z790)" class="opt-modern">
+              <option value="Gigabyte B660M DS3H Micro-ATX|80">Gigabyte B660M DS3H (Micro-ATX)</option>
+              <option value="MSI PRO B760M-A Micro-ATX|120" selected>MSI PRO B760M-A (Micro-ATX)</option>
+              <option value="ASUS ROG Strix B760-F ATX|190">ASUS ROG Strix B760-F (ATX)</option>
+              <option value="MSI MEG Z790 ACE ATX|380">MSI MEG Z790 ACE (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM5 (B650/X670)" class="opt-modern">
+              <option value="MSI PRO B650M-A Micro-ATX|130">MSI PRO B650M-A (Micro-ATX)</option>
+              <option value="ASUS TUF Gaming B650-Plus ATX|195">ASUS TUF Gaming B650-Plus (ATX)</option>
+              <option value="Gigabyte X670E Aorus Master ATX|380">Gigabyte X670E Aorus Master (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD AM4 (B550/X570)" class="opt-modern">
+              <option value="MSI B550M PRO-VDH Micro-ATX|90">MSI B550M PRO-VDH (Micro-ATX)</option>
+              <option value="ASUS TUF Gaming B550-Plus ATX|145">ASUS TUF Gaming B550-Plus (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1150 (H81/B85/Z97) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte H81M LGA1150 Used|20">Gigabyte H81M (Micro-ATX)</option>
+              <option value="ASUS B85M-G LGA1150 Used|28">ASUS B85M-G (Micro-ATX)</option>
+              <option value="MSI Z97 PC Mate LGA1150 Used|35">MSI Z97 PC Mate (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA1155 (H61/B75/Z77) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte H61M LGA1155 Used|15">Gigabyte H61M (Micro-ATX)</option>
+              <option value="ASUS P8Z77-V LGA1155 Used|30">ASUS P8Z77-V (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM3+ (760G/870/990FX) &mdash; Used" class="opt-ddr3">
+              <option value="Gigabyte 78LMT-USB3 AM3+ Used|18">Gigabyte 78LMT-USB3 (Micro-ATX)</option>
+              <option value="ASUS M5A99FX PRO AM3+ Used|30">ASUS M5A99FX PRO (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Intel LGA775 (G31/G41/P45) &mdash; Used" class="opt-ddr2">
+              <option value="Gigabyte G41M LGA775 Used|10">Gigabyte G41M (Micro-ATX)</option>
+              <option value="ASUS P5Q LGA775 Used|12">ASUS P5Q (ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD AM2/AM2+ (780G/790FX) &mdash; Used" class="opt-ddr2">
+              <option value="Gigabyte MA790GP AM2+ Used|10">Gigabyte MA790GP (ATX)</option>
+              <option value="ASUS M3A78-CM AM2+ Used|8">ASUS M3A78-CM (Micro-ATX)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-mobo">&#8364;120</div>
+      </div>
+
+      <div class="part-card" id="card-ram">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="8" rx="1"/><path d="M6 8V6M10 8V6M14 8V6M18 8V6M6 16v2M10 16v2M14 16v2M18 16v2"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="ram" data-i18n="label_ram">RAM</label>
+          <select class="part-select" id="ram" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; DDR5 (Modern)" class="opt-modern">
+              <option value="16 GB DDR5-5600|75">16 GB DDR5-5600</option>
+              <option value="32 GB DDR5-6000|140">32 GB DDR5-6000</option>
+              <option value="64 GB DDR5-6000|280">64 GB DDR5-6000</option>
+            </optgroup>
+            <optgroup label="&#x25BA; DDR4 (Modern)" class="opt-modern">
+              <option value="8 GB DDR4-3200|30">8 GB DDR4-3200</option>
+              <option value="16 GB DDR4-3600|55" selected>16 GB DDR4-3600</option>
+              <option value="32 GB DDR4-3600|95">32 GB DDR4-3600</option>
+              <option value="64 GB DDR4-3200|180">64 GB DDR4-3200</option>
+            </optgroup>
+            <optgroup label="&#x25B6; DDR3 (Legacy) &mdash; Used" class="opt-ddr3">
+              <option value="4 GB DDR3-1333 Used|8">4 GB DDR3-1333</option>
+              <option value="8 GB DDR3-1600 Used|14">8 GB DDR3-1600</option>
+              <option value="16 GB DDR3-1600 Used|26">16 GB DDR3-1600</option>
+              <option value="32 GB DDR3-1600 Used|48">32 GB DDR3-1600</option>
+            </optgroup>
+            <optgroup label="&#x25B6; DDR2 (Very Old) &mdash; Used" class="opt-ddr2">
+              <option value="2 GB DDR2-800 Used|5">2 GB DDR2-800</option>
+              <option value="4 GB DDR2-800 Used|10">4 GB DDR2-800</option>
+              <option value="8 GB DDR2-1066 Used|18">8 GB DDR2-1066</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-ram">&#8364;55</div>
+      </div>
+
+      <div class="part-card" id="card-storage">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="storage" data-i18n="label_storage">Storage (primary)</label>
+          <select class="part-select" id="storage" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; NVMe Gen 4 (fastest)" class="opt-modern">
+              <option value="1 TB NVMe Gen 4 SSD|100" selected>1 TB NVMe Gen 4 SSD</option>
+              <option value="2 TB NVMe Gen 4 SSD|185">2 TB NVMe Gen 4 SSD</option>
+              <option value="4 TB NVMe Gen 4 SSD|360">4 TB NVMe Gen 4 SSD</option>
+            </optgroup>
+            <optgroup label="&#x25BA; NVMe Gen 3" class="opt-modern">
+              <option value="500 GB NVMe Gen 3 SSD|55">500 GB NVMe Gen 3 SSD</option>
+              <option value="1 TB NVMe Gen 3 SSD|70">1 TB NVMe Gen 3 SSD</option>
+            </optgroup>
+            <optgroup label="&#x25BA; SATA SSD (Modern)" class="opt-modern">
+              <option value="500 GB SATA SSD|45">500 GB SATA SSD</option>
+              <option value="1 TB SATA SSD|75">1 TB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; SATA SSD (Upgrade for DDR3 PC)" class="opt-ddr3">
+              <option value="120 GB SATA SSD upgrade|20">120 GB SATA SSD</option>
+              <option value="240 GB SATA SSD|30">240 GB SATA SSD</option>
+              <option value="500 GB SATA SSD budget|40">500 GB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; HDD (DDR3 era)" class="opt-ddr3">
+              <option value="500 GB HDD SATA|10">500 GB HDD SATA</option>
+              <option value="1 TB HDD SATA|15">1 TB HDD SATA</option>
+              <option value="2 TB HDD SATA|25">2 TB HDD SATA</option>
+            </optgroup>
+            <optgroup label="&#x25B6; SATA SSD (Upgrade for DDR2 PC)" class="opt-ddr2">
+              <option value="120 GB SATA SSD DDR2|20">120 GB SATA SSD</option>
+              <option value="240 GB SATA SSD DDR2|30">240 GB SATA SSD</option>
+            </optgroup>
+            <optgroup label="&#x25B6; HDD (DDR2 era)" class="opt-ddr2">
+              <option value="160 GB IDE/SATA HDD Used|5">160 GB IDE/SATA HDD</option>
+              <option value="320 GB SATA HDD Used|8">320 GB SATA HDD</option>
+              <option value="500 GB SATA HDD budget|10">500 GB SATA HDD</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-storage">&#8364;100</div>
+      </div>
+
+      <div class="part-card" id="card-gpu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7V5M10 7V5M14 7V5M18 7V5M6 17v2M10 17v2M14 17v2M18 17v2"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="gpu" data-i18n="label_gpu">GPU</label>
+          <select class="part-select" id="gpu" onchange="clearPresetActive(); update()">
+            <option value="No dedicated GPU integrated|0|0" data-i18n="opt_no_gpu">No dedicated GPU (integrated only)</option>
+            <optgroup label="&#x25BA; NVIDIA GeForce (Modern)" class="opt-modern">
+              <option value="NVIDIA RTX 4060 8 GB|295|115" selected>NVIDIA RTX 4060 (8 GB)</option>
+              <option value="NVIDIA RTX 4060 Ti 8 GB|390|160">NVIDIA RTX 4060 Ti (8 GB)</option>
+              <option value="NVIDIA RTX 4070 12 GB|560|200">NVIDIA RTX 4070 (12 GB)</option>
+              <option value="NVIDIA RTX 4070 Super 12 GB|620|220">NVIDIA RTX 4070 Super (12 GB)</option>
+              <option value="NVIDIA RTX 4070 Ti Super 16 GB|800|285">NVIDIA RTX 4070 Ti Super (16 GB)</option>
+              <option value="NVIDIA RTX 4080 Super 16 GB|1050|320">NVIDIA RTX 4080 Super (16 GB)</option>
+              <option value="NVIDIA RTX 4090 24 GB|1800|450">NVIDIA RTX 4090 (24 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AMD Radeon (Modern)" class="opt-modern">
+              <option value="AMD Radeon RX 6600 8 GB|195|132">AMD Radeon RX 6600 (8 GB)</option>
+              <option value="AMD Radeon RX 7600 8 GB|260|165">AMD Radeon RX 7600 (8 GB)</option>
+              <option value="AMD Radeon RX 7700 XT 12 GB|370|245">AMD Radeon RX 7700 XT (12 GB)</option>
+              <option value="AMD Radeon RX 7800 XT 16 GB|460|263">AMD Radeon RX 7800 XT (16 GB)</option>
+              <option value="AMD Radeon RX 7900 XTX 24 GB|870|355">AMD Radeon RX 7900 XTX (24 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; NVIDIA (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="NVIDIA GTX 750 Ti 2 GB Used|20|60">NVIDIA GTX 750 Ti (2 GB)</option>
+              <option value="NVIDIA GTX 960 4 GB Used|30|120">NVIDIA GTX 960 (4 GB)</option>
+              <option value="NVIDIA GTX 1060 6 GB Used|55|120">NVIDIA GTX 1060 (6 GB)</option>
+              <option value="NVIDIA GTX 1070 8 GB Used|75|150">NVIDIA GTX 1070 (8 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="AMD RX 470 4 GB Used|30|120">AMD RX 470 (4 GB)</option>
+              <option value="AMD RX 570 8 GB Used|35|150">AMD RX 570 (8 GB)</option>
+              <option value="AMD RX 580 8 GB Used|45|185">AMD RX 580 (8 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; NVIDIA (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="NVIDIA GTS 450 1 GB Used|8|106">NVIDIA GTS 450 (1 GB)</option>
+              <option value="NVIDIA GTX 560 Ti 1 GB Used|10|170">NVIDIA GTX 560 Ti (1 GB)</option>
+              <option value="NVIDIA GTX 750 Ti 2 GB Used ddr2|20|60">NVIDIA GTX 750 Ti (2 GB)</option>
+            </optgroup>
+            <optgroup label="&#x25B6; AMD (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="AMD HD 5770 1 GB Used|6|108">AMD HD 5770 (1 GB)</option>
+              <option value="AMD HD 6870 1 GB Used|8|151">AMD HD 6870 (1 GB)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-gpu">&#8364;295</div>
+      </div>
+
+      <div class="part-card" id="card-cooler">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="cooler" data-i18n="label_cooler">CPU Cooler</label>
+          <select class="part-select" id="cooler" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; Air Coolers (Modern)" class="opt-modern">
+              <option value="Stock Boxed cooler|0" data-i18n="opt_stock_cooler">Stock / Boxed cooler (if included)</option>
+              <option value="Be Quiet! Pure Rock 2|30">Be Quiet! Pure Rock 2</option>
+              <option value="Deepcool AK400|35" selected>Deepcool AK400</option>
+              <option value="Noctua NH-U12S|65">Noctua NH-U12S</option>
+              <option value="Noctua NH-D15|90">Noctua NH-D15 (dual-tower)</option>
+              <option value="Be Quiet! Dark Rock Pro 4|75">Be Quiet! Dark Rock Pro 4</option>
+            </optgroup>
+            <optgroup label="&#x25BA; AIO Liquid Coolers (Modern)" class="opt-modern">
+              <option value="Corsair H100i 240mm AIO|120">Corsair H100i 240mm AIO</option>
+              <option value="Arctic Liquid Freezer III 280mm|110">Arctic Liquid Freezer III 280mm</option>
+              <option value="NZXT Kraken 360mm AIO|180">NZXT Kraken 360mm AIO</option>
+              <option value="Corsair H150i 360mm AIO|190">Corsair H150i Elite 360mm AIO</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Heatsinks (DDR3 era)" class="opt-ddr3">
+              <option value="Stock boxed heatsink LGA1150 LGA1155|0" data-i18n="opt_stock_h3">Stock boxed heatsink &mdash; included</option>
+              <option value="Intel AMD OEM heatsink Used|5" data-i18n="opt_oem_used">Intel/AMD OEM heatsink &mdash; Used</option>
+              <option value="Cooler Master Hyper 212 Evo|18">Cooler Master Hyper 212 Evo</option>
+              <option value="Deepcool GAMMAXX 300|12">Deepcool Gammaxx 300</option>
+              <option value="Zalman CNPS9900 Used|10">Zalman CNPS9900 &mdash; Used</option>
+              <option value="Noctua NH-U9B SE2 Used|15">Noctua NH-U9B SE2 &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Heatsinks (DDR2 era)" class="opt-ddr2">
+              <option value="Stock LGA775 boxed heatsink|0" data-i18n="opt_stock_h2">Stock LGA775 boxed heatsink &mdash; included</option>
+              <option value="Zalman CNPS7500 used heatsink|8">Zalman CNPS7500 &mdash; Used</option>
+              <option value="Thermaltake BigTyp 775 heatsink|10">Thermaltake BigTyp &mdash; Used</option>
+              <option value="Arctic Freezer 7 Pro heatsink|10">Arctic Freezer 7 Pro &mdash; Used</option>
+              <option value="Scythe Ninja Rev B heatsink Used|12">Scythe Ninja Rev B &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-cooler">&#8364;35</div>
+      </div>
+
+      <div class="part-card" id="card-psu">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/><path d="M12 11v6M9 14h6"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="psu" data-i18n="label_psu">Power Supply</label>
+          <select class="part-select" id="psu" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; Modern PSU (new)" class="opt-modern">
+              <option value="450 W 80+ Bronze|50">450 W 80+ Bronze</option>
+              <option value="550 W 80+ Gold|70">550 W 80+ Gold</option>
+              <option value="650 W 80+ Gold|85" selected>650 W 80+ Gold</option>
+              <option value="750 W 80+ Gold|100">750 W 80+ Gold</option>
+              <option value="850 W 80+ Gold|120">850 W 80+ Gold</option>
+              <option value="850 W 80+ Platinum|155">850 W 80+ Platinum</option>
+              <option value="1000 W 80+ Platinum|180">1000 W 80+ Platinum</option>
+              <option value="1200 W 80+ Titanium|260">1200 W 80+ Titanium</option>
+            </optgroup>
+            <optgroup label="&#x25B6; PSU (Used &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="300 W Generic PSU Used|10">300 W Generic &mdash; Used</option>
+              <option value="400 W 80+ Bronze Used|15">400 W 80+ Bronze &mdash; Used</option>
+              <option value="500 W 80+ Bronze Used|20">500 W 80+ Bronze &mdash; Used</option>
+              <option value="600 W 80+ Gold Used|28">600 W 80+ Gold &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; PSU (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="250 W Generic ATX PSU Used|8">250 W Generic ATX &mdash; Used</option>
+              <option value="350 W Generic PSU Used|10">350 W Generic &mdash; Used</option>
+              <option value="450 W Bronze PSU Used|15">450 W Bronze &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-psu">&#8364;85</div>
+      </div>
+
+      <div class="part-card" id="card-case">
+        <div class="part-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="18" height="20" rx="2"/><path d="M9 2v20M15 6h2M15 10h2M15 14h2"/></svg>
+        </div>
+        <div class="part-info">
+          <label class="part-label" for="case_pc" data-i18n="label_case">Case</label>
+          <select class="part-select" id="case_pc" onchange="clearPresetActive(); update()">
+            <optgroup label="&#x25BA; Micro-ATX / Mini-ITX" class="opt-modern">
+              <option value="Fractal Design Node 804 Micro-ATX|65">Fractal Design Node 804 (Micro-ATX)</option>
+              <option value="Cooler Master NR400 Micro-ATX|70">Cooler Master NR400 (Micro-ATX)</option>
+            </optgroup>
+            <optgroup label="&#x25BA; Mid-Tower ATX" class="opt-modern">
+              <option value="Fractal Design Pop Air|75">Fractal Design Pop Air</option>
+              <option value="Lian Li Lancool 216|105" selected>Lian Li Lancool 216</option>
+              <option value="Be Quiet! Pure Base 500DX|110">Be Quiet! Pure Base 500DX</option>
+              <option value="NZXT H7 Flow|140">NZXT H7 Flow</option>
+              <option value="Fractal Design Torrent|160">Fractal Design Torrent</option>
+            </optgroup>
+            <optgroup label="&#x25BA; Full-Tower ATX" class="opt-modern">
+              <option value="Lian Li O11 Dynamic EVO|180">Lian Li O11 Dynamic EVO</option>
+              <option value="Be Quiet! Dark Base 900 Pro|230">Be Quiet! Dark Base 900 Pro</option>
+              <option value="Corsair iCUE 7000X RGB|240">Corsair iCUE 7000X RGB</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Case (Used/Budget &mdash; DDR3 era)" class="opt-ddr3">
+              <option value="Generic Micro-ATX tower Used|10">Generic Micro-ATX &mdash; Used</option>
+              <option value="Generic ATX Mid-Tower Used|15">Generic ATX Mid-Tower &mdash; Used</option>
+              <option value="Cooler Master Elite 430 Used|20">Cooler Master Elite 430 &mdash; Used</option>
+              <option value="Antec Three Hundred Used|22">Antec Three Hundred &mdash; Used</option>
+            </optgroup>
+            <optgroup label="&#x25B6; Case (Used &mdash; DDR2 era)" class="opt-ddr2">
+              <option value="Old ATX mid-tower Used|10">Old ATX mid-tower &mdash; Used</option>
+              <option value="Codegen OEM Generic ATX Used|8">OEM/Generic ATX &mdash; Used</option>
+              <option value="Chieftec Antec value Used|15">Chieftec / Antec value &mdash; Used</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="part-price" id="price-case_pc">&#8364;105</div>
+      </div>
+
+    </div>
+
+    <div class="warnings-box" id="warnings-box" style="margin-top:1rem" role="status" aria-live="polite"></div>
+  </div>
+
+  <div class="summary-panel">
+    <div class="summary-header">
+      <h2 data-i18n="summary_header">Build summary</h2>
+      <span class="tier-pill mid" id="tier-pill">Mid-range</span>
+    </div>
+    <div class="breakdown-list" id="breakdown-list"></div>
+    <div class="summary-totals">
+      <div class="total-row"><span data-i18n="row_subtotal">Subtotal (ex. VAT)</span><span id="sum-ex">&mdash;</span></div>
+      <div class="total-row"><span data-i18n="row_vat">VAT 24%</span><span id="sum-vat">&mdash;</span></div>
+      <div class="total-row grand"><span data-i18n="row_total">Total</span><span id="sum-total">&mdash;</span></div>
+      <p class="vat-note" data-i18n="vat_note">Prices are estimates. Final retail/used prices may vary.</p>
+    </div>
+    <div class="wattage-box" id="wattage-box">
+      <div class="wattage-header">
+        <span data-i18n="watt_header">Estimated power draw</span>
+        <span class="wattage-value" id="watt-value">&mdash; W</span>
+      </div>
+      <div class="wattage-bar-track"><div class="wattage-bar-fill safe" id="watt-bar-fill" style="width:0%"></div></div>
+      <p class="wattage-caption" id="watt-caption"></p>
+    </div>
+    <div class="summary-footer">
+      <button class="btn-primary" onclick="openModal()" data-i18n="btn_save">Save &amp; review build</button>
+      <button class="btn-secondary" onclick="resetBuild()" data-i18n="btn_reset">Reset to defaults</button>
+    </div>
+    <div class="cta-service">
+      <h3 data-i18n="cta_title">Want us to build it for you?</h3>
+      <p data-i18n="cta_desc">We assemble, test and deliver this exact configuration — no need to source or build it yourself.</p>
+      <a class="btn-primary" href="about.html#contact" data-i18n="cta_btn">Get assembly service &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-total-bar" id="mobile-total-bar">
+  <div>
+    <div class="mtb-label" data-i18n="row_total">Total</div>
+    <div class="mtb-value" id="mtb-value">&mdash;</div>
+  </div>
+  <button class="mtb-btn" onclick="openModal()" data-i18n="btn_save">Save &amp; review build</button>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" onclick="closeModalBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">&#10005;</button>
+    <h3 data-i18n="modal_title">Your build</h3>
+    <p data-i18n="modal_desc">Here's a summary of your selected configuration.</p>
+    <ul class="modal-list" id="modal-list"></ul>
+    <div class="modal-total" id="modal-total"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="btn-copy-action" onclick="copyBuild()" data-i18n="btn_copy">Copy to clipboard</button>
+      <button class="btn-secondary" id="btn-copy-link-action" onclick="copyLink()" data-i18n="btn_copy_link">Copy share link</button>
+      <button class="btn-primary" onclick="closeModal()" data-i18n="btn_close">Close</button>
+    </div>
+
+    <div class="saved-builds-section">
+      <h4 data-i18n="saved_builds_header">Your saved builds</h4>
+      <p class="saved-builds-empty" id="saved-builds-empty" data-i18n="saved_builds_empty">You haven't saved any builds yet.</p>
+      <ul class="saved-builds-list" id="saved-builds-list"></ul>
+      <button class="btn-secondary" id="btn-save-new-build" onclick="saveCurrentAsNewBuild()" data-i18n="btn_save_new_build">&#43; Save this configuration as a build</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>betterPC &copy; 2026 &mdash; <a href="index.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_back">Back to guide</a> &middot; <a href="about.html" style="color:var(--accent);text-decoration:none;" data-i18n="footer_about">About us</a></p>
+</footer>
+
+<script>
+// 1. Language Translation Dictionary Object
+const dictionary = {
+  en: {
+    w_am5_ddr4: "⚠️ AM5 motherboards don't support DDR4 — pick DDR5 RAM instead.",
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Storage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "About us", nav_back: "← Back to Guide",
+    page_eyebrow: "PC Configurator", page_title: "Build Your PC",
+    page_desc: "Pick your components below. Prices update live and include Greek VAT (24%). Switch between Modern and Legacy platforms to configure older machines too.",
+    btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Legacy — DDR3 (2010–2017)", btn_ddr2: "🟪 Very Old — DDR2 (2004–2010)",
+    preset_gaming: "🎮 Gaming", preset_editing: "🎬 Content Creation", preset_office: "💼 Office / Budget",
+    legacy_note: "⚠️ Refurbished / Used parts. Prices shown are rough second-hand estimates (Greek market). These platforms are no longer produced new — parts are sourced from older machines. Purple prices indicate used/refurbished parts.",
+    label_cpu: "CPU", label_mobo: "Motherboard", label_ram: "RAM", label_storage: "Storage (primary)", label_gpu: "GPU", label_cooler: "CPU Cooler", label_psu: "Power Supply", label_case: "Case",
+    opt_no_gpu: "No dedicated GPU (integrated only)", opt_stock_cooler: "Stock / Boxed cooler (if included)", opt_stock_h3: "Stock boxed heatsink — included", opt_oem_used: "Intel/AMD OEM heatsink — Used", opt_stock_h2: "Stock LGA775 boxed heatsink — included",
+    summary_header: "Build summary", row_subtotal: "Subtotal (ex. VAT)", row_vat: "VAT 24%", row_total: "Total", vat_note: "Prices are estimates. Final retail/used prices may vary.",
+    btn_save: "Save & review build", btn_reset: "Reset to defaults", confirm_reset: "Reset the build and clear your saved progress? This can't be undone.",
+    modal_title: "Your build", modal_desc: "Here's a summary of your selected configuration.", btn_copy: "Copy to clipboard", btn_copy_link: "Copy share link", m_link_copied: "Link copied!", btn_close: "Close", footer_back: "Back to guide", footer_about: "About us",
+    tier_ddr2: "Legacy DDR2", tier_ddr3: "Legacy DDR3", tier_budget: "Budget", tier_mid: "Mid-range", tier_high: "High-end", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ CPU–Motherboard mismatch: Intel CPU requires LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ CPU–Motherboard mismatch: AMD CPU requires AM4 or AM5 board.",
+    w_high_gpu_psu: "⚠️ High-end GPU — recommend at least 850 W PSU.",
+    w_mid_gpu_psu: "⚠️ This GPU may need at least a 750 W PSU.",
+    w_haswell_mismatch: "⚠️ Haswell CPU (LGA1150) needs an LGA1150 motherboard (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) needs an LGA1155 board (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) needs an AM3+ motherboard (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ For a DDR3 build with discrete GPU, ensure PSU is at least 300–400 W.",
+    w_ddr2_info: "ℹ️ DDR2 platforms are very old. Suitable for basic office/internet use only.",
+    w_ddr2_psu: "⚠️ Ensure PSU is at least 250 W for DDR2-era system.",
+    watt_header: "Estimated power draw", watt_recommend: "Recommended PSU: at least {n} W.",
+    watt_status_safe: "Comfortable headroom for your selected PSU.",
+    watt_status_tight: "Cutting it close — consider a higher-wattage PSU.",
+    watt_status_danger: "Your PSU is likely undersized for this build.",
+    m_est_total: "Estimated total:", m_incl_vat: "incl. VAT", m_platform: "Platform", m_copied: "Copied!",
+    cta_title: "Want us to build it for you?", cta_desc: "We assemble, test and deliver this exact configuration — no need to source or build it yourself.", cta_btn: "Get assembly service →",
+    w_am4_ddr5: "⚠️ AM4 motherboards don't support DDR5 — pick DDR4 RAM instead.",
+    w_case_formfactor: "⚠️ Full ATX motherboard won't fit in a Micro-ATX/Mini-ITX case — pick a larger case or a smaller board.",
+    w_no_stock_cooler: "⚠️ This CPU doesn't ship with a stock cooler — pick a dedicated cooler.",
+    saved_builds_header: "Your saved builds", saved_builds_empty: "You haven't saved any builds yet.",
+    btn_save_new_build: "+ Save this configuration as a build", btn_load: "Load", btn_delete: "Delete",
+    prompt_build_name: "Name this build:", confirm_delete_build: "Delete this saved build? This can't be undone."
+  },
+  el: {
+    w_am5_ddr4: "⚠️ Οι μητρικές AM5 δεν υποστηρίζουν DDR4 — επιλέξτε μνήμη DDR5.",
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Storage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Σχετικά", nav_back: "← Πίσω στον Οδηγό",
+    page_eyebrow: "Configurator Υπολογιστή", page_title: "Φτιάξε το PC σου",
+    page_desc: "Επιλέξτε τα κομμάτια σας παρακάτω. Οι τιμές ανανεώνονται ζωντανά και περιλαμβάνουν ΦΠΑ 24%. Κάντε εναλλαγή μεταξύ Σύγχρονων (Modern) και Παλαιότερων (Legacy) πλατφορμών.",
+    btn_modern: "🟧 Σύγχρονο (DDR4 / DDR5)", btn_ddr3: "🟪 Παλαιάς Γενιάς — DDR3 (2010–2017)", btn_ddr2: "🟪 Πολύ Παλιό — DDR2 (2004–2010)",
+    preset_gaming: "🎮 Gaming", preset_editing: "🎬 Δημιουργία Περιεχομένου", preset_office: "💼 Γραφείο / Οικονομικό",
+    legacy_note: "⚠️ Ανακατασκευασμένα / Μεταχειρισμένα μέρη. Οι τιμές είναι rough estimates (Ελληνική αγορά). Αυτές οι πλατφόρμες δεν παράγονται πλέον — τα μέρη προέρχονται από παλαιότερα συστήματα.",
+    label_cpu: "Επεξεργαστής (CPU)", label_mobo: "Μητρική Κάρτα", label_ram: "Μνήμη RAM", label_storage: "Αποθ. Χώρος", label_gpu: "Κάρτα Γραφικών (GPU)", label_cooler: "Ψύκτρα Επεξεργαστή", label_psu: "Τροφοδοτικό (PSU)", label_case: "Κουτί (Case)",
+    opt_no_gpu: "Χωρίς κάρτα γραφικών (ενσωματωμένα)", opt_stock_cooler: "Stock / Boxed ψύκτρα (αν περιλαμβάνεται)", opt_stock_h3: "Stock boxed ψύκτρα — περιλαμβάνεται", opt_oem_used: "Intel/AMD OEM ψύκτρα — Μεταχειρ.", opt_stock_h2: "Stock LGA775 boxed ψύκτρα — περιλαμβάνεται",
+    summary_header: "Σύνοψη συστήματος", row_subtotal: "Μερικό Σύνολο (χωρίς ΦΠΑ)", row_vat: "ΦΠΑ 24%", row_total: "Τελικό Σύνολο", vat_note: "Οι τιμές είναι κατά προσέγγιση. Οι τελικές τιμές λιανικής ή μεταχειρισμένων ενδέχεται να διαφέρουν.",
+    btn_save: "Αποθήκευση & έλεγχος", btn_reset: "Επαναφορά", confirm_reset: "Επαναφορά της σύνθεσης και διαγραφή της αποθηκευμένης προόδου; Δεν αναιρείται.",
+    modal_title: "Το Σύστημά σου", modal_desc: "Εδώ είναι μια σύνοψη της σύνθεσης που επιλέξατε.", btn_copy: "Αντιγραφή στο clipboard", btn_copy_link: "Αντιγραφή συνδέσμου κοινοποίησης", m_link_copied: "Ο σύνδεσμος αντιγράφηκε!", btn_close: "Κλείσιμο", footer_back: "Πίσω στον οδηγό", footer_about: "Σχετικά με εμάς",
+    tier_ddr2: "Παλαιάς Γενιάς DDR2", tier_ddr3: "Παλαιάς Γενιάς DDR3", tier_budget: "Οικονομικό", tier_mid: "Μεσαίας Κατηγορίας", tier_high: "Υψηλών Επιδόσεων", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ Ασυμβατότητα CPU–Μητρικής: Ο επεξεργαστής Intel απαιτεί LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Ασυμβατότητα CPU–Μητρικής: Ο επεξεργαστής AMD απαιτεί AM4 ή AM5 μητρική κάρτα.",
+    w_high_gpu_psu: "⚠️ Κάρτα γραφικών υψηλών απαιτήσεων — συνιστάται τροφοδοτικό τουλάχιστον 850 W.",
+    w_mid_gpu_psu: "⚠️ Αυτή η κάρτα γραφικών ενδέχεται να χρειάζεται τροφοδοτικό τουλάχιστον 750 W.",
+    w_haswell_mismatch: "⚠️ Ο επεξεργαστής Haswell (LGA1150) χρειάζεται μητρική LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Ο επεξεργαστής Sandy/Ivy Bridge (LGA1155) χρειάζεται μητρική LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ Ο επεξεργαστής AMD FX (AM3+) χρειάζεται μητρική AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Για ένα σύστημα DDR3 με κάρτα γραφικών, βεβαιωθείτε ότι το τροφοδοτικό είναι τουλάχιστον 300–400 W.",
+    w_ddr2_info: "ℹ️ Οι πλατφόρμες DDR2 είναι πολύ παλιές. Είναι κατάλληλες μόνο για βασική χρήση γραφείου και internet.",
+    w_ddr2_psu: "⚠️ Βεβαιωθείτε ότι το τροφοδοτικό είναι τουλάχιστον 250 W για σύστημα εποχής DDR2.",
+    watt_header: "Εκτιμώμενη κατανάλωση ισχύος", watt_recommend: "Προτεινόμενο τροφοδοτικό: τουλάχιστον {n} W.",
+    watt_status_safe: "Άνετο περιθώριο για το τροφοδοτικό που επιλέξατε.",
+    watt_status_tight: "Στο όριο — σκεφτείτε τροφοδοτικό μεγαλύτερης ισχύος.",
+    watt_status_danger: "Το τροφοδοτικό σας πιθανώς δεν επαρκεί για αυτή τη σύνθεση.",
+    m_est_total: "Εκτιμώμενο σύνολο:", m_incl_vat: "με ΦΠΑ", m_platform: "Πλατφόρμα", m_copied: "Αντιγράφηκε!",
+    cta_title: "Θες να σου το φτιάξουμε εμείς;", cta_desc: "Συναρμολογούμε, ελέγχουμε και παραδίδουμε ακριβώς αυτή τη διαμόρφωση — δεν χρειάζεται να βρεις ή να συναρμολογήσεις τίποτα μόνος/η σου.", cta_btn: "Θέλω υπηρεσία συναρμολόγησης →",
+    w_am4_ddr5: "⚠️ Οι μητρικές AM4 δεν υποστηρίζουν DDR5 — επιλέξτε μνήμη DDR4.",
+    w_case_formfactor: "⚠️ Μητρική πλήρους ATX δεν χωράει σε κουτί Micro-ATX/Mini-ITX — επιλέξτε μεγαλύτερο κουτί ή μικρότερη μητρική.",
+    w_no_stock_cooler: "⚠️ Αυτός ο επεξεργαστής δεν περιλαμβάνει stock ψύκτρα — επιλέξτε ξεχωριστή ψύκτρα.",
+    saved_builds_header: "Οι αποθηκευμένες συνθέσεις σου", saved_builds_empty: "Δεν έχεις αποθηκεύσει καμία σύνθεση ακόμα.",
+    btn_save_new_build: "+ Αποθήκευση αυτής της σύνθεσης", btn_load: "Φόρτωση", btn_delete: "Διαγραφή",
+    prompt_build_name: "Όνομα σύνθεσης:", confirm_delete_build: "Διαγραφή αυτής της αποθηκευμένης σύνθεσης; Δεν αναιρείται."
+  },
+  de: {
+    w_am4_ddr5: "⚠️ AM4-Mainboards unterstützen kein DDR5 — wählen Sie stattdessen DDR4-RAM.",
+    w_am5_ddr4: "⚠️ AM5-Mainboards unterstützen kein DDR4 — wählen Sie stattdessen DDR5-RAM.",
+    w_case_formfactor: "⚠️ Ein Full-ATX-Mainboard passt nicht in ein Micro-ATX/Mini-ITX-Gehäuse — wählen Sie ein größeres Gehäuse oder ein kleineres Mainboard.",
+    nav_formats: "Formate", nav_ram: "RAM", nav_storage: "Speicher", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Über uns", nav_back: "← Leitfaden",
+    page_eyebrow: "PC-Konfigurator", page_title: "PC Zusammenstellen",
+    page_desc: "Wählen Sie unten Ihre Komponenten aus. Die Preise werden live aktualisiert und enthalten die griechische MwSt. (24%). Wechseln Sie Plattformen.",
+    btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Ältere Generation — DDR3", btn_ddr2: "🟪 Sehr Alt — DDR2",
+    preset_gaming: "🎮 Gaming", preset_editing: "🎬 Content-Erstellung", preset_office: "💼 Büro / Budget",
+    legacy_note: "⚠️ Generalüberholte / Gebrauchte Teile. Die gezeigten Preise sind grobe Schätzungen für Gebrauchtware. Diese Plattformen werden nicht mehr neu produziert.",
+    label_cpu: "Prozessor (CPU)", label_mobo: "Mainboard", label_ram: "Arbeitsspeicher (RAM)", label_storage: "Speicher (Primär)", label_gpu: "Grafikkarte (GPU)", label_cooler: "CPU-Kühler", label_psu: "Netzteil (PSU)", label_case: "Gehäuse (Case)",
+    opt_no_gpu: "Keine dedizierte Grafikkarte (nur integriert)", opt_stock_cooler: "Standard-Boxed-Kühler (falls enthalten)", opt_stock_h3: "Standard-Boxed-Kühler &mdash; enthalten", opt_oem_used: "Intel/AMD OEM-Kühler &mdash; Gebraucht", opt_stock_h2: "Standard-LGA775-Kühler &mdash; enthalten",
+    summary_header: "Konfiguration Übersicht", row_subtotal: "Zwischensumme (ohne MwSt.)", row_vat: "MwSt. 24%", row_total: "Gesamtsumme", vat_note: "Preise sind Schätzungen. Endpreise können variieren.",
+    btn_save: "Konfiguration prüfen", btn_reset: "Zurücksetzen", confirm_reset: "Konfiguration zurücksetzen und gespeicherten Fortschritt löschen? Dies kann nicht rückgängig gemacht werden.",
+    modal_title: "Ihr PC-System", modal_desc: "Hier ist eine Zusammenfassung Ihrer gewählten Konfiguration.", btn_copy: "In Zwischenablage kopieren", btn_copy_link: "Link kopieren", m_link_copied: "Link kopiert!", btn_close: "Schließen", footer_back: "Zum Leitfaden", footer_about: "Über uns",
+    tier_ddr2: "Altes DDR2-System", tier_ddr3: "Älteres DDR3-System", tier_budget: "Budget", tier_mid: "Mittelklasse", tier_high: "High-End", tier_enthus: "Enthusiast",
+    w_intel_mismatch: "⚠️ CPU-Mainboard-Konflikt: Intel-CPU erfordert Sockel LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ CPU-Mainboard-Konflikt: AMD-CPU erfordert AM4- oder AM5-Mainboard.",
+    w_high_gpu_psu: "⚠️ High-End-GPU — Es wird ein Netzteil mit mindestens 850 W empfohlen.",
+    w_mid_gpu_psu: "⚠️ Diese GPU benötigt möglicherweise ein Netzteil mit mindestens 750 W.",
+    w_haswell_mismatch: "⚠️ Haswell-CPU (LGA1150) benötigt ein LGA1150-Mainboard (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) benötigt ein LGA1155-Mainboard (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) benötigt ein AM3+-Mainboard (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Für ein DDR3-System mit Grafikkarte sollte das Netzteil mindestens 300–400 W haben.",
+    w_ddr2_info: "ℹ️ DDR2-Plattformen sind sehr alt. Nur für einfache Büroarbeiten und Internet geeignet.",
+    w_ddr2_psu: "⚠️ Stellen Sie sicher, dass das Netzteil für ein DDR2-System mindestens 250 W hat.",
+    watt_header: "Geschätzte Leistungsaufnahme", watt_recommend: "Empfohlenes Netzteil: mindestens {n} W.",
+    watt_status_safe: "Ausreichend Reserve für das gewählte Netzteil.",
+    watt_status_tight: "Knapp bemessen — ein Netzteil mit höherer Leistung wäre ratsam.",
+    watt_status_danger: "Ihr Netzteil ist für diese Konfiguration wahrscheinlich zu schwach.",
+    m_est_total: "Geschätzter Gesamtpreis:", m_incl_vat: "inkl. MwSt.", m_platform: "Plattform", m_copied: "Kopiert!",
+    cta_title: "Sollen wir ihn für Sie zusammenbauen?", cta_desc: "Wir montieren, testen und liefern genau diese Konfiguration — Sie müssen nichts selbst beschaffen oder zusammenbauen.", cta_btn: "Montageservice anfragen →"
+  },
+  fr: {
+    w_am4_ddr5: "⚠️ Les cartes mères AM4 ne prennent pas en charge la DDR5 — choisissez de la RAM DDR4.",
+    w_am5_ddr4: "⚠️ Les cartes mères AM5 ne prennent pas en charge la DDR4 — choisissez de la RAM DDR5.",
+    w_case_formfactor: "⚠️ Une carte mère Full ATX ne tiendra pas dans un boîtier Micro-ATX/Mini-ITX — choisissez un boîtier plus grand ou une carte plus petite.",
+    nav_formats: "Formats", nav_ram: "RAM", nav_storage: "Stockage", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "À propos", nav_back: "← Guide principal",
+    page_eyebrow: "Configurateur PC", page_title: "Créer Votre PC",
+    page_desc: "Choisissez vos composants ci-dessous. Les prix sont mis à jour en direct et incluent la TVA grecque (24%). Basculez entre les plateformes.",
+    btn_modern: "🟧 Moderne (DDR4 / DDR5)", btn_ddr3: "🟪 Ancienne Génération — DDR3", btn_ddr2: "🟪 Très Ancien — DDR2",
+    preset_gaming: "🎮 Gaming", preset_editing: "🎬 Création de contenu", preset_office: "💼 Bureau / Économique",
+    legacy_note: "⚠️ Pièces reconditionnées / d'occasion. Les prix affichés sont des estimations approximatives du marché de l'occasion. Ces plateformes ne sont plus produites.",
+    label_cpu: "Processeur (CPU)", label_mobo: "Carte Mère", label_ram: "Mémoire RAM", label_storage: "Stockage (Principal)", label_gpu: "Carte Graphique (GPU)", label_cooler: "Ventirad CPU", label_psu: "Alimentation (PSU)", label_case: "Boîtier (Case)",
+    opt_no_gpu: "Pas de carte graphique dédiée (intégrée uniquement)", opt_stock_cooler: "Ventirad d'origine (si inclus)", opt_stock_h3: "Radiateur d'origine &mdash; inclus", opt_oem_used: "Radiateur OEM Intel/AMD &mdash; D'occasion", opt_stock_h2: "Radiateur LGA775 d'origine &mdash; inclus",
+    summary_header: "Résumé de la config", row_subtotal: "Sous-total (hors TVA)", row_vat: "TVA 24%", row_total: "Total", vat_note: "Les prix sont des estimations. Les prix réels peuvent varier.",
+    btn_save: "Vérifier la configuration", btn_reset: "Réinitialiser", confirm_reset: "Réinitialiser la configuration et effacer la progression enregistrée ? Cette action est irréversible.",
+    modal_title: "Votre Configuration", modal_desc: "Voici un résumé de la configuration sélectionnée.", btn_copy: "Copier dans le presse-papiers", btn_copy_link: "Copier le lien de partage", m_link_copied: "Lien copié !", btn_close: "Fermer", footer_back: "Retour au guide", footer_about: "À propos de nous",
+    tier_ddr2: "Ancienne config DDR2", tier_ddr3: "Config Legacy DDR3", tier_budget: "Entrée de gamme", tier_mid: "Milieu de gamme", tier_high: "Haut de gamme", tier_enthus: "Enthousiaste",
+    w_intel_mismatch: "⚠️ Incompatibilité CPU–Carte mère: Un processeur Intel requiert le socket LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Incompatibilité CPU–Carte mère: Un processeur AMD requiert une carte mère AM4 ou AM5.",
+    w_high_gpu_psu: "⚠️ GPU haut de gamme — alimentation d'au moins 850 W recommandée.",
+    w_mid_gpu_psu: "⚠️ Ce GPU peut nécessiter une alimentation d'au moins 750 W.",
+    w_haswell_mismatch: "⚠️ Un processeur Haswell (LGA1150) nécessite une carte mère LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Un processeur Sandy/Ivy Bridge (LGA1155) nécessite une carte mère LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ Un processeur AMD FX (AM3+) nécessite une carte mère AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Pour une configuration DDR3 avec GPU dédié, assurez-vous d'avoir une alimentation d'au moins 300–400 W.",
+    w_ddr2_info: "ℹ️ Les plateformes DDR2 sont très anciennes. Adaptées uniquement pour la bureautique de base et la navigation web.",
+    w_ddr2_psu: "⚠️ Assurez-vous d'avoir une alimentation d'au moins 250 W pour un système de l'époque DDR2.",
+    watt_header: "Consommation électrique estimée", watt_recommend: "Alimentation recommandée : au moins {n} W.",
+    watt_status_safe: "Marge confortable pour l'alimentation choisie.",
+    watt_status_tight: "C'est juste — envisagez une alimentation plus puissante.",
+    watt_status_danger: "Votre alimentation est probablement sous-dimensionnée pour cette configuration.",
+    m_est_total: "Total estimé:", m_incl_vat: "TVA incluse", m_platform: "Plateforme", m_copied: "Copié!",
+    cta_title: "Voulez-vous qu'on l'assemble pour vous ?", cta_desc: "Nous assemblons, testons et livrons exactement cette configuration — vous n'avez rien à chercher ni à monter vous-même.", cta_btn: "Demander le service de montage →"
+  },
+  ru: {
+    w_am4_ddr5: "⚠️ Материнские платы AM4 не поддерживают DDR5 — выберите память DDR4.",
+    w_am5_ddr4: "⚠️ Материнские платы AM5 не поддерживают DDR4 — выберите память DDR5.",
+    w_case_formfactor: "⚠️ Полноразмерная плата ATX не поместится в корпус Micro-ATX/Mini-ITX — выберите корпус побольше или плату поменьше.",
+  nav_formats: "Форматы", nav_ram: "ОЗУ", nav_storage: "Накопители", nav_cpu: "ЦП", nav_gpu: "ГП", nav_about: "О нас", nav_back: "← Назад к руководству",
+  page_eyebrow: "Конфигуратор ПК", page_title: "Соберите свой ПК",
+  page_desc: "Выберите компоненты ниже. Цены обновляются в реальном времени и включают греческий НДС (24%). Вы можете переключаться между современными и устаревшими платформами для настройки старых компьютеров.",
+  btn_modern: "🟧 Современные (DDR4 / DDR5)", btn_ddr3: "🟪 Устаревшие — DDR3 (2010–2017)", btn_ddr2: "🟪 Очень старые — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Игры", preset_editing: "🎬 Создание контента", preset_office: "💼 Офис / Бюджет",
+  legacy_note: "⚠️ Восстановленные / Б/У детали. Указаны приблизительные цены вторичного рынка (Греция). Эти платформы больше не выпускаются — комплектующие снимаются со старых машин. Фиолетовые цены указывают на Б/У или восстановленные детали.",
+  label_cpu: "Процессор (ЦП)", label_mobo: "Материнская плата", label_ram: "Оперативная память (ОЗУ)", label_storage: "Накопитель (основной)", label_gpu: "Видеокарта (ГП)", label_cooler: "Кулер для ЦП", label_psu: "Блок питания", label_case: "Корпус",
+  opt_no_gpu: "Без дискретной видеокарты (только встроенная)", opt_stock_cooler: "Стоковый / Боксовый кулер (если в комплекте)", opt_stock_h3: "Стоковый боксовый радиатор — в комплекте", opt_oem_used: "Кулер Intel/AMD OEM — Б/У", opt_stock_h2: "Стоковый боксовый кулер LGA775 — в комплекте",
+  summary_header: "Конфигурация сборки", row_subtotal: "Промежуточный итог (без НДС)", row_vat: "НДС 24%", row_total: "Итого", vat_note: "Цены являются ориентировочными. Финальная стоимость в рознице или на Б/У рынке может отличаться.",
+  btn_save: "Сохранить и проверить сборку", btn_reset: "Сбросить настройки", confirm_reset: "Сбросить сборку и удалить сохранённый прогресс? Это действие нельзя отменить.",
+  modal_title: "Ваша сборка", modal_desc: "Вот краткое описание выбранной вами конфигурации.", btn_copy: "Копировать в буфер обмена", btn_copy_link: "Копировать ссылку", m_link_copied: "Ссылка скопирована!", btn_close: "Закрыть", footer_back: "Назад к руководству", footer_about: "О нас",
+  tier_ddr2: "Устаревшая DDR2", tier_ddr3: "Устаревшая DDR3", tier_budget: "Бюджетный", tier_mid: "Средний класс", tier_high: "Мощный", tier_enthus: "Энтузиаст",
+  w_intel_mismatch: "⚠️ Несовместимость ЦП и платы: для процессора Intel требуется LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Несовместимость ЦП и платы: для процессора AMD требуется плата AM4 или AM5.",
+  w_high_gpu_psu: "⚠️ Мощная видеокарта — рекомендуется блок питания не менее 850 Вт.",
+  w_mid_gpu_psu: "⚠️ Для этой видеокарты может потребоваться блок питания не менее 750 Вт.",
+  w_haswell_mismatch: "⚠️ Процессору Haswell (LGA1150) нужна материнская плата LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Для Sandy/Ivy Bridge (LGA1155) нужна плата LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ Для AMD FX (AM3+) нужна материнская плата AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Для сборки на DDR3 с дискретной видеокартой убедитесь, что БП составляет не менее 300–400 Вт.",
+  w_ddr2_info: "ℹ️ Платформы DDR2 очень старые. Подходят только для базовой офисной работы и интернета.",
+  w_ddr2_psu: "⚠️ Убедитесь, что блок питания составляет не менее 250 Вт для системы эпохи DDR2.",
+  watt_header: "Расчётное энергопотребление", watt_recommend: "Рекомендуемый блок питания: не менее {n} Вт.",
+  watt_status_safe: "Достаточный запас мощности для выбранного блока питания.",
+  watt_status_tight: "На грани — стоит выбрать блок питания большей мощности.",
+  watt_status_danger: "Ваш блок питания, вероятно, слишком слабый для этой конфигурации.",
+  m_est_total: "Ориентировочная стоимость:", m_incl_vat: "с НДС", m_platform: "Платформа", m_copied: "Скопировано!",
+  cta_title: "Хотите, мы соберём его за вас?", cta_desc: "Мы собираем, тестируем и доставляем именно эту конфигурацию — вам не придётся ничего искать или собирать самостоятельно.", cta_btn: "Заказать сборку →"
+},
+ sr: {
+    w_am4_ddr5: "⚠️ AM4 matične ploče ne podržavaju DDR5 — izaberite DDR4 memoriju.",
+    w_am5_ddr4: "⚠️ AM5 matične ploče ne podržavaju DDR4 — izaberite DDR5 memoriju.",
+    w_case_formfactor: "⚠️ Puna ATX matična ploča neće stati u Micro-ATX/Mini-ITX kućište — izaberite veće kućište ili manju ploču.",
+  nav_formats: "Formati", nav_ram: "RAM", nav_storage: "Skladištenje", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "O nama", nav_back: "← Nazad na vodič",
+  page_eyebrow: "Konfigurator računara", page_title: "Sastavite svoj računar",
+  page_desc: "Izaberite komponente ispod. Cene se ažuriraju uživo i uključuju grčki PDV (24%). Možete menjati između modernih i starijih platformi da biste konfigurisali i starije mašine.",
+  btn_modern: "🟧 Moderna (DDR4 / DDR5)", btn_ddr3: "🟪 Zastarela — DDR3 (2010–2017)", btn_ddr2: "🟪 Veoma stara — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Kreiranje sadržaja", preset_office: "💼 Kancelarija / Budžet",
+  legacy_note: "⚠️ Reparirani / Polovni delovi. Prikazane cene su grube procene sa tržišta polovne robe (grčko tržište). Ove platforme se više ne proizvode kao nove — delovi se nabavljaju iz starijih mašina. Ljubičaste cene označavaju polovne/reparirane delove.",
+  label_cpu: "CPU", label_mobo: "Matična ploča", label_ram: "RAM", label_storage: "Skladištenje (primarno)", label_gpu: "GPU", label_cooler: "Kuler za CPU", label_psu: "Napajanje", label_case: "Kućište",
+  opt_no_gpu: "Bez diskretne grafičke kartice (samo integrisana)", opt_stock_cooler: "Fabrički / Box kuler (ako je uključen)", opt_stock_h3: "Fabrički box kuler — uključen", opt_oem_used: "Intel/AMD OEM kuler — Polovan", opt_stock_h2: "Fabrički LGA775 box kuler — uključen",
+  summary_header: "Pregled konfiguracije", row_subtotal: "Međuzbir (bez PDV-a)", row_vat: "PDV 24%", row_total: "Ukupno", vat_note: "Cene su procene. Konačne maloprodajne ili cene polovnih delova mogu varirati.",
+  btn_save: "Sačuvaj i pregledaj konfiguraciju", btn_reset: "Resetuj na fabričko", confirm_reset: "Resetovati konfiguraciju i obrisati sačuvani napredak? Ovo se ne može poništiti.",
+  modal_title: "Vaša konfiguracija", modal_desc: "Evo pregleda vaše izabrane konfiguracije.", btn_copy: "Kopiraj u privremenu memoriju", btn_copy_link: "Kopiraj link za deljenje", m_link_copied: "Link kopiran!", btn_close: "Zatvori", footer_back: "Nazad na vodič", footer_about: "O nama",
+  tier_ddr2: "Zastarela DDR2", tier_ddr3: "Zastarela DDR3", tier_budget: "Budžetska", tier_mid: "Srednja klasa", tier_high: "Visoka klasa", tier_enthus: "Entuzijasta",
+  w_intel_mismatch: "⚠️ Neslaganje procesora i ploče: Intel CPU zahteva LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Neslaganje procesora i ploče: AMD CPU zahteva AM4 ili AM5 ploču.",
+  w_high_gpu_psu: "⚠️ Grafička kartica visoke klase — preporučuje se napajanje od najmanje 850 W.",
+  w_mid_gpu_psu: "⚠️ Ova grafička kartica može zahtevati napajanje od najmanje 750 W.",
+  w_haswell_mismatch: "⚠️ Haswell CPU (LGA1150) zahteva LGA1150 matičnu ploču (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) zahteva LGA1155 ploču (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) zahteva AM3+ matičnu ploču (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Za DDR3 konfiguraciju sa diskretnom grafičkom karticom, proverite da li je napajanje najmanje 300–400 W.",
+  w_ddr2_info: "ℹ️ DDR2 platforme su veoma stare. Pogodne su samo za osnovnu kancelarijsku upotrebu i internet.",
+  w_ddr2_psu: "⚠️ Proverite da li je napajanje najmanje 250 W za sistem iz DDR2 ere.",
+  watt_header: "Procenjena potrošnja energije", watt_recommend: "Preporučeno napajanje: najmanje {n} W.",
+  watt_status_safe: "Dovoljna rezerva za izabrano napajanje.",
+  watt_status_tight: "Na ivici je — razmislite o jačem napajanju.",
+  watt_status_danger: "Vaše napajanje je verovatno preslabo za ovu konfiguraciju.",
+  m_est_total: "Procenjeno ukupno:", m_incl_vat: "sa PDV-om", m_platform: "Platforma", m_copied: "Kopirano!",
+  cta_title: "Želite da vam ga mi sastavimo?", cta_desc: "Sastavljamo, testiramo i isporučujemo tačno ovu konfiguraciju — ne morate ništa sami da nabavljate ili sastavljate.", cta_btn: "Zatraži uslugu sastavljanja →"
+},
+ it: {
+    w_am4_ddr5: "⚠️ Le schede madri AM4 non supportano la DDR5 — scegli RAM DDR4.",
+    w_am5_ddr4: "⚠️ Le schede madri AM5 non supportano la DDR4 — scegli RAM DDR5.",
+    w_case_formfactor: "⚠️ Una scheda madre Full ATX non entrerà in un case Micro-ATX/Mini-ITX — scegli un case più grande o una scheda più piccola.",
+  nav_formats: "Formati", nav_ram: "RAM", nav_storage: "Archiviazione", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Chi siamo", nav_back: "← Torna alla Guida",
+  page_eyebrow: "Configuratore PC", page_title: "Crea il tuo PC",
+  page_desc: "Scegli i tuoi componenti qui sotto. I prezzi si aggiornano in tempo reale e includono l'IVA greca (24%). Passa dalle piattaforme moderne a quelle legacy per configurare anche macchine più vecchie.",
+  btn_modern: "🟧 Moderno (DDR4 / DDR5)", btn_ddr3: "🟪 Legacy — DDR3 (2010–2017)", btn_ddr2: "🟪 Molto Vecchio — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Creazione di contenuti", preset_office: "💼 Ufficio / Budget",
+  legacy_note: "⚠️ Componenti ricondizionati / usati. I prezzi mostrati sono stime indicative del mercato dell'usato (mercato greco). Queste piattaforme non vengono più prodotte come nuove: i componenti provengono da vecchi computer. I prezzi in viola indicano componenti usati/ricondizionati.",
+  label_cpu: "CPU", label_mobo: "Scheda madre", label_ram: "RAM", label_storage: "Archiviazione (principale)", label_gpu: "GPU", label_cooler: "Dissipatore CPU", label_psu: "Alimentatore", label_case: "Case",
+  opt_no_gpu: "Nessuna GPU dedicata (solo integrata)", opt_stock_cooler: "Dissipatore stock / incluso (se presente)", opt_stock_h3: "Dissipatore stock incluso", opt_oem_used: "Dissipatore OEM Intel/AMD — Usato", opt_stock_h2: "Dissipatore stock LGA775 incluso",
+  summary_header: "Riepilogo configurazione", row_subtotal: "Imponibile (escl. IVA)", row_vat: "IVA 24%", row_total: "Totale", vat_note: "I prezzi sono indicativi. I prezzi finali al dettaglio o dell'usato possono variare.",
+  btn_save: "Salva e rivedi la configurazione", btn_reset: "Ripristina predefiniti", confirm_reset: "Ripristinare la configurazione e cancellare i progressi salvati? L'operazione non può essere annullata.",
+  modal_title: "La tua configurazione", modal_desc: "Ecco un riepilogo della configurazione selezionata.", btn_copy: "Copia negli appunti", btn_copy_link: "Copia link di condivisione", m_link_copied: "Link copiato!", btn_close: "Chiudi", footer_back: "Torna alla guida", footer_about: "Chi siamo",
+  tier_ddr2: "Legacy DDR2", tier_ddr3: "Legacy DDR3", tier_budget: "Economico", tier_mid: "Fascia media", tier_high: "Fascia alta", tier_enthus: "Entusiasta",
+  w_intel_mismatch: "⚠️ Incompatibilità CPU–Scheda madre: la CPU Intel richiede una scheda LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Incompatibilità CPU–Scheda madre: la CPU AMD richiede una scheda AM4 o AM5.",
+  w_high_gpu_psu: "⚠️ GPU di fascia alta — si consiglia un alimentatore da almeno 850 W.",
+  w_mid_gpu_psu: "⚠️ Questa GPU potrebbe richiedere un alimentatore da almeno 750 W.",
+  w_haswell_mismatch: "⚠️ La CPU Haswell (LGA1150) richiede una scheda madre LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) richiede una scheda LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) richiede uma scheda madre AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Per una configurazione DDR3 con GPU dedicata, assicurati che l'alimentatore sia di almeno 300–400 W.",
+  w_ddr2_info: "ℹ️ Le piattaforme DDR2 sono molto vecchie. Adatte solo per uso ufficio e navigazione internet di base.",
+  w_ddr2_psu: "⚠️ Assicurati che l'alimentatore sia di almeno 250 W per un sistema dell'era DDR2.",
+  watt_header: "Consumo energetico stimato", watt_recommend: "Alimentatore consigliato: almeno {n} W.",
+  watt_status_safe: "Margine confortevole per l'alimentatore selezionato.",
+  watt_status_tight: "Al limite — valuta un alimentatore più potente.",
+  watt_status_danger: "Il tuo alimentatore è probabilmente sottodimensionato per questa configurazione.",
+  m_est_total: "Totale stimato:", m_incl_vat: "IVA inclusa", m_platform: "Piattaforma", m_copied: "Copiato!",
+  cta_title: "Vuoi che lo assembliamo noi?", cta_desc: "Assembliamo, testiamo e consegniamo esattamente questa configurazione — non devi cercare o montare nulla da solo.", cta_btn: "Richiedi il servizio di assemblaggio →"
+},
+ es: {
+    w_am4_ddr5: "⚠️ Las placas base AM4 no admiten DDR5 — elige RAM DDR4.",
+    w_am5_ddr4: "⚠️ Las placas base AM5 no admiten DDR4 — elige RAM DDR5.",
+    w_case_formfactor: "⚠️ Una placa base Full ATX no cabrá en una caja Micro-ATX/Mini-ITX — elige una caja más grande o una placa más pequeña.",
+  nav_formats: "Formatos", nav_ram: "RAM", nav_storage: "Almacenamiento", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Nosotros", nav_back: "← Volver a la Guía",
+  page_eyebrow: "Configurador de PC", page_title: "Arma tu PC",
+  page_desc: "Elige tus componentes a continuación. Los precios se actualizan en vivo e incluyen el IVA griego (24%). Cambia entre plataformas modernas y heredadas para configurar también equipos antiguos.",
+  btn_modern: "🟧 Moderno (DDR4 / DDR5)", btn_ddr3: "🟪 Heredado — DDR3 (2010–2017)", btn_ddr2: "🟪 Muy Antiguo — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Creación de contenido", preset_office: "💼 Oficina / Económico",
+  legacy_note: "⚠️ Componentes reacondicionados / usados. Los precios mostrados son estimaciones aproximadas del mercado de segunda mano (mercado griego). Estas plataformas ya no se fabrican nuevas; las piezas provienen de equipos antiguos. Los precios en morado indican componentes usados o reacondicionados.",
+  label_cpu: "CPU", label_mobo: "Placa base", label_ram: "RAM", label_storage: "Almacenamiento (principal)", label_gpu: "GPU", label_cooler: "Disipador de CPU", label_psu: "Fuente de alimentación", label_case: "Gabinete",
+  opt_no_gpu: "Sin GPU dedicada (solo integrada)", opt_stock_cooler: "Disipador de fábrica / de serie (si está incluido)", opt_stock_h3: "Disipador de fábrica incluido", opt_oem_used: "Disipador OEM Intel/AMD — Usado", opt_stock_h2: "Disipador de fábrica LGA775 incluido",
+  summary_header: "Resumen del equipo", row_subtotal: "Subtotal (sin IVA)", row_vat: "IVA 24%", row_total: "Total", vat_note: "Los precios son estimaciones. Los precios finales en tienda o de segunda mano pueden variar.",
+  btn_save: "Guardar y revisar configuración", btn_reset: "Restablecer valores", confirm_reset: "¿Restablecer la configuración y borrar el progreso guardado? Esta acción no se puede deshacer.",
+  modal_title: "Tu configuración", modal_desc: "Aquí tienes un resumen de la configuración seleccionada.", btn_copy: "Copiar al portapapeles", btn_copy_link: "Copiar enlace para compartir", m_link_copied: "¡Enlace copiado!", btn_close: "Cerrar", footer_back: "Volver a la guía", footer_about: "Nosotros",
+  tier_ddr2: "Heredado DDR2", tier_ddr3: "Heredado DDR3", tier_budget: "Económico", tier_mid: "Gama media", tier_high: "Gama alta", tier_enthus: "Entusiasta",
+  w_intel_mismatch: "⚠️ Incompatibilidad CPU–Placa: la CPU Intel requiere una placa LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Incompatibilidad CPU–Placa: la CPU AMD requiere una placa AM4 o AM5.",
+  w_high_gpu_psu: "⚠️ GPU de gama alta — se recomienda una fuente de al menos 850 W.",
+  w_mid_gpu_psu: "⚠️ Esta GPU puede necesitar una fuente de al menos 750 W.",
+  w_haswell_mismatch: "⚠️ La CPU Haswell (LGA1150) necesita una placa base LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) necesita una placa LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) necesita una placa base AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Para una configuración DDR3 con GPU dedicada, asegúrate de que la fuente sea de al menos 300–400 W.",
+  w_ddr2_info: "ℹ️ Las plataformas DDR2 son muy antiguas. Solo son adecuadas para tareas básicas de oficina e internet.",
+  w_ddr2_psu: "⚠️ Asegúrate de que la fuente sea de al menos 250 W para un sistema de la era DDR2.",
+  watt_header: "Consumo eléctrico estimado", watt_recommend: "Fuente de alimentación recomendada: al menos {n} W.",
+  watt_status_safe: "Margen cómodo para la fuente seleccionada.",
+  watt_status_tight: "Está muy justo — considera una fuente de mayor potencia.",
+  watt_status_danger: "Tu fuente probablemente sea insuficiente para esta configuración.",
+  m_est_total: "Total estimado:", m_incl_vat: "con IVA", m_platform: "Plataforma", m_copied: "¡Copiado!",
+  cta_title: "¿Quieres que lo montemos por ti?", cta_desc: "Ensamblamos, probamos y entregamos exactamente esta configuración — no necesitas buscar ni montar nada tú mismo.", cta_btn: "Solicitar servicio de montaje →"
+},
+ pt: {
+    w_am4_ddr5: "⚠️ Placas-mãe AM4 não suportam DDR5 — escolha RAM DDR4.",
+    w_am5_ddr4: "⚠️ Placas-mãe AM5 não suportam DDR4 — escolha RAM DDR5.",
+    w_case_formfactor: "⚠️ Uma placa-mãe Full ATX não cabe num gabinete Micro-ATX/Mini-ITX — escolha um gabinete maior ou uma placa menor.",
+  nav_formats: "Formatos", nav_ram: "RAM", nav_storage: "Armazenamento", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Sobre nós", nav_back: "← Voltar ao Guia",
+  page_eyebrow: "Configurador de PC", page_title: "Monte o seu PC",
+  page_desc: "Escolha os seus componentes abaixo. Os preços são atualizados em tempo real e incluem o IVA grego (24%). Alterne entre plataformas modernas e antigas para configurar também computadores mais velhos.",
+  btn_modern: "🟧 Moderno (DDR4 / DDR5)", btn_ddr3: "🟪 Antigo — DDR3 (2010–2017)", btn_ddr2: "🟪 Muito Antigo — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Criação de conteúdo", preset_office: "💼 Escritório / Económico",
+  legacy_note: "⚠️ Componentes recondicionados / usados. Os preços apresentados são estimativas aproximadas do mercado de segunda mão (mercado grego). Estas plataformas já não são produzidas novas – as peças são retiradas de computadores antigos. Os preços em roxo indicam peças usadas/recondicionadas.",
+  label_cpu: "CPU", label_mobo: "Placa-mãe", label_ram: "RAM", label_storage: "Armazenamento (principal)", label_gpu: "GPU", label_cooler: "Cooler do CPU", label_psu: "Fonte de alimentação", label_case: "Caixa/Gabinete",
+  opt_no_gpu: "Sem GPU dedicada (apenas gráfica integrada)", opt_stock_cooler: "Cooler de fábrica / incluído (se disponível)", opt_stock_h3: "Cooler de fábrica incluído", opt_oem_used: "Cooler OEM Intel/AMD — Usado", opt_stock_h2: "Cooler de fábrica LGA775 incluído",
+  summary_header: "Resumo da configuração", row_subtotal: "Subtotal (excl. IVA)", row_vat: "IVA 24%", row_total: "Total", vat_note: "Os preços são estimativas. Os preços finais de venda ou de artigos usados podem variar.",
+  btn_save: "Gravar e rever configuração", btn_reset: "Restaurar predefinições", confirm_reset: "Repor a configuração e apagar o progresso guardado? Esta ação não pode ser anulada.",
+  modal_title: "A sua configuração", modal_desc: "Aqui está um resumo da configuração selecionada.", btn_copy: "Copiar para a área de transferência", btn_copy_link: "Copiar link de partilha", m_link_copied: "Link copiado!", btn_close: "Fechar", footer_back: "Voltar ao guia", footer_about: "Sobre nós",
+  tier_ddr2: "Antigo DDR2", tier_ddr3: "Antigo DDR3", tier_budget: "Económico", tier_mid: "Gama média", tier_high: "Gama alta", tier_enthus: "Entusiasta",
+  w_intel_mismatch: "⚠️ Incompatibilidade CPU–Placa-mãe: o CPU Intel requer uma placa LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Incompatibilidade CPU–Placa-mãe: o CPU AMD requer uma placa AM4 ou AM5.",
+  w_high_gpu_psu: "⚠️ GPU de gama alta — recomenda-se uma fonte de pelo menos 850 W.",
+  w_mid_gpu_psu: "⚠️ Esta GPU pode necessitar de uma fonte de pelo menos 750 W.",
+  w_haswell_mismatch: "⚠️ O CPU Haswell (LGA1150) necessita de uma placa-mãe LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) necessita de uma placa LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) necessita de uma placa-mãe AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Para uma configuração DDR3 con GPU dedicada, certifique-se de que a fonte tem pelo menos 300–400 W.",
+  w_ddr2_info: "ℹ️ As plataformas DDR2 são muito antigas. São adequadas apenas para uso básico de escritório e internet.",
+  w_ddr2_psu: "⚠️ Certifique-se de que a fonte tem pelo menos 250 W para um sistema da era DDR2.",
+  watt_header: "Consumo de energia estimado", watt_recommend: "Fonte recomendada: pelo menos {n} W.",
+  watt_status_safe: "Margem confortável para a fonte selecionada.",
+  watt_status_tight: "Está no limite — considere uma fonte de maior potência.",
+  watt_status_danger: "Sua fonte provavelmente é insuficiente para esta configuração.",
+  m_est_total: "Total estimado:", m_incl_vat: "com IVA", m_platform: "Plataforma", m_copied: "Copiado!",
+  cta_title: "Queres que o montemos por ti?", cta_desc: "Montamos, testamos e entregamos exatamente esta configuração — não precisas de procurar nem montar nada sozinho.", cta_btn: "Pedir serviço de montagem →"
+},
+ ro: {
+    w_am4_ddr5: "⚠️ Plăcile de bază AM4 nu suportă DDR5 — alege memorie DDR4.",
+    w_am5_ddr4: "⚠️ Plăcile de bază AM5 nu suportă DDR4 — alege memorie DDR5.",
+    w_case_formfactor: "⚠️ O placă de bază Full ATX nu va încăpea într-o carcasă Micro-ATX/Mini-ITX — alege o carcasă mai mare sau o placă mai mică.",
+  nav_formats: "Formate", nav_ram: "RAM", nav_storage: "Stocare", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Despre noi", nav_back: "← Înapoi la Ghid",
+  page_eyebrow: "Configurator PC", page_title: "Configurează-ți PC-ul",
+  page_desc: "Alege componentele de mai jos. Prețurile se actualizează în timp real și includ TVA-ul din Grecia (24%). Comută între platformele Moderne și cele Vechi (Legacy) pentru a configura și calculatoare mai vechi.",
+  btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Legacy — DDR3 (2010–2017)", btn_ddr2: "🟪 Foarte Vechi — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Creare de conținut", preset_office: "💼 Birou / Buget",
+  legacy_note: "⚠️ Componente recondiționate / second-hand. Prețurile afișate sunt estimări brute pentru piața second-hand (piața din Grecia). Aceste platforme nu se mai fabrică de noi — componentele provin din calculatoare vechi. Prețurile cu mov indică piese folosite/recondiționate.",
+  label_cpu: "CPU", label_mobo: "Placă de bază", label_ram: "RAM", label_storage: "Stocare (principală)", label_gpu: "GPU", label_cooler: "Cooler CPU", label_psu: "Sursă de alimentare", label_case: "Carcasă",
+  opt_no_gpu: "Fără placă video dedicată (doar integrată)", opt_stock_cooler: "Cooler stoc / inclus în cutie (dacă există)", opt_stock_h3: "Radiator stoc inclus în cutie", opt_oem_used: "Cooler OEM Intel/AMD — Second-hand", opt_stock_h2: "Cooler stoc LGA775 inclus în cutie",
+  summary_header: "Rezumat configurație", row_subtotal: "Subtotal (fără TVA)", row_vat: "TVA 24%", row_total: "Total", vat_note: "Prețurile sunt estimative. Prețurile finale din magazine sau de pe piața second-hand pot varia.",
+  btn_save: "Salvează și verifică configurația", btn_reset: "Resetare la valori implicite", confirm_reset: "Resetezi configurația și ștergi progresul salvat? Acțiunea nu poate fi anulată.",
+  modal_title: "Configurația ta", modal_desc: "Iată un rezumat al configurației selectate.", btn_copy: "Copiază în clipboard", btn_copy_link: "Copiază linkul de partajare", m_link_copied: "Link copiat!", btn_close: "Închide", footer_back: "Înapoi la ghid", footer_about: "Despre noi",
+  tier_ddr2: "Legacy DDR2", tier_ddr3: "Legacy DDR3", tier_budget: "Buget", tier_mid: "Mid-range", tier_high: "High-end", tier_enthus: "Entuziast",
+  w_intel_mismatch: "⚠️ Incompatibilitate CPU–Placă de bază: CPU-ul Intel necesită o placă LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Incompatibilitate CPU–Placă de bază: CPU-ul AMD necesită o placă AM4 sau AM5.",
+  w_high_gpu_psu: "⚠️ GPU High-end — se recomandă o sursă de cel puțin 850 W.",
+  w_mid_gpu_psu: "⚠️ Acest GPU poate avea nevoie de o sursă de cel puțin 750 W.",
+  w_haswell_mismatch: "⚠️ CPU-ul Haswell (LGA1150) are nevoie de o placă de bază LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) are nevoie de o placă LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) are nevoie de o placă de bază AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ Pentru o configurație DDR3 cu placă video dedicată, asigură-te că sursa este de cel puțin 300–400 W.",
+  w_ddr2_info: "ℹ️ Platformele DDR2 sunt foarte vechi. Sunt potrivite doar pentru utilizare de birou și internet de bază.",
+  w_ddr2_psu: "⚠️ Asigură-te că sursa este de cel puțin 250 W pentru un sistem din era DDR2.",
+  watt_header: "Consum energetic estimat", watt_recommend: "Sursă recomandată: cel puțin {n} W.",
+  watt_status_safe: "Marjă confortabilă pentru sursa selectată.",
+  watt_status_tight: "Este la limită — ia în calcul o sursă cu putere mai mare.",
+  watt_status_danger: "Sursa ta este probabil subdimensionată pentru această configurație.",
+  m_est_total: "Total estimat:", m_incl_vat: "cu TVA inclus", m_platform: "Platformă", m_copied: "Copiat!",
+  cta_title: "Vrei să ți-l asamblăm noi?", cta_desc: "Asamblăm, testăm și livrăm exact această configurație — nu trebuie să cauți sau să asamblezi nimic singur.", cta_btn: "Solicită serviciul de asamblare →"
+},
+ pl: {
+    w_am4_ddr5: "⚠️ Płyty główne AM4 nie obsługują DDR5 — wybierz pamięć DDR4.",
+    w_am5_ddr4: "⚠️ Płyty główne AM5 nie obsługują DDR4 — wybierz pamięć DDR5.",
+    w_case_formfactor: "⚠️ Pełnowymiarowa płyta ATX nie zmieści się w obudowie Micro-ATX/Mini-ITX — wybierz większą obudowę lub mniejszą płytę.",
+  nav_formats: "Formaty", nav_ram: "RAM", nav_storage: "Dyski", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "O nas", nav_back: "← Powrót do przewodnika",
+  page_eyebrow: "Konfigurator PC", page_title: "Złóż swój komputer",
+  page_desc: "Wybierz komponenty poniżej. Ceny są aktualizowane na bieżąco i zawierają grecki podatek VAT (24%). Przełączaj się między nowoczesnymi a starszymi platformami, aby skonfigurować również starsze maszyny.",
+  btn_modern: "🟧 Nowoczesne (DDR4 / DDR5)", btn_ddr3: "🟪 Starsze — DDR3 (2010–2017)", btn_ddr2: "🟪 Bardzo stare — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Tworzenie treści", preset_office: "💼 Biuro / Budżetowy",
+  legacy_note: "⚠️ Części odnawiane / używane. Pokazane ceny to szacunki z rynku wtórnego (rynek grecki). Te platformy nie są już produkowane jako nowe — części pochodzą ze starszych komputerów. Fioletowe ceny oznaczają części używane/odnowione.",
+  label_cpu: "Procesor (CPU)", label_mobo: "Płyta główna", label_ram: "Pamięć RAM", label_storage: "Dysk (główny)", label_gpu: "Karta graficzna (GPU)", label_cooler: "Chłodzenie CPU", label_psu: "Zasilacz", label_case: "Obudowa",
+  opt_no_gpu: "Brak dedykowanej karty graficznej (tylko zintegrowana)", opt_stock_cooler: "Chłodzenie fabryczne / seryjne (jeśli jest w zestawie)", opt_stock_h3: "Fabryczny radiator — w zestawie", opt_oem_used: "Chłodzenie OEM Intel/AMD — Używane", opt_stock_h2: "Fabryczne chłodzenie LGA775 — w zestawie",
+  summary_header: "Podsumowanie konfiguracji", row_subtotal: "Wartość netto (bez VAT)", row_vat: "VAT 24%", row_total: "Razem (brutto)", vat_note: "Ceny są szacunkowe. Ostateczne ceny detaliczne lub używanych części mogą się różnić.",
+  btn_save: "Zapisz i sprawdź konfigurację", btn_reset: "Resetuj do domyślnych", confirm_reset: "Zresetować konfigurację i usunąć zapisany postęp? Tej operacji nie można cofnąć.",
+  modal_title: "Twoja konfiguracja", modal_desc: "Oto podsumowanie wybranej konfiguracji.", btn_copy: "Kopiuj do schowka", btn_copy_link: "Kopiuj link do udostępniania", m_link_copied: "Link skopiowany!", btn_close: "Zamknij", footer_back: "Powrót do przewodnika", footer_about: "O nas",
+  tier_ddr2: "Starsza DDR2", tier_ddr3: "Starsza DDR3", tier_budget: "Budżetowy", tier_mid: "Średnia półka", tier_high: "Wysoka wydajność", tier_enthus: "Entuzjasta",
+  w_intel_mismatch: "⚠️ Niezgodność CPU i płyty: procesor Intel wymaga płyty LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Niezgodność CPU i płyty: procesor AMD wymaga płyty AM4 lub AM5.",
+  w_high_gpu_psu: "⚠️ Wydajna karta graficzna — zalecany zasilacz o mocy co najmniej 850 W.",
+  w_mid_gpu_psu: "⚠️ Ta karta graficzna może wymagać zasilacza o mocy co najmniej 750 W.",
+  w_haswell_mismatch: "⚠️ Procesor Haswell (LGA1150) wymaga płyty głównej LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) wymaga płyty LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) wymaga płyty głównej AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ W przypadku zestawu z DDR3 i dedykowaną kartą graficzną upewnij się, że zasilacz ma moc co najmniej 300–400 W.",
+  w_ddr2_info: "ℹ️ Platformy DDR2 są bardzo stare. Nadają się tylko do podstawowych zadań biurowych i internetu.",
+  w_ddr2_psu: "⚠️ Upewnij się, że zasilacz ma moc co najmniej 250 W dla systemu z ery DDR2.",
+  watt_header: "Szacowany pobór mocy", watt_recommend: "Zalecany zasilacz: co najmniej {n} W.",
+  watt_status_safe: "Wystarczający zapas mocy dla wybranego zasilacza.",
+  watt_status_tight: "Na granicy — rozważ zasilacz o większej mocy.",
+  watt_status_danger: "Twój zasilacz prawdopodobnie jest zbyt słaby dla tej konfiguracji.",
+  m_est_total: "Szacowana kwota:", m_incl_vat: "z VAT", m_platform: "Platforma", m_copied: "Skopiowano!",
+  cta_title: "Chcesz, żebyśmy go dla Ciebie złożyli?", cta_desc: "Składamy, testujemy i dostarczamy dokładnie tę konfigurację — nie musisz niczego szukać ani składać samodzielnie.", cta_btn: "Zamów usługę montażu →"
+},
+ sv: {
+    w_am4_ddr5: "⚠️ AM4-moderkort stöder inte DDR5 — välj DDR4-minne istället.",
+    w_am5_ddr4: "⚠️ AM5-moderkort stöder inte DDR4 — välj DDR5-minne istället.",
+    w_case_formfactor: "⚠️ Ett Full ATX-moderkort får inte plats i ett Micro-ATX/Mini-ITX-chassi — välj ett större chassi eller ett mindre kort.",
+  nav_formats: "Format", nav_ram: "RAM", nav_storage: "Lagring", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Om oss", nav_back: "← Tillbaka till guiden",
+  page_eyebrow: "PC-byggare", page_title: "Bygg din PC",
+  page_desc: "Välj dina komponenter nedan. Priserna uppdateras live och inkluderar grekisk moms (24%). Växla mellan moderna och äldre plattformar för att konfigurera även äldre datorer.",
+  btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 Äldre — DDR3 (2010–2017)", btn_ddr2: "🟪 Mycket gammal — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Gaming", preset_editing: "🎬 Innehållsskapande", preset_office: "💼 Kontor / Budget",
+  legacy_note: "⚠️ Renoverade / begagnade delar. Priserna som visas är ungefärliga uppskattningar för andrahandsmarknaden (grekiska marknaden). Dessa plattformar tillverkas inte längre som nya — delar tas från äldre datorer. Lila priser indikerar begagnade/renoverade delar.",
+  label_cpu: "CPU", label_mobo: "Moderkort", label_ram: "RAM", label_storage: "Lagring (primär)", label_gpu: "GPU", label_cooler: "CPU-kylare", label_psu: "Strömförsörjning (PSU)", label_case: "Chassi",
+  opt_no_gpu: "Inget dedikerat GPU (endast integrerad grafik)", opt_stock_cooler: "Standardkylare / medföljande kylare (om tillgänglig)", opt_stock_h3: "Medföljande standardkylare — ingår", opt_oem_used: "Intel/AMD OEM-kylare — Begagnad", opt_stock_h2: "Medföljande LGA775-standardkylare — ingår",
+  summary_header: "Sammanfattning", row_subtotal: "Subtotal (exkl. moms)", row_vat: "Moms 24%", row_total: "Total", vat_note: "Priserna är uppskattningar. Slutliga detaljhandels- eller begagnatpriser kan variera.",
+  btn_save: "Spara och granska bygge", btn_reset: "Återställ till standardvärden", confirm_reset: "Återställa bygget och radera sparade framsteg? Detta kan inte ångras.",
+  modal_title: "Ditt bygge", modal_desc: "Här är en sammanfattning av din valda konfiguration.", btn_copy: "Kopiera till urklipp", btn_copy_link: "Kopiera delningslänk", m_link_copied: "Länk kopierad!", btn_close: "Stäng", footer_back: "Tillbaka till guiden", footer_about: "Om oss",
+  tier_ddr2: "Äldre DDR2", tier_ddr3: "Äldre DDR3", tier_budget: "Budget", tier_mid: "Mellanklass", tier_high: "Prestanda", tier_enthus: "Entusiast",
+  w_intel_mismatch: "⚠️ CPU–Moderkort matchar inte: Intel CPU kräver LGA1700 (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ CPU–Moderkort matchar inte: AMD CPU kräver AM4- eller AM5-kort.",
+  w_high_gpu_psu: "⚠️ High-end GPU — rekommenderar ett nätaggregat på minst 850 W.",
+  w_mid_gpu_psu: "⚠️ Detta GPU kan behöva ett nätaggregat på minst 750 W.",
+  w_haswell_mismatch: "⚠️ Haswell CPU (LGA1150) kräver ett LGA1150-moderkort (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) kräver ett LGA1155-kort (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) kräver ett AM3+-moderkort (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ För ett DDR3-bygge med dedikerat grafikkort, se till att nätaggregatet är på minst 300–400 W.",
+  w_ddr2_info: "ℹ️ DDR2-plattformar är mycket gamla. Endast lämpliga för enklare kontorsarbete och internetanvändning.",
+  w_ddr2_psu: "⚠️ Se till att nätaggregatet är på minst 250 W för ett system från DDR2-eran.",
+  watt_header: "Uppskattad strömförbrukning", watt_recommend: "Rekommenderat nätaggregat: minst {n} W.",
+  watt_status_safe: "Bekväm marginal för det valda nätaggregatet.",
+  watt_status_tight: "Det är knappt — överväg ett nätaggregat med högre effekt.",
+  watt_status_danger: "Ditt nätaggregat är troligen underdimensionerat för denna konfiguration.",
+  m_est_total: "Beräknat totalt pris:", m_incl_vat: "inkl. moms", m_platform: "Plattform", m_copied: "Kopierat!",
+  cta_title: "Vill du att vi bygger den åt dig?", cta_desc: "Vi monterar, testar och levererar exakt den här konfigurationen — du behöver inte leta upp eller bygga något själv.", cta_btn: "Beställ monteringstjänst →"
+},
+ bg: {
+    w_am4_ddr5: "⚠️ Дънните платки AM4 не поддържат DDR5 — изберете DDR4 памет.",
+    w_am5_ddr4: "⚠️ Дънните платки AM5 не поддържат DDR4 — изберете DDR5 памет.",
+    w_case_formfactor: "⚠️ Дънна платка с пълен ATX размер няма да се побере в кутия Micro-ATX/Mini-ITX — изберете по-голяма кутия или по-малка платка.",
+  nav_formats: "Формати", nav_ram: "RAM", nav_storage: "Съхранение", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "За нас", nav_back: "← Назад към ръководството",
+  page_eyebrow: "Конфигуратор на компютър", page_title: "Сглобете вашия компютър",
+  page_desc: "Изберете вашите компоненти по-долу. Цените се обновяват в реално време и включват гръцко ДДС (24%). Превключвайте между модерни и стари платформи за конфигурация и на по-стари машини.",
+  btn_modern: "🟧 Модерна (DDR4 / DDR5)", btn_ddr3: "🟪 Стара — DDR3 (2010–2017)", btn_ddr2: "🟪 Много стара — DDR2 (2004–2010)",
+  preset_gaming: "🎮 Гейминг", preset_editing: "🎬 Създаване на съдържание", preset_office: "💼 Офис / Бюджетен",
+  legacy_note: "⚠️ Реновирани / Употребявани части. Показаните цени са груби оценки за пазара на старо (гръцкия пазар). Тези платформи вече не се произвеждат като нови — частите се вземат от по-стари машини. Цените в лилаво показват използвани/реновирани части.",
+  label_cpu: "Процесор (CPU)", label_mobo: "Дънна платка", label_ram: "RAM памет", label_storage: "Диск (основен)", label_gpu: "Видеокарта (GPU)", label_cooler: "Охладител за CPU", label_psu: "Захранване", label_case: "Кутия",
+  opt_no_gpu: "Без външна видеокарта (само вградена)", opt_stock_cooler: "Стандартен / Боксов охладител (ако е включен)", opt_stock_h3: "Стандартен боксов радиатор — включен", opt_oem_used: "Intel/AMD OEM охладител — Употребяван", opt_stock_h2: "Стандартен боксов охладител LGA775 — включен",
+  summary_header: "Резюме на конфигурацията", row_subtotal: "Междинна сума (без ДДС)", row_vat: "ДДС 24%", row_total: "Общо", vat_note: "Цените са ориентировъчни. Крайните цени в магазините или на пазара на старо могат да варират.",
+  btn_save: "Запази и прегледай конфигурацията", btn_reset: "Възстановяване на стандартните", confirm_reset: "Да се нулира конфигурацията и да се изтрие запазеният прогрес? Това действие не може да бъде отменено.",
+  modal_title: "Вашата конфигурация", modal_desc: "Ето резюме на избраната от вас конфигурация.", btn_copy: "Копиране в клипборда", btn_copy_link: "Копиране на връзка за споделяне", m_link_copied: "Връзката е копирана!", btn_close: "Затвори", footer_back: "Назад към ръководството", footer_about: "За нас",
+  tier_ddr2: "Стара DDR2", tier_ddr3: "Стара DDR3", tier_budget: "Бюджетен", tier_mid: "Среден клас", tier_high: "Висок клас", tier_enthus: "Ентусиаст",
+  w_intel_mismatch: "⚠️ Несъответствие CPU–Дънна платка: Intel CPU изисква LGA1700 платка (B660/B760/Z790).",
+  w_amd_mismatch: "⚠️ Несъответствие CPU–Дънна платка: AMD CPU изисква AM4 или AM5 платка.",
+  w_high_gpu_psu: "⚠️ Висок клас видеокарта — препоръчва се поне 850 W захранване.",
+  w_mid_gpu_psu: "⚠️ Тази видеокарта може да се нуждае от поне 750 W захранване.",
+  w_haswell_mismatch: "⚠️ Haswell CPU (LGA1150) изисква дънна платка LGA1150 (H81/B85/Z97).",
+  w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) изисква платка LGA1155 (H61/B75/Z77).",
+  w_fx_mismatch: "⚠️ AMD FX (AM3+) изисква дънна платка AM3+ (760G/870/990FX).",
+  w_ddr3_psu: "⚠️ За конфигурация с DDR3 и външна видеокарта, уверете се, че захранването е поне 300–400 W.",
+  w_ddr2_info: "ℹ️ Платформите с DDR2 са много стари. Подходящи са само за базови офис задачи и интернет.",
+  w_ddr2_psu: "⚠️ Уверете се, че захранването е поне 250 W за система от ерата на DDR2.",
+  watt_header: "Прогнозна консумация на енергия", watt_recommend: "Препоръчително захранване: поне {n} W.",
+  watt_status_safe: "Достатъчен резерв за избраното захранване.",
+  watt_status_tight: "На границата е — обмислете захранване с по-голяма мощност.",
+  watt_status_danger: "Захранването ви вероятно е недостатъчно за тази конфигурация.",
+  m_est_total: "Очаквана обща сума:", m_incl_vat: "с включено ДДС", m_platform: "Платформа", m_copied: "Копирано!",
+  cta_title: "Искаш ли ние да го сглобим?", cta_desc: "Сглобяваме, тестваме и доставяме точно тази конфигурация — не е нужно да търсиш или сглобяваш нищо сам.", cta_btn: "Заяви услуга по сглобяване →"
+},
+ sq: {
+    w_am4_ddr5: "⚠️ Bordet AM4 nuk mbështesin DDR5 — zgjidhni RAM DDR4.",
+    w_am5_ddr4: "⚠️ Bordet AM5 nuk mbështesin DDR4 — zgjidhni RAM DDR5.",
+    w_case_formfactor: "⚠️ Një bord amë Full ATX nuk përshtatet në një kuti Micro-ATX/Mini-ITX — zgjidhni një kuti më të madhe ose një bord më të vogël.",
+    nav_formats: "Formatet", nav_ram: "RAM", nav_storage: "Ruajtja", nav_cpu: "CPU", nav_gpu: "GPU", nav_about: "Rreth nesh", nav_back: "← Kthehu te Udhëzuesi",
+    page_eyebrow: "Konfiguruesi i PC", page_title: "Ndërto PC-në tënde",
+    page_desc: "Zgjidh komponentët e tu më poshtë. Çmimet përditësohen në kohë reale dhe përfshijnë TVSH-në greke (24%). Kalo midis platformave Moderne dhe të Vjetra për të konfiguruar edhe makina më të vjetra.",
+    btn_modern: "🟧 Modern (DDR4 / DDR5)", btn_ddr3: "🟪 E vjetër — DDR3 (2010–2017)", btn_ddr2: "🟪 Shumë e vjetër — DDR2 (2004–2010)",
+    preset_gaming: "🎮 Gaming", preset_editing: "🎬 Krijim përmbajtjeje", preset_office: "💼 Zyrë / Ekonomik",
+    legacy_note: "⚠️ Pjesë të rikonstruktuara / të përdorura. Çmimet e treguara janë vlerësime të përafërta për tregun e dorës së dytë (tregu grek). Këto platforma nuk prodhohen më si të reja — pjesët merren nga makina më të vjetra. Çmimet me ngjyrë vjollcë tregojnë pjesë të përdorura/të rikonstruktuara.",
+    label_cpu: "CPU", label_mobo: "Bordi amë", label_ram: "RAM", label_storage: "Ruajtja (kryesore)", label_gpu: "GPU", label_cooler: "Ftohësi i CPU-së", label_psu: "Furnizimi me energji", label_case: "Kutia",
+    opt_no_gpu: "Pa GPU të dedikuar (vetëm i integruar)", opt_stock_cooler: "Ftohës standard / i përfshirë (nëse ka)", opt_stock_h3: "Ftohës standard i përfshirë", opt_oem_used: "Ftohës OEM Intel/AMD — i përdorur", opt_stock_h2: "Ftohës standard LGA775 — i përfshirë",
+    summary_header: "Përmbledhja e ndërtimit", row_subtotal: "Nëntotali (pa TVSH)", row_vat: "TVSH 24%", row_total: "Totali", vat_note: "Çmimet janë vlerësime. Çmimet finale me pakicë/të përdorura mund të ndryshojnë.",
+    btn_save: "Ruaj dhe shqyrto ndërtimin", btn_reset: "Rikthe në parazgjedhje", confirm_reset: "Të rivendoset konfigurimi dhe të fshihet progresi i ruajtur? Ky veprim nuk mund të zhbëhet.",
+    modal_title: "Ndërtimi juaj", modal_desc: "Ja një përmbledhje e konfigurimit të zgjedhur.", btn_copy: "Kopjo në clipboard", btn_copy_link: "Kopjo lidhjen për ndarje", m_link_copied: "Lidhja u kopjua!", btn_close: "Mbyll", footer_back: "Kthehu te udhëzuesi", footer_about: "Rreth nesh",
+    tier_ddr2: "DDR2 e vjetër", tier_ddr3: "DDR3 e vjetër", tier_budget: "Ekonomik", tier_mid: "Mesatar", tier_high: "Cilësi e lartë", tier_enthus: "Entuziast",
+    w_intel_mismatch: "⚠️ Mospërputhje CPU–Bord amë: CPU Intel kërkon LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Mospërputhje CPU–Bord amë: CPU AMD kërkon bord AM4 ose AM5.",
+    w_high_gpu_psu: "⚠️ GPU e nivelit të lartë — rekomandohet një PSU së paku 850 W.",
+    w_mid_gpu_psu: "⚠️ Kjo GPU mund të ketë nevojë për një PSU së paku 750 W.",
+    w_haswell_mismatch: "⚠️ CPU Haswell (LGA1150) kërkon një bord LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) kërkon një bord LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) kërkon një bord AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Për një ndërtim DDR3 me GPU të dedikuar, sigurohu që PSU të jetë të paktën 300–400 W.",
+    w_ddr2_info: "ℹ️ Platformat DDR2 janë shumë të vjetra. Të përshtatshme vetëm për përdorim bazë zyre/interneti.",
+    w_ddr2_psu: "⚠️ Sigurohu që PSU të jetë të paktën 250 W për sistem të erës DDR2.",
+    watt_header: "Konsumi i vlerësuar i energjisë", watt_recommend: "PSU e rekomanduar: të paktën {n} W.",
+    watt_status_safe: "Hapësirë e rehatshme për PSU-në e zgjedhur.",
+    watt_status_tight: "Është në kufi — merrni parasysh një PSU me fuqi më të lartë.",
+    watt_status_danger: "PSU juaj ka gjasa të jetë e pamjaftueshme për këtë konfigurim.",
+    m_est_total: "Totali i vlerësuar:", m_incl_vat: "me TVSH", m_platform: "Platforma", m_copied: "U kopjua!",
+    cta_title: "Do që ta montojmë ne për ty?", cta_desc: "Montojmë, testojmë dhe dorëzojmë saktësisht këtë konfigurim — nuk ke nevojë të kërkosh apo montosh asgjë vetë.", cta_btn: "Kërko shërbimin e montimit →"
+},
+ uk: {
+    w_am4_ddr5: "⚠️ Материнські плати AM4 не підтримують DDR5 — оберіть пам'ять DDR4.",
+    w_am5_ddr4: "⚠️ Материнські плати AM5 не підтримують DDR4 — оберіть пам'ять DDR5.",
+    w_case_formfactor: "⚠️ Повнорозмірна плата ATX не поміститься в корпус Micro-ATX/Mini-ITX — оберіть більший корпус або меншу плату.",
+    nav_formats: "Формати", nav_ram: "RAM", nav_storage: "Накопичувач", nav_cpu: "Процесор", nav_gpu: "Відеокарта", nav_about: "Про нас", nav_back: "← Назад до гайду",
+    page_eyebrow: "Конфігуратор ПК", page_title: "Зберіть свій ПК",
+    page_desc: "Оберіть комплектуючі нижче. Ціни оновлюються в реальному часі та включають грецький ПДВ (24%). Перемикайтеся між сучасними та застарілими платформами, щоб налаштувати й старіші машини.",
+    btn_modern: "🟧 Сучасна (DDR4 / DDR5)", btn_ddr3: "🟪 Застаріла — DDR3 (2010–2017)", btn_ddr2: "🟪 Дуже стара — DDR2 (2004–2010)",
+    preset_gaming: "🎮 Ігри", preset_editing: "🎬 Створення контенту", preset_office: "💼 Офіс / Бюджетний",
+    legacy_note: "⚠️ Відновлені / вживані комплектуючі. Наведені ціни є приблизними оцінками вторинного ринку (грецький ринок). Ці платформи більше не випускаються новими — деталі беруться зі старіших машин. Фіолетові ціни позначають вживані/відновлені деталі.",
+    label_cpu: "Процесор", label_mobo: "Материнська плата", label_ram: "RAM", label_storage: "Накопичувач (основний)", label_gpu: "Відеокарта", label_cooler: "Кулер процесора", label_psu: "Блок живлення", label_case: "Корпус",
+    opt_no_gpu: "Без дискретної відеокарти (лише вбудована)", opt_stock_cooler: "Штатний кулер (якщо входить у комплект)", opt_stock_h3: "Штатний кулер у комплекті", opt_oem_used: "Оригінальний кулер Intel/AMD — вживаний", opt_stock_h2: "Штатний кулер LGA775 у комплекті",
+    summary_header: "Підсумок збірки", row_subtotal: "Проміжна сума (без ПДВ)", row_vat: "ПДВ 24%", row_total: "Разом", vat_note: "Ціни є орієнтовними. Кінцеві роздрібні/вживані ціни можуть відрізнятися.",
+    btn_save: "Зберегти й переглянути збірку", btn_reset: "Скинути до стандартних", confirm_reset: "Скинути збірку та видалити збережений прогрес? Це не можна скасувати.",
+    modal_title: "Ваша збірка", modal_desc: "Ось підсумок обраної конфігурації.", btn_copy: "Копіювати в буфер обміну", btn_copy_link: "Копіювати посилання", m_link_copied: "Посилання скопійовано!", btn_close: "Закрити", footer_back: "Назад до гайду", footer_about: "Про нас",
+    tier_ddr2: "Застаріла DDR2", tier_ddr3: "Застаріла DDR3", tier_budget: "Бюджетна", tier_mid: "Середня", tier_high: "Висока", tier_enthus: "Ентузіаст",
+    w_intel_mismatch: "⚠️ Невідповідність процесора та материнської плати: процесор Intel потребує LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ Невідповідність процесора та материнської плати: процесор AMD потребує плати AM4 або AM5.",
+    w_high_gpu_psu: "⚠️ Потужна відеокарта — рекомендовано блок живлення щонайменше 850 Вт.",
+    w_mid_gpu_psu: "⚠️ Цій відеокарті може знадобитися блок живлення щонайменше 750 Вт.",
+    w_haswell_mismatch: "⚠️ Процесор Haswell (LGA1150) потребує плати LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge (LGA1155) потребує плати LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX (AM3+) потребує плати AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ Для збірки DDR3 з дискретною відеокартою переконайтеся, що блок живлення не менше 300–400 Вт.",
+    w_ddr2_info: "ℹ️ Платформи DDR2 дуже старі. Підходять лише для базового офісного/інтернет-використання.",
+    w_ddr2_psu: "⚠️ Переконайтеся, що блок живлення не менше 250 Вт для системи епохи DDR2.",
+    watt_header: "Орієнтовне енергоспоживання", watt_recommend: "Рекомендований блок живлення: щонайменше {n} Вт.",
+    watt_status_safe: "Достатній запас потужності для обраного блока живлення.",
+    watt_status_tight: "На межі — варто обрати потужніший блок живлення.",
+    watt_status_danger: "Ваш блок живлення, ймовірно, замалий для цієї конфігурації.",
+    m_est_total: "Орієнтовна сума:", m_incl_vat: "з ПДВ", m_platform: "Платформа", m_copied: "Скопійовано!",
+    cta_title: "Хочете, щоб ми зібрали його за вас?", cta_desc: "Ми збираємо, тестуємо і доставляємо саме цю конфігурацію — вам не доведеться нічого шукати чи збирати самостійно.", cta_btn: "Замовити збірку →"
+},
+ am: {
+    w_am4_ddr5: "⚠️ AM4 մայրապլատները չեն աջակցում DDR5 — ընտրեք DDR4 հիշողություն։",
+    w_am5_ddr4: "⚠️ AM5 մայրապլատները չեն աջակցում DDR4 — ընտրեք DDR5 հիշողություն։",
+    w_case_formfactor: "⚠️ Full ATX մայրապլատը չի տեղավորվի Micro-ATX/Mini-ITX կորպուսում — ընտրեք ավելի մեծ կորպուս կամ ավելի փոքր մայրապլատ։",
+    nav_formats: "Ֆորմատներ", nav_ram: "RAM", nav_storage: "Հիշողություն", nav_cpu: "Պրոցեսոր", nav_gpu: "Վիդեոքարտ", nav_about: "Մեր մասին", nav_back: "← Վերադառնալ ուղեցույց",
+    page_eyebrow: "ՀԱՄԱԿԱՐԳՉԻ ԿԱԶՄԱՎՈՐԻՉ", page_title: "Կառուցեք ձեր համակարգիչը",
+    page_desc: "Ընտրեք ձեր բաղադրիչները ստորև։ Գները թարմացվում են իրական ժամանակում և ներառում են հունական ԱԱՀ (24%)։ Անցեք ժամանակակից և հին հարթակների միջև՝ հին մեքենաներ կազմաձևելու համար։",
+    btn_modern: "🟧 Ժամանակակից (DDR4 / DDR5)", btn_ddr3: "🟪 Հին — DDR3 (2010–2017)", btn_ddr2: "🟪 Շատ հին — DDR2 (2004–2010)",
+    preset_gaming: "🎮 Խաղեր", preset_editing: "🎬 Բովանդակության ստեղծում", preset_office: "💼 Գրասենյակ / Բյուջետային",
+    legacy_note: "⚠️ Վերականգնված/օգտագործված մասեր։ Ցուցադրված գները մոտավոր երկրորդային շուկայի գնահատականներ են (հունական շուկա)։ Այս հարթակներն այլևս նոր չեն արտադրվում — մասերը ձեռք են բերվում հին մեքենաներից։ Մանուշակագույն գները ցույց են տալիս օգտագործված/վերականգնված մասեր։",
+    label_cpu: "Պրոցեսոր", label_mobo: "Մայր տախտակ", label_ram: "RAM", label_storage: "Հիշողություն (հիմնական)", label_gpu: "Վիդեոքարտ", label_cooler: "Պրոցեսորի սառեցուցիչ", label_psu: "Սնուցման բլոկ", label_case: "Կորպուս",
+    opt_no_gpu: "Առանձին վիդեոքարտ չկա (միայն ինտեգրված)", opt_stock_cooler: "Ստանդարտ սառեցուցիչ (եթե ներառված է)", opt_stock_h3: "Ստանդարտ սառեցուցիչ՝ ներառված", opt_oem_used: "Intel/AMD օրիգինալ սառեցուցիչ — օգտագործված", opt_stock_h2: "Ստանդարտ LGA775 սառեցուցիչ՝ ներառված",
+    summary_header: "Կազմաձևման ամփոփում", row_subtotal: "Ենթագումար (առանց ԱԱՀ)", row_vat: "ԱԱՀ 24%", row_total: "Ընդամենը", vat_note: "Գները մոտավոր են։ Վերջնական մանրածախ/օգտագործված գները կարող են տարբերվել։",
+    btn_save: "Պահպանել և վերանայել կազմաձևումը", btn_reset: "Վերականգնել կանխադրվածները", confirm_reset: "Կազմաձևումը զրոյացնե՞լ և պահված առաջընթացը ջնջե՞լ։ Սա հնարավոր չէ հետարկել։",
+    modal_title: "Ձեր կազմաձևումը", modal_desc: "Ահա ձեր ընտրած կազմաձևման ամփոփումը։", btn_copy: "Պատճենել սեղմատախտակին", btn_copy_link: "Պատճենել կիսվելու հղումը", m_link_copied: "Հղումը պատճենվեց!", btn_close: "Փակել", footer_back: "Վերադառնալ ուղեցույց", footer_about: "Մեր մասին",
+    tier_ddr2: "Հին DDR2", tier_ddr3: "Հին DDR3", tier_budget: "Բյուջետային", tier_mid: "Միջին", tier_high: "Բարձրակարգ", tier_enthus: "Էնտուզիաստի",
+    w_intel_mismatch: "⚠️ Պրոցեսոր–մայր տախտակ անհամապատասխանություն. Intel պրոցեսորը պահանջում է LGA1700 (B660/B760/Z790)։",
+    w_amd_mismatch: "⚠️ Պրոցեսոր–մայր տախտակ անհամապատասխանություն. AMD պրոցեսորը պահանջում է AM4 կամ AM5 տախտակ։",
+    w_high_gpu_psu: "⚠️ Բարձրակարգ վիդեոքարտ — խորհուրդ է տրվում առնվազն 850 Վտ սնուցման բլոկ։",
+    w_mid_gpu_psu: "⚠️ Այս վիդեոքարտին կարող է անհրաժեշտ լինել առնվազն 750 Վտ սնուցման բլոկ։",
+    w_haswell_mismatch: "⚠️ Haswell պրոցեսորը (LGA1150) պահանջում է LGA1150 տախտակ (H81/B85/Z97)։",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge-ը (LGA1155) պահանջում է LGA1155 տախտակ (H61/B75/Z77)։",
+    w_fx_mismatch: "⚠️ AMD FX-ը (AM3+) պահանջում է AM3+ տախտակ (760G/870/990FX)։",
+    w_ddr3_psu: "⚠️ DDR3 կազմաձևման համար՝ առանձին վիդեոքարտով, համոզվեք, որ սնուցման բլոկը առնվազն 300–400 Վտ է։",
+    w_ddr2_info: "ℹ️ DDR2 հարթակները շատ հին են։ Հարմար են միայն հիմնական գրասենյակային/ինտերնետային օգտագործման համար։",
+    w_ddr2_psu: "⚠️ Համոզվեք, որ սնուցման բլոկը առնվազն 250 Վտ է DDR2 դարաշրջանի համակարգի համար։",
+    watt_header: "Գնահատված էներգիայի սպառումը", watt_recommend: "Առաջարկվող սնուցման բլոկ՝ առնվազն {n} Վտ։",
+    watt_status_safe: "Բավարար պահուստ ընտրված սնուցման բլոկի համար։",
+    watt_status_tight: "Եզրին է — դիտարկեք ավելի հզոր սնուցման բլոկ։",
+    watt_status_danger: "Ձեր սնուցման բլոկը, հավանաբար, բավարար չէ այս կազմաձևման համար։",
+    m_est_total: "Գնահատված ընդհանուր գումարը՝", m_incl_vat: "ներառյալ ԱԱՀ-ն", m_platform: "Հարթակ", m_copied: "Պատճենվեց!",
+    cta_title: "Ուզու՞մ եք, որ մենք հավաքենք այն ձեզ համար։", cta_desc: "Մենք հավաքում, փորձարկում և առաքում ենք հենց այս կազմաձևումը — ձեզ պետք չէ ինքներդ որևէ բան փնտրել կամ հավաքել։", cta_btn: "Պատվիրել հավաքման ծառայություն →"
+},
+ ge: {
+    w_am4_ddr5: "⚠️ AM4 დედაპლატები არ უჭერენ მხარს DDR5-ს — აირჩიეთ DDR4 მეხსიერება.",
+    w_am5_ddr4: "⚠️ AM5 დედაპლატები არ უჭერენ მხარს DDR4-ს — აირჩიეთ DDR5 მეხსიერება.",
+    w_case_formfactor: "⚠️ სრული ATX დედაპლატა არ ჩაეტევა Micro-ATX/Mini-ITX კორპუსში — აირჩიეთ უფრო დიდი კორპუსი ან უფრო პატარა დედაპლატა.",
+    nav_formats: "ფორმატები", nav_ram: "RAM", nav_storage: "მეხსიერება", nav_cpu: "პროცესორი", nav_gpu: "ვიდეობარათი", nav_about: "ჩვენ შესახებ", nav_back: "← უკან გზამკვლევში",
+    page_eyebrow: "კომპიუტერის კონფიგურატორი", page_title: "ააწყვეთ თქვენი კომპიუტერი",
+    page_desc: "აირჩიეთ კომპონენტები ქვემოთ. ფასები განახლდება რეალურ დროში და მოიცავს საბერძნეთის დღგ-ს (24%). გადართეთ თანამედროვე და მოძველებულ პლატფორმებს შორის ძველი მანქანების კონფიგურაციისთვისაც.",
+    btn_modern: "🟧 თანამედროვე (DDR4 / DDR5)", btn_ddr3: "🟪 მოძველებული — DDR3 (2010–2017)", btn_ddr2: "🟪 ძალიან ძველი — DDR2 (2004–2010)",
+    preset_gaming: "🎮 გეიმინგი", preset_editing: "🎬 კონტენტის შექმნა", preset_office: "💼 ოფისი / ბიუჯეტური",
+    legacy_note: "⚠️ აღდგენილი/მეორადი ნაწილები. მითითებული ფასები არის მიახლოებითი შეფასებები მეორადი ბაზრისთვის (საბერძნეთის ბაზარი). ეს პლატფორმები აღარ იწარმოება ახლად — ნაწილები მოპოვებულია ძველი მანქანებიდან. იასამნისფერი ფასები აღნიშნავს მეორად/აღდგენილ ნაწილებს.",
+    label_cpu: "პროცესორი", label_mobo: "დედაპლატა", label_ram: "RAM", label_storage: "მეხსიერება (ძირითადი)", label_gpu: "ვიდეობარათი", label_cooler: "პროცესორის გამაგრილებელი", label_psu: "კვების ბლოკი", label_case: "კორპუსი",
+    opt_no_gpu: "დისკრეტული ვიდეობარათის გარეშე (მხოლოდ ინტეგრირებული)", opt_stock_cooler: "სტანდარტული გამაგრილებელი (თუ შედის კომპლექტში)", opt_stock_h3: "სტანდარტული გამაგრილებელი — შედის კომპლექტში", opt_oem_used: "Intel/AMD ორიგინალი გამაგრილებელი — მეორადი", opt_stock_h2: "სტანდარტული LGA775 გამაგრილებელი — შედის კომპლექტში",
+    summary_header: "აწყობის შეჯამება", row_subtotal: "შუალედური ჯამი (დღგ-ს გარეშე)", row_vat: "დღგ 24%", row_total: "სულ", vat_note: "ფასები არის სავარაუდო. საბოლოო საცალო/მეორადი ფასები შეიძლება განსხვავდებოდეს.",
+    btn_save: "შენახვა და აწყობის გადახედვა", btn_reset: "საწყისზე დაბრუნება", confirm_reset: "გავაუქმოთ კონფიგურაცია და წავშალოთ შენახული პროგრესი? ეს მოქმედება შეუქცევადია.",
+    modal_title: "თქვენი აწყობა", modal_desc: "აი თქვენი არჩეული კონფიგურაციის შეჯამება.", btn_copy: "კოპირება ბუფერში", btn_copy_link: "გაზიარების ბმულის კოპირება", m_link_copied: "ბმული დაკოპირდა!", btn_close: "დახურვა", footer_back: "უკან გზამკვლევში", footer_about: "ჩვენ შესახებ",
+    tier_ddr2: "მოძველებული DDR2", tier_ddr3: "მოძველებული DDR3", tier_budget: "საბიუჯეტო", tier_mid: "საშუალო", tier_high: "მაღალი კლასი", tier_enthus: "ენთუზიასტისთვის",
+    w_intel_mismatch: "⚠️ პროცესორი–დედაპლატის შეუსაბამობა: Intel-ის პროცესორს სჭირდება LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ პროცესორი–დედაპლატის შეუსაბამობა: AMD-ის პროცესორს სჭირდება AM4 ან AM5 დედაპლატა.",
+    w_high_gpu_psu: "⚠️ მაღალი კლასის ვიდეობარათი — რეკომენდებულია მინიმუმ 850 W კვების ბლოკი.",
+    w_mid_gpu_psu: "⚠️ ამ ვიდეობარათს შეიძლება დასჭირდეს მინიმუმ 750 W კვების ბლოკი.",
+    w_haswell_mismatch: "⚠️ Haswell პროცესორს (LGA1150) სჭირდება LGA1150 დედაპლატა (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge-ს (LGA1155) სჭირდება LGA1155 დედაპლატა (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ AMD FX-ს (AM3+) სჭირდება AM3+ დედაპლატა (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ DDR3 აწყობისთვის დისკრეტული ვიდეობარათით დარწმუნდით, რომ კვების ბლოკი არის მინიმუმ 300–400 W.",
+    w_ddr2_info: "ℹ️ DDR2 პლატფორმები ძალიან ძველია. შესაფერისია მხოლოდ საბაზისო საოფისე/ინტერნეტ გამოყენებისთვის.",
+    w_ddr2_psu: "⚠️ დარწმუნდით, რომ კვების ბლოკი არის მინიმუმ 250 W DDR2 ეპოქის სისტემისთვის.",
+    watt_header: "სავარაუდო ენერგიის მოხმარება", watt_recommend: "რეკომენდებული კვების ბლოკი: მინიმუმ {n} W.",
+    watt_status_safe: "საკმარისი მარაგი არჩეული კვების ბლოკისთვის.",
+    watt_status_tight: "ზღვარზეა — განიხილეთ უფრო მძლავრი კვების ბლოკი.",
+    watt_status_danger: "თქვენი კვების ბლოკი, სავარაუდოდ, არასაკმარისია ამ აწყობისთვის.",
+    m_est_total: "სავარაუდო ჯამი:", m_incl_vat: "დღგ-ს ჩათვლით", m_platform: "პლატფორმა", m_copied: "დაკოპირდა!",
+    cta_title: "გინდათ, ჩვენ ავაწყოთ თქვენთვის?", cta_desc: "ჩვენ ვაწყობთ, ვამოწმებთ და ვაწვდით ზუსტად ამ კონფიგურაციას — თქვენ არაფრის ძებნა ან აწყობა არ დაგჭირდებათ.", cta_btn: "შეუკვეთეთ აწყობის სერვისი →"
+},
+ ar: {
+    w_am4_ddr5: "⚠️ لوحات AM4 الأم لا تدعم DDR5 — اختر ذاكرة DDR4 بدلاً منها.",
+    w_am5_ddr4: "⚠️ لوحات AM5 الأم لا تدعم DDR4 — اختر ذاكرة DDR5 بدلاً منها.",
+    w_case_formfactor: "⚠️ لوحة أم Full ATX لن تلائم هيكل Micro-ATX/Mini-ITX — اختر هيكلاً أكبر أو لوحة أصغر.",
+    nav_formats: "الصيغ", nav_ram: "الذاكرة العشوائية", nav_storage: "التخزين", nav_cpu: "المعالج", nav_gpu: "كرت الشاشة", nav_about: "من نحن", nav_back: "← العودة إلى الدليل",
+    page_eyebrow: "أداة تكوين الحاسوب", page_title: "قم ببناء حاسوبك",
+    page_desc: "اختر المكونات أدناه. تتحدّث الأسعار مباشرةً وتشمل ضريبة القيمة المضافة اليونانية (24%). بدّل بين المنصات الحديثة والقديمة لتكوين الأجهزة القديمة أيضًا.",
+    btn_modern: "🟧 حديث (DDR4 / DDR5)", btn_ddr3: "🟪 قديم — DDR3 (2010–2017)", btn_ddr2: "🟪 قديم جدًا — DDR2 (2004–2010)",
+    preset_gaming: "🎮 ألعاب", preset_editing: "🎬 إنشاء المحتوى", preset_office: "💼 مكتب / اقتصادي",
+    legacy_note: "⚠️ قطع مجددة / مستعملة. الأسعار المعروضة هي تقديرات تقريبية للسوق المستعملة (السوق اليونانية). لم تعد هذه المنصات تُصنَّع جديدة — يتم الحصول على القطع من أجهزة أقدم. الأسعار البنفسجية تشير إلى قطع مستعملة/مجددة.",
+    label_cpu: "المعالج", label_mobo: "اللوحة الأم", label_ram: "الذاكرة العشوائية", label_storage: "التخزين (الأساسي)", label_gpu: "كرت الشاشة", label_cooler: "مبرد المعالج", label_psu: "مزود الطاقة", label_case: "الهيكل",
+    opt_no_gpu: "بدون كرت شاشة مخصص (مدمج فقط)", opt_stock_cooler: "مبرد أصلي / مرفق (إن وُجد)", opt_stock_h3: "مبرد أصلي مرفق", opt_oem_used: "مبرد Intel/AMD الأصلي — مستعمل", opt_stock_h2: "مبرد LGA775 الأصلي — مرفق",
+    summary_header: "ملخص التجميعة", row_subtotal: "المجموع الفرعي (قبل الضريبة)", row_vat: "ضريبة القيمة المضافة 24%", row_total: "الإجمالي", vat_note: "الأسعار تقديرية. قد تختلف الأسعار النهائية للتجزئة/المستعمل.",
+    btn_save: "حفظ ومراجعة التجميعة", btn_reset: "إعادة الضبط الافتراضي", confirm_reset: "هل تريد إعادة ضبط التجميعة ومسح التقدم المحفوظ؟ لا يمكن التراجع عن هذا الإجراء.",
+    modal_title: "تجميعتك", modal_desc: "إليك ملخص الإعدادات التي اخترتها.", btn_copy: "نسخ إلى الحافظة", btn_copy_link: "نسخ رابط المشاركة", m_link_copied: "تم نسخ الرابط!", btn_close: "إغلاق", footer_back: "العودة إلى الدليل", footer_about: "من نحن",
+    tier_ddr2: "قديم DDR2", tier_ddr3: "قديم DDR3", tier_budget: "اقتصادي", tier_mid: "متوسط", tier_high: "عالي الأداء", tier_enthus: "للهواة المتقدمين",
+    w_intel_mismatch: "⚠️ عدم توافق بين المعالج واللوحة الأم: معالج Intel يتطلب مقبس LGA1700 (B660/B760/Z790).",
+    w_amd_mismatch: "⚠️ عدم توافق بين المعالج واللوحة الأم: معالج AMD يتطلب لوحة AM4 أو AM5.",
+    w_high_gpu_psu: "⚠️ كرت شاشة عالي الأداء — يُنصح بمزود طاقة لا يقل عن 850 واط.",
+    w_mid_gpu_psu: "⚠️ قد يحتاج هذا الكرت إلى مزود طاقة لا يقل عن 750 واط.",
+    w_haswell_mismatch: "⚠️ معالج Haswell (LGA1150) يحتاج إلى لوحة أم LGA1150 (H81/B85/Z97).",
+    w_sandy_mismatch: "⚠️ معالجات Sandy/Ivy Bridge (LGA1155) تحتاج إلى لوحة LGA1155 (H61/B75/Z77).",
+    w_fx_mismatch: "⚠️ معالج AMD FX (AM3+) يحتاج إلى لوحة AM3+ (760G/870/990FX).",
+    w_ddr3_psu: "⚠️ لتجميعة DDR3 مع كرت شاشة مخصص، تأكد من أن مزود الطاقة لا يقل عن 300–400 واط.",
+    w_ddr2_info: "ℹ️ منصات DDR2 قديمة جدًا. تناسب فقط الاستخدام المكتبي/الإنترنت الأساسي.",
+    w_ddr2_psu: "⚠️ تأكد من أن مزود الطاقة لا يقل عن 250 واط لنظام من عصر DDR2.",
+    watt_header: "استهلاك الطاقة التقديري", watt_recommend: "مزود الطاقة الموصى به: {n} واط على الأقل.",
+    watt_status_safe: "هامش مريح لمزود الطاقة الذي اخترته.",
+    watt_status_tight: "الأمر ضيق — فكر في مزود طاقة بقدرة أعلى.",
+    watt_status_danger: "من المحتمل أن يكون مزود الطاقة لديك غير كافٍ لهذا التجميع.",
+    m_est_total: "الإجمالي التقديري:", m_incl_vat: "شامل الضريبة", m_platform: "المنصة", m_copied: "تم النسخ!",
+    cta_title: "هل تريدنا أن نجمّعه لك؟", cta_desc: "نقوم بتجميع واختبار وتسليم هذا التكوين بالضبط — لا حاجة للبحث عن أي شيء أو تجميعه بنفسك.", cta_btn: "اطلب خدمة التجميع ←"
+},
+ zh: {
+    w_am4_ddr5: "⚠️ AM4 主板不支持 DDR5——请选择 DDR4 内存。",
+    w_am5_ddr4: "⚠️ AM5 主板不支持 DDR4——请选择 DDR5 内存。",
+    w_case_formfactor: "⚠️ 全尺寸 ATX 主板无法安装进 Micro-ATX/Mini-ITX 机箱——请选择更大的机箱或更小的主板。",
+    nav_formats: "格式", nav_ram: "内存", nav_storage: "存储", nav_cpu: "处理器", nav_gpu: "显卡", nav_about: "关于我们", nav_back: "← 返回指南",
+    page_eyebrow: "电脑配置器", page_title: "组装你的电脑",
+    page_desc: "在下方选择你的配件。价格实时更新，已包含希腊增值税（24%）。可在现代平台和老旧平台之间切换，配置旧款机器。",
+    btn_modern: "🟧 现代 (DDR4 / DDR5)", btn_ddr3: "🟪 老旧 — DDR3 (2010–2017)", btn_ddr2: "🟪 非常老旧 — DDR2 (2004–2010)",
+    preset_gaming: "🎮 游戏", preset_editing: "🎬 内容创作", preset_office: "💼 办公 / 预算",
+    legacy_note: "⚠️ 翻新/二手配件。所示价格为希腊二手市场的大致估算。这些平台已不再生产全新产品——配件均来自旧机器。紫色价格表示二手/翻新配件。",
+    label_cpu: "处理器", label_mobo: "主板", label_ram: "内存", label_storage: "存储（主）", label_gpu: "显卡", label_cooler: "处理器散热器", label_psu: "电源", label_case: "机箱",
+    opt_no_gpu: "无独立显卡（仅集成显卡）", opt_stock_cooler: "原装散热器（如附带）", opt_stock_h3: "原装散热器 — 已附带", opt_oem_used: "Intel/AMD 原厂散热器 — 二手", opt_stock_h2: "原装 LGA775 散热器 — 已附带",
+    summary_header: "配置摘要", row_subtotal: "小计（不含增值税）", row_vat: "增值税 24%", row_total: "总计", vat_note: "价格仅供参考。最终零售/二手价格可能有所不同。",
+    btn_save: "保存并查看配置", btn_reset: "恢复默认设置", confirm_reset: "确定要重置配置并清除已保存的进度吗？此操作无法撤销。",
+    modal_title: "你的配置", modal_desc: "以下是你所选配置的摘要。", btn_copy: "复制到剪贴板", btn_copy_link: "复制分享链接", m_link_copied: "链接已复制！", btn_close: "关闭", footer_back: "返回指南", footer_about: "关于我们",
+    tier_ddr2: "老旧 DDR2", tier_ddr3: "老旧 DDR3", tier_budget: "入门级", tier_mid: "中端", tier_high: "高端", tier_enthus: "发烧级",
+    w_intel_mismatch: "⚠️ 处理器与主板不匹配：Intel 处理器需要 LGA1700 主板（B660/B760/Z790）。",
+    w_amd_mismatch: "⚠️ 处理器与主板不匹配：AMD 处理器需要 AM4 或 AM5 主板。",
+    w_high_gpu_psu: "⚠️ 高端显卡 — 建议使用至少 850W 的电源。",
+    w_mid_gpu_psu: "⚠️ 此显卡可能需要至少 750W 的电源。",
+    w_haswell_mismatch: "⚠️ Haswell 处理器（LGA1150）需要 LGA1150 主板（H81/B85/Z97）。",
+    w_sandy_mismatch: "⚠️ Sandy/Ivy Bridge（LGA1155）需要 LGA1155 主板（H61/B75/Z77）。",
+    w_fx_mismatch: "⚠️ AMD FX（AM3+）需要 AM3+ 主板（760G/870/990FX）。",
+    w_ddr3_psu: "⚠️ 对于配备独立显卡的 DDR3 配置，请确保电源至少为 300–400W。",
+    w_ddr2_info: "ℹ️ DDR2 平台非常老旧，仅适合基本的办公/上网使用。",
+    w_ddr2_psu: "⚠️ 对于 DDR2 时代的系统，请确保电源至少为 250W。",
+    watt_header: "预计功耗", watt_recommend: "建议电源：至少 {n} W。",
+    watt_status_safe: "所选电源有足够的余量。",
+    watt_status_tight: "余量较紧 — 建议选择功率更高的电源。",
+    watt_status_danger: "您的电源可能无法满足此配置的需求。",
+    m_est_total: "预估总计：", m_incl_vat: "含增值税", m_platform: "平台", m_copied: "已复制！",
+    cta_title: "想让我们帮你组装吗？", cta_desc: "我们负责组装、测试并交付这套确切的配置——你无需自己寻找或组装任何部件。", cta_btn: "申请组装服务 →"
+}
+};
+
+// Wattage estimator data: approximate typical/boost power draw (W) per CPU/GPU,
+// keyed by a unique substring matched against the option's display name.
+// "boxed:false" flags CPUs that do NOT actually ship with a stock cooler.
+const CPU_POWER = [
+  { key:'i9-14900KS', tdp:320, boxed:false },
+  { key:'i9-13900K',  tdp:253, boxed:false },
+  { key:'i7-13700K',  tdp:253, boxed:false },
+  { key:'i5-13600K',  tdp:181, boxed:false },
+  { key:'i5-13400F',  tdp:148, boxed:true  },
+  { key:'i3-13100',   tdp:89,  boxed:true  },
+  { key:'7950X',      tdp:230, boxed:false },
+  { key:'7900X',      tdp:170, boxed:false },
+  { key:'7700X',      tdp:142, boxed:false },
+  { key:'7600X',      tdp:142, boxed:false },
+  { key:'5800X',      tdp:142, boxed:false },
+  { key:'5600X',      tdp:88,  boxed:false },
+  { key:'i7-4770',    tdp:84,  boxed:true  },
+  { key:'i5-4570',    tdp:84,  boxed:true  },
+  { key:'i3-4130',    tdp:54,  boxed:true  },
+  { key:'i7-3770',    tdp:77,  boxed:true  },
+  { key:'i5-2500K',   tdp:95,  boxed:false },
+  { key:'i3-2100',    tdp:65,  boxed:true  },
+  { key:'FX-8350',    tdp:125, boxed:true  },
+  { key:'FX-6300',    tdp:95,  boxed:true  },
+  { key:'FX-4300',    tdp:95,  boxed:true  },
+  { key:'Q9550',      tdp:95,  boxed:true  },
+  { key:'Q6600',      tdp:105, boxed:true  },
+  { key:'E8400',      tdp:65,  boxed:true  },
+  { key:'Phenom II X4 940', tdp:125, boxed:true },
+  { key:'Athlon 64 X2 5200+', tdp:65, boxed:true },
+];
+const GPU_POWER = [
+  { key:'RTX 4090',        tdp:450 },
+  { key:'RTX 4080 Super',  tdp:320 },
+  { key:'RTX 4070 Ti Super', tdp:285 },
+  { key:'RTX 4070 Super',  tdp:220 },
+  { key:'RTX 4070',        tdp:200 },
+  { key:'RTX 4060 Ti',     tdp:160 },
+  { key:'RTX 4060',        tdp:115 },
+  { key:'RX 7900 XTX',     tdp:355 },
+  { key:'RX 7800 XT',      tdp:263 },
+  { key:'RX 7700 XT',      tdp:245 },
+  { key:'RX 7600',         tdp:165 },
+  { key:'RX 6600',         tdp:132 },
+  { key:'GTX 1070',        tdp:150 },
+  { key:'GTX 1060',        tdp:120 },
+  { key:'RX 580',          tdp:185 },
+  { key:'RX 570',          tdp:150 },
+  { key:'RX 470',          tdp:120 },
+  { key:'GTX 960',         tdp:120 },
+  { key:'GTX 750 Ti',      tdp:60  },
+  { key:'GTX 560 Ti',      tdp:170 },
+  { key:'GTS 450',         tdp:106 },
+  { key:'HD 6870',         tdp:151 },
+  { key:'HD 5770',         tdp:108 },
+];
+function lookupPower(table, name, fallback) {
+  const hit = table.find(e => name.includes(e.key));
+  return hit || fallback;
+}
+
+const PARTS = [
+  { id:'cpu',      labelKey:'label_cpu' },
+  { id:'mobo',     labelKey:'label_mobo' },
+  { id:'ram',      labelKey:'label_ram' },
+  { id:'storage',  labelKey:'label_storage' },
+  { id:'gpu',      labelKey:'label_gpu' },
+  { id:'cooler',   labelKey:'label_cooler' },
+  { id:'psu',      labelKey:'label_psu' },
+  { id:'case_pc',  labelKey:'label_case' },
+];
+
+const VAT = 0.24;
+const fmt = v => '\u20AC' + Math.round(v).toLocaleString('el-GR');
+
+let currentGen = 'modern';
+let currentLang = 'en';
+
+// 2. Application Core Internationalization Translation Routing Logic
+function translatePage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (dictionary[lang] && dictionary[lang][key]) {
+      element.innerHTML = dictionary[lang][key];
+    }
+  });
+
+  // Localize dynamic buttons that don't have straightforward layout text selectors
+  document.getElementById('btn-gen-modern').innerHTML = dictionary[lang].btn_modern || dictionary.en.btn_modern;
+  document.getElementById('btn-gen-ddr3').innerHTML = dictionary[lang].btn_ddr3 || dictionary.en.btn_ddr3;
+  document.getElementById('btn-gen-ddr2').innerHTML = dictionary[lang].btn_ddr2 || dictionary.en.btn_ddr2;
+
+  localStorage.setItem('selectedLanguage', lang);
+  document.getElementById('langSelect').value = lang;
+  update();
+  renderSavedBuilds();
+}
+
+// 3. Platform Setup Orchestration Engine
+function applyGenUI(gen) {
+  currentGen = gen;
+  document.querySelectorAll('.gen-btn').forEach(b => b.classList.remove('active'));
+  const map = { modern:0, ddr3:1, ddr2:2 };
+  document.querySelectorAll('.gen-btn')[map[gen]].classList.add('active');
+
+  const note = document.getElementById('legacy-note');
+  note.className = 'legacy-note' + (gen !== 'modern' ? ' visible' : '');
+
+  document.querySelectorAll('.part-card').forEach(c => {
+    c.classList.toggle('legacy-card', gen !== 'modern');
+  });
+}
+
+function setGen(gen) {
+  clearPresetActive();
+  applyGenUI(gen);
+
+  PARTS.forEach(p => {
+    const sel = document.getElementById(p.id);
+    for (let opt of Array.from(sel.options)) {
+      if (!opt.value || !opt.value.includes('|')) continue;
+      const grp = opt.parentElement;
+      if (!grp || grp.tagName !== 'OPTGROUP') continue;
+      const cls = grp.className || '';
+      if (gen === 'modern' && cls.includes('opt-modern')) { sel.value = opt.value; break; }
+      if (gen === 'ddr3'   && cls.includes('opt-ddr3'))   { sel.value = opt.value; break; }
+      if (gen === 'ddr2'   && cls.includes('opt-ddr2'))   { sel.value = opt.value; break; }
+    }
+  });
+  update();
+}
+
+// 3b. Quick-start Preset Configurations
+const PRESETS = {
+  gaming: {
+    cpu: 'Intel Core i5-13600K|290|125',
+    mobo: 'ASUS ROG Strix B760-F ATX|190',
+    ram: '32 GB DDR4-3600|95',
+    storage: '2 TB NVMe Gen 4 SSD|185',
+    gpu: 'NVIDIA RTX 4070 12 GB|560|200',
+    cooler: 'Deepcool AK400|35',
+    psu: '750 W 80+ Gold|100',
+    case_pc: 'Lian Li Lancool 216|105'
+  },
+  editing: {
+    cpu: 'AMD Ryzen 9 7900X|430|140',
+    mobo: 'ASUS TUF Gaming B650-Plus ATX|195',
+    ram: '64 GB DDR5-6000|280',
+    storage: '2 TB NVMe Gen 4 SSD|185',
+    gpu: 'NVIDIA RTX 4060 Ti 8 GB|390|160',
+    cooler: 'Noctua NH-D15|90',
+    psu: '850 W 80+ Gold|120',
+    case_pc: 'Fractal Design Torrent|160'
+  },
+  office: {
+    cpu: 'Intel Core i3-13100|130|60',
+    mobo: 'Gigabyte B660M DS3H Micro-ATX|80',
+    ram: '16 GB DDR4-3600|55',
+    storage: '1 TB NVMe Gen 3 SSD|70',
+    gpu: 'No dedicated GPU integrated|0|0',
+    cooler: 'Stock Boxed cooler|0',
+    psu: '450 W 80+ Bronze|50',
+    case_pc: 'Cooler Master NR400 Micro-ATX|70'
+  }
+};
+
+function clearPresetActive() {
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+}
+
+function loadPreset(name) {
+  const preset = PRESETS[name];
+  if (!preset) return;
+  setGen('modern'); // presets are built on current-gen parts; this also clears preset highlighting
+  Object.keys(preset).forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) sel.value = preset[id];
+  });
+  const btn = document.getElementById('btn-preset-' + name);
+  if (btn) btn.classList.add('active');
+  update();
+}
+
+function parse(id) {
+  const parts = document.getElementById(id).value.split('|');
+  return { name: parts[0], price: parseFloat(parts[1]) || 0, watts: parseFloat(parts[2]) || 0 };
+}
+
+// Baseline power draw (motherboard, RAM, storage, fans, misc) by platform generation, in watts
+const BASELINE_WATTS = { modern: 55, ddr3: 40, ddr2: 30 };
+
+function isUsed(id) {
+  const v = document.getElementById(id).value;
+  return v.includes('Used') || currentGen !== 'modern';
+}
+
+// 4. Live Updating Calculations and Localized Output Handling Engine
+function update() {
+  let sub = 0;
+  const rows = [];
+  const dict = dictionary[currentLang] || dictionary.en;
+
+  PARTS.forEach(p => {
+    const { name, price } = parse(p.id);
+    const used = isUsed(p.id);
+    sub += price;
+    rows.push({ label: dict[p.labelKey], name, price, used });
+    const el = document.getElementById('price-' + p.id);
+    el.textContent = price === 0 ? '\u2014' : fmt(price);
+    el.className = 'part-price' + (price === 0 ? ' zero' : (used ? ' used' : ''));
+  });
+
+  const vat   = sub * VAT;
+  const total = sub + vat;
+  document.getElementById('sum-ex').textContent    = fmt(sub);
+  document.getElementById('sum-vat').textContent   = fmt(vat);
+  document.getElementById('sum-total').textContent = fmt(total);
+  document.getElementById('mtb-value').textContent = fmt(total);
+
+  let tier, tierClass;
+  if      (currentGen === 'ddr2')   { tier = dict.tier_ddr2;  tierClass = 'legacy'; }
+  else if (currentGen === 'ddr3')   { tier = dict.tier_ddr3;  tierClass = 'legacy'; }
+  else if (total < 650)             { tier = dict.tier_budget;tierClass = 'budget'; }
+  else if (total < 1300)            { tier = dict.tier_mid;   tierClass = 'mid'; }
+  else if (total < 2500)            { tier = dict.tier_high;  tierClass = 'high'; }
+  else                              { tier = dict.tier_enthus;tierClass = 'enthus'; }
+
+  const pill = document.getElementById('tier-pill');
+  pill.textContent = tier;
+  pill.className = 'tier-pill ' + tierClass;
+
+  document.getElementById('breakdown-list').innerHTML = rows.map(r =>
+    '<div class="breakdown-row">' +
+    '<span class="br-name">' + r.label + '</span>' +
+    '<span class="br-val' + (r.price===0?' zero':(r.used?' used':'')) + '">' +
+    (r.price===0?'\u2014':fmt(r.price)) + '</span></div>'
+  ).join('');
+
+  // Localized compatibility check alerts execution 
+  const cpuVal  = document.getElementById('cpu').value;
+  const moboVal = document.getElementById('mobo').value;
+  const gpuP    = parse('gpu').price;
+  const psuStr  = document.getElementById('psu').value;
+  const psuW    = parseInt(psuStr) || 0;
+  const warns   = [];
+
+  if (currentGen === 'modern') {
+    const iCPU  = cpuVal.includes('Intel');
+    const aCPU  = cpuVal.includes('AMD');
+    const iMobo = moboVal.includes('B660') || moboVal.includes('B760') || moboVal.includes('Z790');
+    const aAM5  = moboVal.includes('B650') || moboVal.includes('X670');
+    const aAM4  = moboVal.includes('B550') || moboVal.includes('X570');
+    if (iCPU && (aAM5||aAM4))  warns.push(dict.w_intel_mismatch);
+    if (aCPU && iMobo)         warns.push(dict.w_amd_mismatch);
+    if (gpuP>800 && psuW<850)  warns.push(dict.w_high_gpu_psu);
+    else if (gpuP>=500 && psuW<750) warns.push(dict.w_mid_gpu_psu);
+
+    // RAM type vs motherboard platform: AM4 boards are DDR4-only, AM5 boards are DDR5-only.
+    const ramVal    = document.getElementById('ram').value;
+    const ramIsDDR5 = ramVal.includes('DDR5');
+    const ramIsDDR4 = ramVal.includes('DDR4');
+    if (aAM4 && ramIsDDR5) warns.push(dict.w_am4_ddr5 || dictionary.en.w_am4_ddr5);
+    if (aAM5 && ramIsDDR4) warns.push(dict.w_am5_ddr4 || dictionary.en.w_am5_ddr4);
+
+    // Motherboard/case form-factor: a full ATX board won't physically fit a Micro-ATX/Mini-ITX case.
+    const caseVal      = document.getElementById('case_pc').value;
+    const moboIsFullATX = moboVal.includes('ATX') && !moboVal.includes('Micro-ATX');
+    const caseIsCompact = caseVal.includes('Micro-ATX') || caseVal.includes('Mini-ITX');
+    if (moboIsFullATX && caseIsCompact) warns.push(dict.w_case_formfactor || dictionary.en.w_case_formfactor);
+  }
+  if (currentGen === 'ddr3') {
+    const h4cpu   = cpuVal.includes('i3-4')||cpuVal.includes('i5-4')||cpuVal.includes('i7-4');
+    const h3cpu   = cpuVal.includes('i3-2')||cpuVal.includes('i5-2')||cpuVal.includes('i7-3');
+    const fxcpu   = cpuVal.includes('FX-');
+    const h4mobo  = moboVal.includes('H81')||moboVal.includes('B85')||moboVal.includes('Z97');
+    const h3mobo  = moboVal.includes('H61')||moboVal.includes('B75')||moboVal.includes('Z77');
+    const am3mobo = moboVal.includes('AM3+')||moboVal.includes('78LMT')||moboVal.includes('M5A99');
+    if (h4cpu && !h4mobo)   warns.push(dict.w_haswell_mismatch);
+    if (h3cpu && !h3mobo)   warns.push(dict.w_sandy_mismatch);
+    if (fxcpu && !am3mobo)  warns.push(dict.w_fx_mismatch);
+    if (psuW < 300)         warns.push(dict.w_ddr3_psu);
+  }
+  if (currentGen === 'ddr2') {
+    warns.push(dict.w_ddr2_info);
+    if (psuW < 250) warns.push(dict.w_ddr2_psu);
+  }
+
+  const wbox = document.getElementById('warnings-box');
+  wbox.innerHTML = warns.map(w => '<div class="warn-item">' + w + '</div>').join('');
+  wbox.className = 'warnings-box' + (warns.length ? ' visible' : '');
+
+  if (currentGen === 'modern') {
+    const cpuV2  = document.getElementById('cpu').value;
+    const moboV2 = document.getElementById('mobo').value;
+    const iC2    = cpuV2.includes('Intel'), aC2 = cpuV2.includes('AMD');
+    const iM2    = moboV2.includes('B660')||moboV2.includes('B760')||moboV2.includes('Z790');
+    const aA52   = moboV2.includes('B650')||moboV2.includes('X670');
+    const aA42   = moboV2.includes('B550')||moboV2.includes('X570');
+    [document.getElementById('card-cpu'), document.getElementById('card-mobo')].forEach(c =>
+      c.classList.toggle('has-warning', (iC2&&(aA52||aA42))||(aC2&&iM2))
+    );
+    [document.getElementById('card-gpu'), document.getElementById('card-psu')].forEach(c =>
+      c.classList.toggle('has-warning', (gpuP>=800&&psuW<850)||(gpuP>=500&&psuW<750))
+    );
+  }
+
+  // 4a. Wattage estimator: sum CPU + GPU draw plus a baseline for mobo/RAM/storage/fans
+  const cpuW = parse('cpu').watts;
+  const gpuW = parse('gpu').watts;
+  const baseline = BASELINE_WATTS[currentGen] || BASELINE_WATTS.modern;
+  const estWatts = Math.round(cpuW + gpuW + baseline);
+  const recommendedPsu = Math.ceil((estWatts * 1.3) / 50) * 50;
+
+  let wattClass;
+  if      (psuW >= recommendedPsu)        wattClass = 'safe';
+  else if (psuW >= estWatts * 1.05)       wattClass = 'tight';
+  else                                     wattClass = 'danger';
+
+  const fillPct = psuW > 0 ? Math.min(100, Math.round((estWatts / psuW) * 100)) : 100;
+
+  document.getElementById('watt-value').textContent = estWatts + ' W';
+  const wattBar = document.getElementById('watt-bar-fill');
+  wattBar.style.width = fillPct + '%';
+  wattBar.className = 'wattage-bar-fill ' + wattClass;
+
+  const wattStatusText = wattClass === 'safe'
+    ? (dict.watt_status_safe || dictionary.en.watt_status_safe)
+    : wattClass === 'tight'
+      ? (dict.watt_status_tight || dictionary.en.watt_status_tight)
+      : (dict.watt_status_danger || dictionary.en.watt_status_danger);
+  const wattRecommendText = (dict.watt_recommend || dictionary.en.watt_recommend).replace('{n}', recommendedPsu);
+  document.getElementById('watt-caption').textContent = wattRecommendText + ' ' + wattStatusText;
+  document.getElementById('watt-caption').className = 'wattage-caption' + (wattClass === 'safe' ? '' : ' ' + wattClass);
+
+  saveToLocalStorage();
+}
+
+// 4b. Persistence: autosave to localStorage + shareable build link
+const SAVE_KEY = 'betterpc_build_v1';
+
+function currentSelections() {
+  const sel = { gen: currentGen };
+  PARTS.forEach(p => { sel[p.id] = document.getElementById(p.id).value; });
+  return sel;
+}
+
+function saveToLocalStorage() {
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(currentSelections())); } catch (e) {}
+}
+
+function buildShareURL() {
+  const sel = currentSelections();
+  const params = new URLSearchParams();
+  params.set('gen', sel.gen);
+  PARTS.forEach(p => params.set(p.id, sel[p.id]));
+  const url = new URL(window.location.href);
+  url.search = params.toString();
+  return url.toString();
+}
+
+// Clipboard helper with fallback for browsers/contexts where the async
+// Clipboard API is missing or rejects (older browsers, non-HTTPS, permissions).
+function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(() => legacyCopyFallback(text));
+  } else {
+    legacyCopyFallback(text);
+  }
+}
+
+function legacyCopyFallback(text) {
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (ok) return;
+  } catch (e) {}
+  window.prompt('Copy:', text);
+}
+
+function copyLink() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const original = dict.btn_copy_link || dictionary.en.btn_copy_link;
+  copyToClipboard(buildShareURL());
+  const btn = document.getElementById('btn-copy-link-action');
+  btn.textContent = dict.m_link_copied || dictionary.en.m_link_copied;
+  setTimeout(() => btn.textContent = original, 2000);
+}
+
+// Applies a saved/shared selection object ({gen, cpu, mobo, ram, ...}) to the
+// form controls without resetting parts to generation defaults. Only applies
+// values that still exist as valid options (guards against stale/old links).
+function applySelections(sel) {
+  if (!sel) return false;
+  applyGenUI(sel.gen || 'modern');
+  let applied = false;
+  PARTS.forEach(p => {
+    const val = sel[p.id];
+    if (!val) return;
+    const selEl = document.getElementById(p.id);
+    const exists = Array.from(selEl.options).some(o => o.value === val);
+    if (exists) { selEl.value = val; applied = true; }
+  });
+  return applied;
+}
+
+// Shared links (URL query params) take priority over the local autosave.
+function loadFromURLOrStorage() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('cpu') || params.has('gen')) {
+    const sel = { gen: params.get('gen') || 'modern' };
+    PARTS.forEach(p => { const v = params.get(p.id); if (v) sel[p.id] = v; });
+    if (applySelections(sel)) return true;
+  }
+  try {
+    const raw = localStorage.getItem(SAVE_KEY);
+    if (raw) {
+      if (applySelections(JSON.parse(raw))) return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+function openModal() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const rows = PARTS.map(p => { const {name,price}=parse(p.id); return {label:dict[p.labelKey],name,price}; });
+  const sub   = rows.reduce((a,r)=>a+r.price,0);
+  const total = sub*(1+VAT);
+  document.getElementById('modal-list').innerHTML = rows.map(r=>
+    '<li><span>'+r.label+'</span><span>'+(r.price===0?'\u2014':fmt(r.price))+'</span></li>'
+  ).join('');
+  document.getElementById('modal-total').innerHTML =
+    dict.m_est_total + ' <strong>'+fmt(total)+'</strong> '+dict.m_incl_vat+'<br><small style="font-size:0.7rem;opacity:0.7">'+dict.m_platform+': '+currentGen.toUpperCase()+'</small>';
+  document.getElementById('modal-backdrop').classList.add('open');
+  renderSavedBuilds();
+}
+function closeModal() { document.getElementById('modal-backdrop').classList.remove('open'); }
+function closeModalBg(e) { if(e.target===document.getElementById('modal-backdrop')) closeModal(); }
+
+function copyBuild() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const rows = PARTS.map(p=>{const{name,price}=parse(p.id); return dict[p.labelKey]+': '+name+(price?' ('+fmt(price)+')':'');});
+  const sub = PARTS.reduce((a,p)=>a+parse(p.id).price,0);
+  rows.push('','Platform: '+currentGen.toUpperCase(),'Total ('+dict.m_incl_vat+'): '+fmt(sub*(1+VAT)));
+  copyToClipboard(rows.join('\n'));
+  const btn=document.getElementById('btn-copy-action');
+  btn.textContent=dict.m_copied;
+  setTimeout(()=>btn.textContent=dict.btn_copy,2000);
+}
+function resetBuild() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const msg = dict.confirm_reset || dictionary.en.confirm_reset;
+  if (!window.confirm(msg)) return;
+  try { localStorage.removeItem(SAVE_KEY); } catch (e) {}
+  setGen('modern');
+}
+
+// 4c. Multiple named saved builds (separate from the single autosave slot)
+const SAVED_BUILDS_KEY = 'betterpc_saved_builds_v1';
+
+function getSavedBuilds() {
+  try {
+    const raw = localStorage.getItem(SAVED_BUILDS_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) { return []; }
+}
+
+function setSavedBuilds(arr) {
+  try { localStorage.setItem(SAVED_BUILDS_KEY, JSON.stringify(arr)); } catch (e) {}
+}
+
+function formatSavedDate(iso) {
+  try {
+    return new Date(iso).toLocaleDateString(currentLang === 'el' ? 'el-GR' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  } catch (e) { return ''; }
+}
+
+function saveCurrentAsNewBuild() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const promptMsg = dict.prompt_build_name || dictionary.en.prompt_build_name;
+  const name = window.prompt(promptMsg, '');
+  if (name === null) return; // cancelled
+  const trimmed = name.trim();
+  if (!trimmed) return;
+
+  const builds = getSavedBuilds();
+  builds.unshift({
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    name: trimmed,
+    date: new Date().toISOString(),
+    selections: currentSelections()
+  });
+  setSavedBuilds(builds);
+  renderSavedBuilds();
+}
+
+function loadSavedBuild(id) {
+  const build = getSavedBuilds().find(b => b.id === id);
+  if (!build) return;
+  applySelections(build.selections);
+  update();
+  closeModal();
+}
+
+function deleteSavedBuild(id) {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const msg = dict.confirm_delete_build || dictionary.en.confirm_delete_build;
+  if (!window.confirm(msg)) return;
+  const builds = getSavedBuilds().filter(b => b.id !== id);
+  setSavedBuilds(builds);
+  renderSavedBuilds();
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function renderSavedBuilds() {
+  const dict = dictionary[currentLang] || dictionary.en;
+  const builds = getSavedBuilds();
+  const listEl = document.getElementById('saved-builds-list');
+  const emptyEl = document.getElementById('saved-builds-empty');
+  if (!listEl || !emptyEl) return;
+
+  if (builds.length === 0) {
+    listEl.innerHTML = '';
+    emptyEl.style.display = '';
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  const loadLabel = dict.btn_load || dictionary.en.btn_load;
+  const deleteLabel = dict.btn_delete || dictionary.en.btn_delete;
+
+  listEl.innerHTML = builds.map(b => {
+    const gen = (b.selections && b.selections.gen) ? b.selections.gen.toUpperCase() : '';
+    const meta = formatSavedDate(b.date) + (gen ? ' \u00b7 ' + gen : '');
+    return '<li>'
+      + '<span class="sb-info"><span class="sb-name">' + escapeHtml(b.name) + '</span>'
+      + '<span class="sb-meta">' + meta + '</span></span>'
+      + '<span class="sb-actions">'
+      + '<button class="sb-load" onclick="loadSavedBuild(\'' + b.id + '\')">' + loadLabel + '</button>'
+      + '<button class="sb-delete" onclick="deleteSavedBuild(\'' + b.id + '\')">' + deleteLabel + '</button>'
+      + '</span></li>';
+  }).join('');
+}
+
+// 5. App Setup Initialization and Persistent State Recovery
+document.getElementById('langSelect').addEventListener('change', (e) => {
+  translatePage(e.target.value);
+});
+window.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+  const restored = loadFromURLOrStorage();
+  if (!restored) applyGenUI('modern');
+  translatePage(savedLang); // also triggers update(), which renders (and re-saves) the restored/default state
+  renderSavedBuilds();
+});
+</script>
+</body>
+</html>
